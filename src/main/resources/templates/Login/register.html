@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel ="stylesheet" href="styleLogin.css">
+    <link rel = "stylesheet" href="css/bootstrap.css">
+</head>
+<style>
+body {
+  background-image: url('img/banner-bg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
+<body>
+<section class="gradient-form">
+    <div class="row" style="display: flex;justify-content: center;">
+        <div class="col-lg-4 " style="margin:50px; background: rgba(255,255,255,0.8); border-radius: 20px;">
+            <div class="card">
+                <br>
+                <div class="card-body p-md-5 mx-md-4">
+
+                    <div class="text-center">
+                        <img src="img/img.png"
+                             style="width: 100px;" alt="logo">
+                        <h4 class="mt-1 mb-5 pb-1">Bến Xe Miền Đông</h4>
+                    </div>
+
+                    <form th:action="@{/register}" th:object="${taiKhoan}" method="post">
+                        <div class="form-outline mb-4">
+                            <label class="title">Tên Đăng Nhập</label>
+                            <input type="username" class="form-control" th:field="*{TenDangNhap}" id="TenDangNhap"
+                                   placeholder="User name" />
+                        </div>
+                        <br>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" >Mật Khẩu</label>
+                            <input type="password"  class="form-control" th:field="*{MatKhau}" id="MatKhau"
+                                   placeholder="Password"/>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" >Họ Và Tên</label>
+                            <input type="name" class="form-control"th:field="*{TenKH}" id="TenKH"
+                                   placeholder="Name" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" >Số Điện Thoại</label>
+                            <input type="phonenumber" class="form-control" th:field="*{SDT}" id="SDT"
+                                   placeholder="Phone number" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" >Địa Chỉ</label>
+                            <input type="address" class="form-control" th:field="*{DiaChi}" id="DiaChi"
+                                   placeholder="Address" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" >Email</label>
+                            <input type="email" class="form-control" th:field="*{Email}" id="Email"
+                                   placeholder="Email" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" >Năm Sinh</label>
+                            <input type="name" class="form-control" th:field="*{Email}" id="Email"
+                                   placeholder="Year of birth" />
+                        </div>
+                        <br>
+                        <div class="text-center pt-1 mb-5 pb-1">
+                            <input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Đăng ký">
+                        </div>
+                        <br>
+                        <br>
+                        <div class="text-center pt-1 mb-5 pb-1">
+                            <a class="text-muted" href="index.html">Quay lại trang chủ</a>
+
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

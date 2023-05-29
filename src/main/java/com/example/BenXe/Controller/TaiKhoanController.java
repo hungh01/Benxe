@@ -1,5 +1,6 @@
 package com.example.BenXe.Controller;
 
+import com.example.BenXe.Model.LoaiTK;
 import com.example.BenXe.Model.TaiKhoan;
 import com.example.BenXe.Service.TaiKhoanService;
 import jakarta.validation.Valid;
@@ -23,9 +24,10 @@ public class TaiKhoanController {
     public String login() {
         return "Login/login";
     }
+
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("Taikhoan", new TaiKhoan());
+        model.addAttribute("taiKhoan", new TaiKhoan());
         return "Login/register";
     }
     @PostMapping("/register")
@@ -39,9 +41,11 @@ public class TaiKhoanController {
             }
             return "Login/register";
         }
-        taiKhoan.setMatKhau(new
-                BCryptPasswordEncoder().encode(taiKhoan.getMatKhau()));
+        LoaiTK loaiTK;
+
+        taiKhoan.setLoaitk(loaiTK);
+        taiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(taiKhoan.getMatKhau()));
         taiKhoanService.save(taiKhoan);
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
