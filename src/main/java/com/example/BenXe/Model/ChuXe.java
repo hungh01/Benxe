@@ -24,7 +24,7 @@ public class ChuXe {
     private String SDT;
 
     @ManyToOne
-    @JoinColumn(name = "TenDangNhap")
+    @JoinColumn(name = "Id")
     private TaiKhoan taiKhoan;
 
     @OneToMany(mappedBy = "chuXe", cascade = CascadeType.ALL)

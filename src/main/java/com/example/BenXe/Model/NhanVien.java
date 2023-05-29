@@ -35,7 +35,7 @@ public class NhanVien {
     private ChucVu chucVu;
 
     @ManyToOne
-    @JoinColumn(name = "TenDangNhap")
+    @JoinColumn(name = "Id")
     private TaiKhoan taiKhoan;
 
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)

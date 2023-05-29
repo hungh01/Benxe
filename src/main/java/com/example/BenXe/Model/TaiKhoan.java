@@ -9,7 +9,10 @@ import java.util.List;
 public class TaiKhoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long TenDangNhap;
+    private Long Id;
+
+    @Column(name = "TenDangNhap")
+    private String TenDangNhap;
 
     @Column(name = "MatKhau")
     private String MatKhau;
@@ -30,7 +33,7 @@ public class TaiKhoan {
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL)
     private List<Xe> xes;
 
-    public TaiKhoan(Long tenDangNhap, String matKhau, LoaiTK loaitk, List<ChuXe> chuXes, List<KhachHang> khachHangs, List<NhanVien> nhanViens, List<Xe> xes) {
+    public TaiKhoan(String tenDangNhap, String matKhau, LoaiTK loaitk, List<ChuXe> chuXes, List<KhachHang> khachHangs, List<NhanVien> nhanViens, List<Xe> xes) {
         TenDangNhap = tenDangNhap;
         MatKhau = matKhau;
         this.loaitk = loaitk;
@@ -43,11 +46,11 @@ public class TaiKhoan {
     public TaiKhoan() {
     }
 
-    public Long getTenDangNhap() {
+    public String getTenDangNhap() {
         return TenDangNhap;
     }
 
-    public void setTenDangNhap(Long tenDangNhap) {
+    public void setTenDangNhap(String tenDangNhap) {
         TenDangNhap = tenDangNhap;
     }
 

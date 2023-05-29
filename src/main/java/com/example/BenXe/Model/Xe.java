@@ -31,7 +31,7 @@ public class Xe {
     private BaiDauXe baiDauXe;
 
     @ManyToOne
-    @JoinColumn(name = "TenDangNhap")
+    @JoinColumn(name = "Id")
     private TaiKhoan taiKhoan;
 
     @OneToMany(mappedBy = "xe", cascade = CascadeType.ALL)
