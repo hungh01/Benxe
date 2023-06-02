@@ -1,6 +1,8 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Date;
 import java.util.List;
@@ -21,29 +23,36 @@ public class ChuyenXe {
     @Column(name = "NgayChay")
     private Date NgayChay;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "BKS")
     private Xe xe;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaBDX")
     private BaiDauXe baiDauXe;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaTuyen")
     private Tuyen tuyen;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaLX")
     private LoaiXe loaiXe;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "giaveId")
     private GiaVe giaVe;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
     private List<Ghe> ghes;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDons;
 

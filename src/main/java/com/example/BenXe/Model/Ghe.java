@@ -1,6 +1,8 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -17,10 +19,12 @@ public class Ghe {
     @Column(name = "TrangThai")
     private Boolean TrangThai;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaChuyenXe")
     private ChuyenXe chuyenXe;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "ghe", cascade = CascadeType.ALL)
     private List<PhieuDatVe> phieuDatVes;
 

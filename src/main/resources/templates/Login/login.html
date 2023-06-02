@@ -7,14 +7,6 @@
     <link rel ="stylesheet" href="styleLogin.css">
     <link rel = "stylesheet" href="css/bootstrap.css">
 </head>
-<style>
-body {
-  background-image: url('img/banner-bg.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-</style>
 <body>
 <section class="gradient-form">
         <div class="row" style="display: flex;justify-content: center;">
@@ -29,26 +21,26 @@ body {
                                        <h4 class="mt-1 mb-5 pb-1">Bến Xe Miền Đông</h4>
                                    </div>
 
-                                   <form>
+                                   <form th:action="@{/login}" th:object="${taiKhoan}" method="post">
                                        <p>Đăng nhập vào hệ thống</p>
-
-                                       <div class="form-outline mb-4">
-                                           <label class="form-label" for="form2Example11">Tên Đăng Nhập</label>
-                                           <input type="email" id="form2Example11" class="form-control"
-                                                  placeholder="Phone number or user name" />
-
+                                       <div class="form mb-4">
+                                           <label class="form-label" >Tên Đăng Nhập</label>
+                                           <input type="text"  class="form-control" th:field="*{TenDangNhap}"
+                                                  placeholder="Username" />
                                        </div>
                                         <br>
-                                       <div class="form-outline mb-4">
-                                           <label class="form-label" for="form2Example22">Mật Khẩu</label>
-                                           <input type="password" id="form2Example22" class="form-control" placeholder="Password"/>
-
+                                       <div class="form mb-4">
+                                           <label class="form-label" >Mật Khẩu</label>
+                                           <input type="password"  class="form-control" th:field="*{MatKhau}"
+                                                  placeholder="Password"/>
                                        </div>
+
                                         <br>
+
                                        <div class="text-center pt-1 mb-5 pb-1">
                                            <a class="text-muted" href="#!">Quên Mật Khẩu?</a>
                                            <br>
-                                           <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">
+                                           <button class="btn btn-primary  d-grid w-100" >
                                                Log in
                                            </button>
 

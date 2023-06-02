@@ -2,6 +2,8 @@ package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
 import lombok.extern.slf4j.XSlf4j;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "HoaDon")
@@ -19,6 +21,7 @@ public class HoaDon {
     @Column(name = "AnhHoaDon")
     private String AnhHoaDon;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaChuyenXe")
     private ChuyenXe chuyenXe;

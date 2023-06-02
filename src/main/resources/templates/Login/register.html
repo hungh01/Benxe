@@ -28,43 +28,37 @@ body {
                              style="width: 100px;" alt="logo">
                         <h4 class="mt-1 mb-5 pb-1">Bến Xe Miền Đông</h4>
                     </div>
-
-                    <form th:action="@{/register}" th:object="${taiKhoan}" method="post">
+                    <form th:action="@{/register}" method="post">
                         <div class="form-outline mb-4">
                             <label class="title">Tên Đăng Nhập</label>
-                            <input type="username" class="form-control" th:field="*{TenDangNhap}" id="TenDangNhap"
+                            <input type="username" class="form-control" th:value="${taiKhoan.TenDangNhap}" id="TenDangNhap" name="TenDangNhap"
                                    placeholder="User name" />
                         </div>
                         <br>
                         <div class="form-outline mb-4">
                             <label class="form-label" >Mật Khẩu</label>
-                            <input type="password"  class="form-control" th:field="*{MatKhau}" id="MatKhau"
+                            <input type="password"  class="form-control" th:value="${taiKhoan.MatKhau}" id="MatKhau" name="MatKhau"
                                    placeholder="Password"/>
                         </div>
                         <div class="form-outline mb-4">
                             <label class="form-label" >Họ Và Tên</label>
-                            <input type="name" class="form-control"th:field="*{TenKH}" id="TenKH"
+                            <input type="text" class="form-control" th:value="${khachHang.TenKH}" id="TenKH" name="TenKH"
                                    placeholder="Name" />
                         </div>
                         <div class="form-outline mb-4">
                             <label class="form-label" >Số Điện Thoại</label>
-                            <input type="phonenumber" class="form-control" th:field="*{SDT}" id="SDT"
+                            <input type="phonenumber" class="form-control" th:value="${khachHang.SDT}" id="SDT" name="SDT"
                                    placeholder="Phone number" />
                         </div>
                         <div class="form-outline mb-4">
                             <label class="form-label" >Địa Chỉ</label>
-                            <input type="address" class="form-control" th:field="*{DiaChi}" id="DiaChi"
+                            <input type="address" class="form-control" th:value="${khachHang.DiaChi}" id="DiaChi" name="DiaChi"
                                    placeholder="Address" />
                         </div>
                         <div class="form-outline mb-4">
                             <label class="form-label" >Email</label>
-                            <input type="email" class="form-control" th:field="*{Email}" id="Email"
+                            <input type="email" class="form-control" th:value= "${khachHang.Email}" id= "Email" name= "Email"
                                    placeholder="Email" />
-                        </div>
-                        <div class="form-outline mb-4">
-                            <label class="form-label" >Năm Sinh</label>
-                            <input type="name" class="form-control" th:field="*{Email}" id="Email"
-                                   placeholder="Year of birth" />
                         </div>
                         <br>
                         <div class="text-center pt-1 mb-5 pb-1">
@@ -74,10 +68,10 @@ body {
                         <br>
                         <div class="text-center pt-1 mb-5 pb-1">
                             <a class="text-muted" href="index.html">Quay lại trang chủ</a>
-
                         </div>
                         <br>
                     </form>
+
                 </div>
             </div>
         </div>

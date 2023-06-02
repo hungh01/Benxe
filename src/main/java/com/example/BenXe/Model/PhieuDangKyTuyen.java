@@ -1,6 +1,8 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Date;
 
@@ -14,26 +16,32 @@ public class PhieuDangKyTuyen {
     @Column(name = "ThoiGianBatDauVanHanh")
     private Date ThoiGianBatDauVanHanh;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaNV")
     private NhanVien nhanVien;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaCX")
     private ChuXe chuXe;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaTuyen")
     private Tuyen tuyen;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaLX")
     private LoaiXe loaiXe;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "BKS")
     private Xe xe;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "giaveId")
     private GiaVe giaVe;

@@ -1,12 +1,17 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
 
 @Entity
 @Table(name = "PhongBan")
 public class PhongBan {
     @Id
-    private String MaPhongBan;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long MaPhongBan;
 
     @Column(name = "TenPhongBan")
     private String TenPhongBan;
@@ -17,21 +22,15 @@ public class PhongBan {
     @Column(name = "MoTa")
     private String MoTa;
 
-    public PhongBan(String maPhongBan, String tenPhongBan, String boPhanPhuTrach, String moTa) {
-        MaPhongBan = maPhongBan;
-        TenPhongBan = tenPhongBan;
-        BoPhanPhuTrach = boPhanPhuTrach;
-        MoTa = moTa;
-    }
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "phongBan", cascade = CascadeType.ALL)
+    private List<NhanVien> nhanViens;
 
-    public PhongBan() {
-    }
-
-    public String getMaPhongBan() {
+    public Long getMaPhongBan() {
         return MaPhongBan;
     }
 
-    public void setMaPhongBan(String maPhongBan) {
+    public void setMaPhongBan(Long maPhongBan) {
         MaPhongBan = maPhongBan;
     }
 
@@ -57,5 +56,24 @@ public class PhongBan {
 
     public void setMoTa(String moTa) {
         MoTa = moTa;
+    }
+
+    public List<NhanVien> getNhanViens() {
+        return nhanViens;
+    }
+
+    public void setNhanViens(List<NhanVien> nhanViens) {
+        this.nhanViens = nhanViens;
+    }
+
+    public PhongBan() {
+    }
+
+    public PhongBan(Long maPhongBan, String tenPhongBan, String boPhanPhuTrach, String moTa, List<NhanVien> nhanViens) {
+        MaPhongBan = maPhongBan;
+        TenPhongBan = tenPhongBan;
+        BoPhanPhuTrach = boPhanPhuTrach;
+        MoTa = moTa;
+        this.nhanViens = nhanViens;
     }
 }

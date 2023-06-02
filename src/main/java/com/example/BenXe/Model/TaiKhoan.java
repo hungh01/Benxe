@@ -1,6 +1,8 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -17,23 +19,32 @@ public class TaiKhoan {
     @Column(name = "MatKhau")
     private String MatKhau;
 
+    @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaLoai")
     private LoaiTK loaitk;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL)
     private List<ChuXe> chuXes;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL)
     private List<KhachHang> khachHangs;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL)
     private List<NhanVien> nhanViens;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL)
     private List<Xe> xes;
 
-    public TaiKhoan(String tenDangNhap, String matKhau, LoaiTK loaitk, List<ChuXe> chuXes, List<KhachHang> khachHangs, List<NhanVien> nhanViens, List<Xe> xes) {
+    public TaiKhoan() {
+    }
+
+    public TaiKhoan(Long id, String tenDangNhap, String matKhau, LoaiTK loaitk, List<ChuXe> chuXes, List<KhachHang> khachHangs, List<NhanVien> nhanViens, List<Xe> xes) {
+        Id = id;
         TenDangNhap = tenDangNhap;
         MatKhau = matKhau;
         this.loaitk = loaitk;
@@ -43,7 +54,12 @@ public class TaiKhoan {
         this.xes = xes;
     }
 
-    public TaiKhoan() {
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getTenDangNhap() {

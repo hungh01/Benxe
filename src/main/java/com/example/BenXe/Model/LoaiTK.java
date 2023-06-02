@@ -1,6 +1,8 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class LoaiTK {
     @Column(name = "MoTa")
     private String MoTa;
 
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "loaitk", cascade = CascadeType.ALL)
     private List<TaiKhoan> TaiKhoans;
 
