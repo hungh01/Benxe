@@ -1,7 +1,6 @@
 package com.example.BenXe.Repository;
 
 import com.example.BenXe.Model.KhachHang;
-import com.example.BenXe.Model.TaiKhoan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IKhachHangRepository extends JpaRepository<KhachHang, Long> {
     @Query("SELECT u FROM KhachHang u WHERE u.MaKH = ?1")
-    TaiKhoan findKH(String Id);
-
+    KhachHang findKH(String Id);
 }

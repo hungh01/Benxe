@@ -42,17 +42,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/assets/**", "/", "/register", "/error")
+                        .requestMatchers("/css/**", "/js/**", "/assets/**","/fonts/**","/img/**", "/", "/register", "/error","/contact")
                         .permitAll()
-                        .requestMatchers("/admin")
-                        .hasAnyAuthority("QuanLy")
-                        .requestMatchers("/bacsi")
-                        .hasAnyAuthority("BacSi")
-                        // .requestMatchers("/api/**")
-                        // .hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers("/nhanvien")
+                        .hasAnyAuthority("NhanVien")
+                        .requestMatchers("/khachhang")
+                        .hasAnyAuthority("KhachHang")
+                        .requestMatchers("/nhaxe")
+                        .hasAnyAuthority("NhaXe")
+                        .requestMatchers("/xe")
+                        .hasAnyAuthority("Xe")
                         .anyRequest().authenticated())
                 .logout(logout -> logout.logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/")
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
@@ -69,18 +71,10 @@ public class SecurityConfig {
                             session.setAttribute("infoUser", userDetails);
                             if (userDetails.getAuthorities().stream()
                                     .anyMatch(auth -> auth.getAuthority().equals("NhanVien"))) {
-                                response.sendRedirect("/admin");
+                                response.sendRedirect("/nhanvien");
                             } else if (userDetails.getAuthorities().stream()
                                     .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
-                                response.sendRedirect("/");
-
-                            } else if (userDetails.getAuthorities().stream()
-                                    .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
-                                response.sendRedirect("/nhaxe");
-                            } else if (userDetails.getAuthorities().stream()
-                                    .anyMatch(auth -> auth.getAuthority().equals("Xe"))) {
-                                response.sendRedirect("/xe");
-
+                                response.sendRedirect("/khachhang");
                             } else {
                                 response.sendRedirect("/");
                             }

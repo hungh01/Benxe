@@ -58,6 +58,26 @@ p {
 	font-size: 20px;
 }
 
+.page-contact-direction-button a {
+	display: inline-block;
+	line-height: 40px;
+	width: 200px;
+	height: 40px;
+	background-color: #ffe165;
+	border-radius: 20px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #121212;
+	text-align: center;
+	text-decoration: none;
+	letter-spacing: 0px;
+}
+
+.page-contact-direction-button a i {
+	margin-right: 5px;
+	font-size: 20px;
+}
+
 .primary-button a {
 	text-decoration: none;
 	margin-top: 15px;

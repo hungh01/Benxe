@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>Flight - Travel and Tour</title>
+    	<title>Bến xe miền đông</title>
     
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,9 +33,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Chỉ số 1
+                                                Số nhà xe
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <span th:text= "${SoChuXe}"></span>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -52,10 +54,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Chỉ số 2
+                                                Số xe đang hoạt động
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
-            
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <span th:text= "${SoXe}"></span>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -72,9 +75,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Chỉ số 3
+                                                Số đơn đăng ký tuyến mới chưa duyệt
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <span th:text= "${PDKTDoiDuyet}"></span>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -91,9 +96,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Chỉ số 4
+                                                Số bãi đậu xe
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <span th:text= "${SoBDX}"></span>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -111,13 +118,12 @@
                                     <div class="card-title mb-0">
                                         <h5 class="m-0 me-2">Tổng quan</h5>
                                     </div>
-            
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="d-flex flex-column align-items-center gap-1">
-                                            <h2 class="mb-2">200</h2>
-                                            <span>Lượt đăng ký</span>
+                                            <h2 class="mb-2" th:text="${SoKhachHang}"></h2>
+                                            <span>Khách hàng đã và đang sử dụng</span>
                                         </div>
                                         <div id="orderStatisticsChart"></div>
                                     </div>

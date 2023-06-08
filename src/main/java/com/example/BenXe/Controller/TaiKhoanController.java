@@ -2,9 +2,11 @@ package com.example.BenXe.Controller;
 
 import com.example.BenXe.Model.KhachHang;
 import com.example.BenXe.Model.LoaiTK;
+import com.example.BenXe.Model.NhanVien;
 import com.example.BenXe.Model.TaiKhoan;
 import com.example.BenXe.Service.KhachHangService;
 import com.example.BenXe.Service.LoaiTKService;
+import com.example.BenXe.Service.NhanVienService;
 import com.example.BenXe.Service.TaiKhoanService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -31,6 +33,8 @@ public class TaiKhoanController {
     private LoaiTKService loaiTKService;
     @Autowired
     private KhachHangService khachHangService;
+    @Autowired 
+    private NhanVienService nhanVienService;
     @GetMapping("/login")
     public String login(Model model , HttpSession session, Authentication authentication) {
         if(authentication!=null&& authentication.isAuthenticated()){
@@ -56,15 +60,14 @@ public class TaiKhoanController {
         model.addAttribute("taiKhoan",new TaiKhoan());
         return "Login/login";
     }
-
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("taiKhoan", new TaiKhoan());
-        model.addAttribute("khachHang",new KhachHang());
+        model.addAttribute("taiKhoan",new TaiKhoan());
+        model.addAttribute("khachHang", new KhachHang());
         return "Login/register";
     }
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("taiKhoan") TaiKhoan taiKhoan,@ModelAttribute("khachHang") KhachHang khachHang,
+    public String register(@Valid @ModelAttribute("taiKhoan") TaiKhoan taiKhoan,@ModelAttribute("khachHang") NhanVien khachHang,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -74,17 +77,16 @@ public class TaiKhoanController {
             }
             return "Login/register";
         }
-        LoaiTK loaiTK = loaiTKService.getLoaiTkById(1L);
+        LoaiTK loaiTK = loaiTKService.getLoaiTkById(2L);
         taiKhoan.setLoaitk(loaiTK);
         taiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(taiKhoan.getMatKhau()));
-        List<KhachHang> khs = new ArrayList<KhachHang>();
+        List<NhanVien> khs = new ArrayList<NhanVien>();
         khs.add(khachHang);
-        taiKhoan.setKhachHangs(khs);
+        taiKhoan.setNhanViens(khs);
         taiKhoanService.save(taiKhoan);
         khachHang.setTaiKhoan(taiKhoan);
-        khachHangService.save(khachHang);
-
-
-        return "redirect:/";
+        nhanVienService.save(khachHang);
+        return "redirect:/login";
     }
+   
 }

@@ -5,13 +5,18 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Xe")
 public class Xe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BKS;
+    private Long MaXe;
+
+    @Column(name="BKS")
+    private String BKS;
+    
     @Column(name = "TenTaiXe")
     private String TenTaiXe;
     @Column(name = "TenPhuXe")
@@ -41,6 +46,11 @@ public class Xe {
     private TaiKhoan taiKhoan;
 
     @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    @JoinColumn(name = "MaCX")
+    private ChuXe chuXe;
+
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "xe", cascade = CascadeType.ALL)
     private List<PhieuDangKyTuyen> phieuDangKyTuyens;
 
@@ -48,50 +58,66 @@ public class Xe {
     @OneToMany(mappedBy = "xe", cascade = CascadeType.ALL)
     private List<ChuyenXe> chuyenXes;
 
-    public Xe(Long BKS, String tenTaiXe, String tenPhuXe, String SDT, String email, Long soGhe, Long namSX, LoaiXe loaiXe, BaiDauXe baiDauXe, TaiKhoan taiKhoan, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<ChuyenXe> chuyenXes) {
-        this.BKS = BKS;
-        TenTaiXe = tenTaiXe;
-        TenPhuXe = tenPhuXe;
-        this.SDT = SDT;
-        Email = email;
-        SoGhe = soGhe;
-        NamSX = namSX;
-        this.loaiXe = loaiXe;
-        this.baiDauXe = baiDauXe;
-        this.taiKhoan = taiKhoan;
-        this.phieuDangKyTuyens = phieuDangKyTuyens;
-        this.chuyenXes = chuyenXes;
-    }
+
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "xe", cascade = CascadeType.ALL)
+    private List<Ghe> ghes;
 
     public Xe() {
     }
 
-    public Long getBKS() {
-        return BKS;
+    public Xe(Long MaXe, String BKS, String TenTaiXe, String TenPhuXe, String SDT, String Email, Long SoGhe, Long NamSX, LoaiXe loaiXe, BaiDauXe baiDauXe, TaiKhoan taiKhoan, ChuXe chuXe, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<ChuyenXe> chuyenXes, List<Ghe> ghes) {
+        this.MaXe = MaXe;
+        this.BKS = BKS;
+        this.TenTaiXe = TenTaiXe;
+        this.TenPhuXe = TenPhuXe;
+        this.SDT = SDT;
+        this.Email = Email;
+        this.SoGhe = SoGhe;
+        this.NamSX = NamSX;
+        this.loaiXe = loaiXe;
+        this.baiDauXe = baiDauXe;
+        this.taiKhoan = taiKhoan;
+        this.chuXe = chuXe;
+        this.phieuDangKyTuyens = phieuDangKyTuyens;
+        this.chuyenXes = chuyenXes;
+        this.ghes = ghes;
     }
 
-    public void setBKS(Long BKS) {
+    public Long getMaXe() {
+        return this.MaXe;
+    }
+
+    public void setMaXe(Long MaXe) {
+        this.MaXe = MaXe;
+    }
+
+    public String getBKS() {
+        return this.BKS;
+    }
+
+    public void setBKS(String BKS) {
         this.BKS = BKS;
     }
 
     public String getTenTaiXe() {
-        return TenTaiXe;
+        return this.TenTaiXe;
     }
 
-    public void setTenTaiXe(String tenTaiXe) {
-        TenTaiXe = tenTaiXe;
+    public void setTenTaiXe(String TenTaiXe) {
+        this.TenTaiXe = TenTaiXe;
     }
 
     public String getTenPhuXe() {
-        return TenPhuXe;
+        return this.TenPhuXe;
     }
 
-    public void setTenPhuXe(String tenPhuXe) {
-        TenPhuXe = tenPhuXe;
+    public void setTenPhuXe(String TenPhuXe) {
+        this.TenPhuXe = TenPhuXe;
     }
 
     public String getSDT() {
-        return SDT;
+        return this.SDT;
     }
 
     public void setSDT(String SDT) {
@@ -99,31 +125,31 @@ public class Xe {
     }
 
     public String getEmail() {
-        return Email;
+        return this.Email;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public Long getSoGhe() {
-        return SoGhe;
+        return this.SoGhe;
     }
 
-    public void setSoGhe(Long soGhe) {
-        SoGhe = soGhe;
+    public void setSoGhe(Long SoGhe) {
+        this.SoGhe = SoGhe;
     }
 
     public Long getNamSX() {
-        return NamSX;
+        return this.NamSX;
     }
 
-    public void setNamSX(Long namSX) {
-        NamSX = namSX;
+    public void setNamSX(Long NamSX) {
+        this.NamSX = NamSX;
     }
 
     public LoaiXe getLoaiXe() {
-        return loaiXe;
+        return this.loaiXe;
     }
 
     public void setLoaiXe(LoaiXe loaiXe) {
@@ -131,7 +157,7 @@ public class Xe {
     }
 
     public BaiDauXe getBaiDauXe() {
-        return baiDauXe;
+        return this.baiDauXe;
     }
 
     public void setBaiDauXe(BaiDauXe baiDauXe) {
@@ -139,15 +165,23 @@ public class Xe {
     }
 
     public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
+        return this.taiKhoan;
     }
 
     public void setTaiKhoan(TaiKhoan taiKhoan) {
         this.taiKhoan = taiKhoan;
     }
 
+    public ChuXe getChuXe() {
+        return this.chuXe;
+    }
+
+    public void setChuXe(ChuXe chuXe) {
+        this.chuXe = chuXe;
+    }
+
     public List<PhieuDangKyTuyen> getPhieuDangKyTuyens() {
-        return phieuDangKyTuyens;
+        return this.phieuDangKyTuyens;
     }
 
     public void setPhieuDangKyTuyens(List<PhieuDangKyTuyen> phieuDangKyTuyens) {
@@ -155,10 +189,131 @@ public class Xe {
     }
 
     public List<ChuyenXe> getChuyenXes() {
-        return chuyenXes;
+        return this.chuyenXes;
     }
 
     public void setChuyenXes(List<ChuyenXe> chuyenXes) {
         this.chuyenXes = chuyenXes;
     }
+
+    public List<Ghe> getGhes() {
+        return this.ghes;
+    }
+
+    public void setGhes(List<Ghe> ghes) {
+        this.ghes = ghes;
+    }
+
+    public Xe MaXe(Long MaXe) {
+        setMaXe(MaXe);
+        return this;
+    }
+
+    public Xe BKS(String BKS) {
+        setBKS(BKS);
+        return this;
+    }
+
+    public Xe TenTaiXe(String TenTaiXe) {
+        setTenTaiXe(TenTaiXe);
+        return this;
+    }
+
+    public Xe TenPhuXe(String TenPhuXe) {
+        setTenPhuXe(TenPhuXe);
+        return this;
+    }
+
+    public Xe SDT(String SDT) {
+        setSDT(SDT);
+        return this;
+    }
+
+    public Xe Email(String Email) {
+        setEmail(Email);
+        return this;
+    }
+
+    public Xe SoGhe(Long SoGhe) {
+        setSoGhe(SoGhe);
+        return this;
+    }
+
+    public Xe NamSX(Long NamSX) {
+        setNamSX(NamSX);
+        return this;
+    }
+
+    public Xe loaiXe(LoaiXe loaiXe) {
+        setLoaiXe(loaiXe);
+        return this;
+    }
+
+    public Xe baiDauXe(BaiDauXe baiDauXe) {
+        setBaiDauXe(baiDauXe);
+        return this;
+    }
+
+    public Xe taiKhoan(TaiKhoan taiKhoan) {
+        setTaiKhoan(taiKhoan);
+        return this;
+    }
+
+    public Xe chuXe(ChuXe chuXe) {
+        setChuXe(chuXe);
+        return this;
+    }
+
+    public Xe phieuDangKyTuyens(List<PhieuDangKyTuyen> phieuDangKyTuyens) {
+        setPhieuDangKyTuyens(phieuDangKyTuyens);
+        return this;
+    }
+
+    public Xe chuyenXes(List<ChuyenXe> chuyenXes) {
+        setChuyenXes(chuyenXes);
+        return this;
+    }
+
+    public Xe ghes(List<Ghe> ghes) {
+        setGhes(ghes);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Xe)) {
+            return false;
+        }
+        Xe xe = (Xe) o;
+        return Objects.equals(MaXe, xe.MaXe) && Objects.equals(BKS, xe.BKS) && Objects.equals(TenTaiXe, xe.TenTaiXe) && Objects.equals(TenPhuXe, xe.TenPhuXe) && Objects.equals(SDT, xe.SDT) && Objects.equals(Email, xe.Email) && Objects.equals(SoGhe, xe.SoGhe) && Objects.equals(NamSX, xe.NamSX) && Objects.equals(loaiXe, xe.loaiXe) && Objects.equals(baiDauXe, xe.baiDauXe) && Objects.equals(taiKhoan, xe.taiKhoan) && Objects.equals(chuXe, xe.chuXe) && Objects.equals(phieuDangKyTuyens, xe.phieuDangKyTuyens) && Objects.equals(chuyenXes, xe.chuyenXes) && Objects.equals(ghes, xe.ghes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(MaXe, BKS, TenTaiXe, TenPhuXe, SDT, Email, SoGhe, NamSX, loaiXe, baiDauXe, taiKhoan, chuXe, phieuDangKyTuyens, chuyenXes, ghes);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " MaXe='" + getMaXe() + "'" +
+            ", BKS='" + getBKS() + "'" +
+            ", TenTaiXe='" + getTenTaiXe() + "'" +
+            ", TenPhuXe='" + getTenPhuXe() + "'" +
+            ", SDT='" + getSDT() + "'" +
+            ", Email='" + getEmail() + "'" +
+            ", SoGhe='" + getSoGhe() + "'" +
+            ", NamSX='" + getNamSX() + "'" +
+            ", loaiXe='" + getLoaiXe() + "'" +
+            ", baiDauXe='" + getBaiDauXe() + "'" +
+            ", taiKhoan='" + getTaiKhoan() + "'" +
+            ", chuXe='" + getChuXe() + "'" +
+            ", phieuDangKyTuyens='" + getPhieuDangKyTuyens() + "'" +
+            ", chuyenXes='" + getChuyenXes() + "'" +
+            ", ghes='" + getGhes() + "'" +
+            "}";
+    }
+
 }

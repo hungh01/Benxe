@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ChuyenXe")
@@ -48,65 +49,61 @@ public class ChuyenXe {
     @JoinColumn(name = "giaveId")
     private GiaVe giaVe;
 
-    @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
-    private List<Ghe> ghes;
 
     @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDons;
 
-    public ChuyenXe(Long maChuyenXe, Long soViTriConTrong, Double giaTriChuyenXe, Date ngayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<Ghe> ghes, List<HoaDon> hoaDons) {
-        MaChuyenXe = maChuyenXe;
-        SoViTriConTrong = soViTriConTrong;
-        GiaTriChuyenXe = giaTriChuyenXe;
-        NgayChay = ngayChay;
+    public ChuyenXe() {
+    }
+
+    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Double GiaTriChuyenXe, Date NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons) {
+        this.MaChuyenXe = MaChuyenXe;
+        this.SoViTriConTrong = SoViTriConTrong;
+        this.GiaTriChuyenXe = GiaTriChuyenXe;
+        this.NgayChay = NgayChay;
         this.xe = xe;
         this.baiDauXe = baiDauXe;
         this.tuyen = tuyen;
         this.loaiXe = loaiXe;
         this.giaVe = giaVe;
-        this.ghes = ghes;
         this.hoaDons = hoaDons;
     }
 
-    public ChuyenXe() {
-    }
-
     public Long getMaChuyenXe() {
-        return MaChuyenXe;
+        return this.MaChuyenXe;
     }
 
-    public void setMaChuyenXe(Long maChuyenXe) {
-        MaChuyenXe = maChuyenXe;
+    public void setMaChuyenXe(Long MaChuyenXe) {
+        this.MaChuyenXe = MaChuyenXe;
     }
 
     public Long getSoViTriConTrong() {
-        return SoViTriConTrong;
+        return this.SoViTriConTrong;
     }
 
-    public void setSoViTriConTrong(Long soViTriConTrong) {
-        SoViTriConTrong = soViTriConTrong;
+    public void setSoViTriConTrong(Long SoViTriConTrong) {
+        this.SoViTriConTrong = SoViTriConTrong;
     }
 
     public Double getGiaTriChuyenXe() {
-        return GiaTriChuyenXe;
+        return this.GiaTriChuyenXe;
     }
 
-    public void setGiaTriChuyenXe(Double giaTriChuyenXe) {
-        GiaTriChuyenXe = giaTriChuyenXe;
+    public void setGiaTriChuyenXe(Double GiaTriChuyenXe) {
+        this.GiaTriChuyenXe = GiaTriChuyenXe;
     }
 
     public Date getNgayChay() {
-        return NgayChay;
+        return this.NgayChay;
     }
 
-    public void setNgayChay(Date ngayChay) {
-        NgayChay = ngayChay;
+    public void setNgayChay(Date NgayChay) {
+        this.NgayChay = NgayChay;
     }
 
     public Xe getXe() {
-        return xe;
+        return this.xe;
     }
 
     public void setXe(Xe xe) {
@@ -114,7 +111,7 @@ public class ChuyenXe {
     }
 
     public BaiDauXe getBaiDauXe() {
-        return baiDauXe;
+        return this.baiDauXe;
     }
 
     public void setBaiDauXe(BaiDauXe baiDauXe) {
@@ -122,7 +119,7 @@ public class ChuyenXe {
     }
 
     public Tuyen getTuyen() {
-        return tuyen;
+        return this.tuyen;
     }
 
     public void setTuyen(Tuyen tuyen) {
@@ -130,7 +127,7 @@ public class ChuyenXe {
     }
 
     public LoaiXe getLoaiXe() {
-        return loaiXe;
+        return this.loaiXe;
     }
 
     public void setLoaiXe(LoaiXe loaiXe) {
@@ -138,26 +135,101 @@ public class ChuyenXe {
     }
 
     public GiaVe getGiaVe() {
-        return giaVe;
+        return this.giaVe;
     }
 
     public void setGiaVe(GiaVe giaVe) {
         this.giaVe = giaVe;
     }
 
-    public List<Ghe> getGhes() {
-        return ghes;
-    }
-
-    public void setGhes(List<Ghe> ghes) {
-        this.ghes = ghes;
-    }
-
     public List<HoaDon> getHoaDons() {
-        return hoaDons;
+        return this.hoaDons;
     }
 
     public void setHoaDons(List<HoaDon> hoaDons) {
         this.hoaDons = hoaDons;
     }
+
+    public ChuyenXe MaChuyenXe(Long MaChuyenXe) {
+        setMaChuyenXe(MaChuyenXe);
+        return this;
+    }
+
+    public ChuyenXe SoViTriConTrong(Long SoViTriConTrong) {
+        setSoViTriConTrong(SoViTriConTrong);
+        return this;
+    }
+
+    public ChuyenXe GiaTriChuyenXe(Double GiaTriChuyenXe) {
+        setGiaTriChuyenXe(GiaTriChuyenXe);
+        return this;
+    }
+
+    public ChuyenXe NgayChay(Date NgayChay) {
+        setNgayChay(NgayChay);
+        return this;
+    }
+
+    public ChuyenXe xe(Xe xe) {
+        setXe(xe);
+        return this;
+    }
+
+    public ChuyenXe baiDauXe(BaiDauXe baiDauXe) {
+        setBaiDauXe(baiDauXe);
+        return this;
+    }
+
+    public ChuyenXe tuyen(Tuyen tuyen) {
+        setTuyen(tuyen);
+        return this;
+    }
+
+    public ChuyenXe loaiXe(LoaiXe loaiXe) {
+        setLoaiXe(loaiXe);
+        return this;
+    }
+
+    public ChuyenXe giaVe(GiaVe giaVe) {
+        setGiaVe(giaVe);
+        return this;
+    }
+
+    public ChuyenXe hoaDons(List<HoaDon> hoaDons) {
+        setHoaDons(hoaDons);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof ChuyenXe)) {
+            return false;
+        }
+        ChuyenXe chuyenXe = (ChuyenXe) o;
+        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(MaChuyenXe, SoViTriConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " MaChuyenXe='" + getMaChuyenXe() + "'" +
+            ", SoViTriConTrong='" + getSoViTriConTrong() + "'" +
+            ", GiaTriChuyenXe='" + getGiaTriChuyenXe() + "'" +
+            ", NgayChay='" + getNgayChay() + "'" +
+            ", xe='" + getXe() + "'" +
+            ", baiDauXe='" + getBaiDauXe() + "'" +
+            ", tuyen='" + getTuyen() + "'" +
+            ", loaiXe='" + getLoaiXe() + "'" +
+            ", giaVe='" + getGiaVe() + "'" +
+            ", hoaDons='" + getHoaDons() + "'" +
+            "}";
+    }
+
 }
