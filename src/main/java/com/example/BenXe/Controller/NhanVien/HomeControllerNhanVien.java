@@ -167,7 +167,9 @@ public class HomeControllerNhanVien {
             CustomTaiKhoanDetail userDetail = (CustomTaiKhoanDetail) authentication.getPrincipal();
             List<NhanVien> nv = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getNhanViens();
             pdkt.setNhanVien(nv.get(0));
-
+            BaiDauXe bdx = pdkt.getXe().getBaiDauXe();
+            bdx.setTinhTrang(true);
+            baiDauXeService.save(bdx);
             taiKhoanService.save(taiKhoanXe);
             xe.setTaiKhoan(taiKhoanXe);
             xeService.save(xe);

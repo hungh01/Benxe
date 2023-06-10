@@ -83,6 +83,9 @@ public class SecurityConfig {
                             } else if (userDetails.getAuthorities().stream()
                             .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
                                 response.sendRedirect("/nhaxe");
+                            } else if (userDetails.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("Xe"))) {
+                                response.sendRedirect("/xe");
                             } else {
                                 response.sendRedirect("/");
                             }

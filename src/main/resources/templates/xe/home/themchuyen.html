@@ -13,13 +13,21 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <th:block th:replace="layoutxe :: navbar"></th:block>
             <!--==================================== Main Content===================================== -->
-           <section>
-                <div>
-                    <span>Index xe</span>
+            <form class="w-100 d-flex align-items-center flex-column" th:action="@{/xe/themchuyen}" method="post">
+                <div class="form-outline mb-4 col-9">
+                    <label class="title">Chọn ngày chạy</label>
+                    <input type="date" class="form-control" th:value="${chuyen.NgayChay}" id="NgayChay" name="NgayChay"
+                           placeholder="" />
                 </div>
-           </section>
+                <br>
+                <div class="text-center pt-1 mb-5 pb-1 col-3">
+                    <input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Đăng ký">
+                </div>
+                <br>
+     
+            </form>
+             
             <!-- ================================== End Main Content ==================================-->
-            </div>
         </div>
     </div>
     <a class="scroll-to-top rounded" href="#page-top">
