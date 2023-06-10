@@ -80,10 +80,10 @@ public class HomeController {
             pdkt.chuXe(chuXe);
             pdkt.xe(xe);
             pdkt.TrangThai(false);
-            // pdkt.giaVe(giaVeService.FindIdByMaLXMaTuyen(pdkt.getLoaiXe().getMaLX(), pdkt.getTuyen().getMaTuyen()));
+            //pdkt.giaVe(giaVeService.FindIdByMaLXMaTuyen(pdkt.getLoaiXe().getMaLX(), pdkt.getTuyen()));
             chuXeService.save(chuXe);
             xeService.save(xe);
             phieuDangKyTuyenService.save(pdkt);
-            return "redirct:/";
+            return "redirect:/";
         }
 }

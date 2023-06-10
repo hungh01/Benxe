@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.BenXe.Model.BaiDauXe;
 import com.example.BenXe.Model.ChuXe;
+import com.example.BenXe.Model.CustomTaiKhoanDetail;
+import com.example.BenXe.Model.GiaVe;
 import com.example.BenXe.Model.KhachHang;
 import com.example.BenXe.Model.LoaiTK;
 import com.example.BenXe.Model.NhanVien;
 import com.example.BenXe.Model.PhieuDangKyTuyen;
-import com.example.BenXe.Model.PhieuDatVe;
 import com.example.BenXe.Model.TaiKhoan;
 import com.example.BenXe.Model.Tuyen;
 import com.example.BenXe.Model.Xe;
@@ -37,17 +41,16 @@ import com.example.BenXe.Service.TaiKhoanService;
 import com.example.BenXe.Service.TuyenService;
 import com.example.BenXe.Service.XeService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/nhanvien")
-public class HomeControllerAdmin {
+public class HomeControllerNhanVien {
     @Autowired
     private TaiKhoanService taiKhoanService;
     @Autowired
     private LoaiTKService loaiTKService;
-    @Autowired
-    private NhanVienService nhanVienService;
     @Autowired
     private KhachHangService khachHangService;
     @Autowired
@@ -57,14 +60,12 @@ public class HomeControllerAdmin {
     @Autowired
     private PhieuDangKyTuyenService phieuDangKyTuyenService;
     @Autowired
-    private PheuDatVeService phieuDatVeService;
-    @Autowired
     private BaiDauXeService baiDauXeService;
     @Autowired
     private GiaVeService giaVeService;
-
     @Autowired
-    private TuyenService tuyenService;
+    private PheuDatVeService phieuDatVeService;
+
     @GetMapping
     public String index(Model model){
         List<PhieuDangKyTuyen> PDKTList = phieuDangKyTuyenService.getAllPhieuDangKyTuyens();
@@ -85,12 +86,7 @@ public class HomeControllerAdmin {
         
         return "nhanvien/home/index";
     }
-    @GetMapping("/qlnhanvien")
-    public String listNhanVien(Model model){
-        List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
-        model.addAttribute("NhanViens",nhanViens);
-        return "nhanvien/home/listnhanvien";
-    }
+ 
     @GetMapping("/qlkhachhang")
     public String listKhachHang(Model model){
         List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
@@ -109,72 +105,21 @@ public class HomeControllerAdmin {
         model.addAttribute("xes",xes);
         return "nhanvien/home/listxe";
     }
+    @GetMapping("/qlve")
+    public String listVe(Model model){
+        model.addAttribute("phieuDatVes", phieuDatVeService.getAllPhieuDatVes());
+        return "nhanvien/home/listve";
+    }
     @GetMapping("/qldondangkytuyen")
     public String listDonDangKyTuyen(Model model){
         model.addAttribute("donDangKyTuyens",phieuDangKyTuyenService.getAllPhieuDangKyTuyens());
         return "nhanvien/home/listdon";
     }
 
-    @GetMapping("/qlve")
-    public String listVe(Model model){
-        model.addAttribute("phieuDatVes", phieuDatVeService.getAllPhieuDatVes());
-        return "nhanvien/home/listve";
-    }
-
-    @GetMapping("/qltuyen")
-    public String listTuyen(Model model){
-        model.addAttribute("tuyens",tuyenService.getAllTuyens());
-        return "nhanvien/home/listtuyen";
-    }
-
-    @GetMapping("/qlgiave")
-    public String listGiaVe(Model model){
-        model.addAttribute("giaVes",giaVeService.getAllGiaVes());
-        return "nhanvien/home/listgiave";
-    }
-
-
-    @GetMapping("/createnhanvien")
-    public String registernhanvien(Model model) {
-        model.addAttribute("taiKhoan", new TaiKhoan());
-        model.addAttribute("nhanVien",new NhanVien());
-        return "nhanvien/taikhoan/createtknhanvien";
-    }
-    @PostMapping("/createnhanvien")
-    public String registernhanvien(@Valid @ModelAttribute("taiKhoan") TaiKhoan taiKhoan,@ModelAttribute("nhanVien") NhanVien nhanVien,
-                           BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                model.addAttribute(error.getField() + "_error",
-                        error.getDefaultMessage());
-            }
-            return "nhanvien/taikhoan/createtknhanvien";
-        }
-        LoaiTK loaiTK = loaiTKService.getLoaiTkById(2L);
-        taiKhoan.setLoaitk(loaiTK);
-        taiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(taiKhoan.getMatKhau()));
-
-        List<NhanVien> khs = new ArrayList<NhanVien>();
-        khs.add(nhanVien);
-        taiKhoan.setNhanViens(khs);
-        taiKhoanService.save(taiKhoan);
-        nhanVien.setTaiKhoan(taiKhoan);
-        nhanVienService.save(nhanVien);
-        return "redirect:/nhanvien";
-    }
-    @GetMapping("/createtuyen")
-    public String themtuyen(Model model) {
-        model.addAttribute("tuyen", new Tuyen());
-        return "nhanvien/createttuyen";
-    }
 
     @GetMapping("/duyetdangkytuyen/{id}")
     public String duyetdangkytuyenForm(@PathVariable("id") Long id,Model model){
-        PhieuDangKyTuyen pdkt = null;
-        for (PhieuDangKyTuyen pdkt1: phieuDangKyTuyenService.getAllPhieuDangKyTuyens())
-            if(pdkt1.getPhieuDangKyTuyen().equals(id))
-                pdkt = pdkt1;
+        PhieuDangKyTuyen pdkt = phieuDangKyTuyenService.getPhieuDanhKyTuyenById(id);
         if(pdkt!= null){
             model.addAttribute("pdkt",pdkt);
             model.addAttribute("taiKhoanChuXe", new TaiKhoan());
@@ -185,13 +130,58 @@ public class HomeControllerAdmin {
     }
 
     @PostMapping("/duyetdangkytuyen/{id}")
-    public String duyetdangkytuyen(@PathVariable("id") Long id, Model model, @ModelAttribute("pdkt") PhieuDangKyTuyen pdkt, @ModelAttribute("taiKhoanChuXe") TaiKhoan taiKhoanChuXe, @ModelAttribute("taiKhoanXe")TaiKhoan taiKhoanXe) {
+    public String duyetdangkytuyen(@PathVariable("id") Long id,HttpServletRequest request, Authentication authentication) {
+        PhieuDangKyTuyen pdkt = phieuDangKyTuyenService.getPhieuDanhKyTuyenById(id);
+        if(pdkt!= null){
+            //Lấy xe từ phiếu đăng ký tuyến
+            Xe xe = pdkt.getXe();
+            ChuXe chuXe = pdkt.getChuXe();
+            //Set info tài khoản cho chủ xe và xe
+            TaiKhoan taiKhoanChuXe = new TaiKhoan();
+            TaiKhoan taiKhoanXe = new TaiKhoan();
+            //-----
             taiKhoanChuXe.setLoaitk(loaiTKService.getLoaiTkById(3L));
             taiKhoanXe.setLoaitk(loaiTKService.getLoaiTkById(4L));
+            //-----
+            taiKhoanChuXe.setTenDangNhap(chuXe.getEmail());
+            taiKhoanChuXe.setMatKhau(new BCryptPasswordEncoder().encode("123"));
+            //------
+            taiKhoanXe.setMatKhau(new BCryptPasswordEncoder().encode("123"));
+            taiKhoanXe.setTenDangNhap(xe.getBKS());
+            //------
+            //================================================================
+            List<GiaVe> giaVe = giaVeService.getAllGiaVes();
+            for(GiaVe gv : giaVe)
+                if(gv.getTuyen()==pdkt.getTuyen() && gv.getLoaiXe()==pdkt.getLoaiXe()){
+                    pdkt.setGiaVe(gv);
+                    break;
+            }
+            //================================================================
+            List<ChuXe> chuXes = new ArrayList<ChuXe>();
+            chuXes.add(chuXe);
+            taiKhoanChuXe.setChuXes(chuXes);
+            List<Xe> xes = new ArrayList<Xe>();
+            xes.add(xe);
+            taiKhoanXe.setXes(xes);
+
+            CustomTaiKhoanDetail userDetail = (CustomTaiKhoanDetail) authentication.getPrincipal();
+            List<NhanVien> nv = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getNhanViens();
+            pdkt.setNhanVien(nv.get(0));
+
             taiKhoanService.save(taiKhoanXe);
+            xe.setTaiKhoan(taiKhoanXe);
+            xeService.save(xe);
+
             taiKhoanService.save(taiKhoanChuXe);
+            chuXe.setTaiKhoan(taiKhoanChuXe);
+            chuXeService.save(chuXe);
+            
             pdkt.setTrangThai(true);
             phieuDangKyTuyenService.save(pdkt);
             return "redirect:/nhanvien/qldondangkytuyen";
+        }else
+            return "not-found!";
+            
+            
     }
 }

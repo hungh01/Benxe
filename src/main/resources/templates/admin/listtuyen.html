@@ -9,34 +9,35 @@
     
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <th:block th:replace="layoutnhanvien :: link-css"></th:block>
+    <th:block th:replace="layoutadmin :: link-css"></th:block>
 </head>
 
 <body id="page-top">
     <div  id="wrapper">
 
         <!-- Sidebar -->
-        <th:block th:replace="layoutnhanvien :: sidebar"></th:block>
+        <th:block th:replace="layoutadmin :: sidebar"></th:block>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-            <th:block th:replace="layoutnhanvien :: navbar"></th:block>
+            <th:block th:replace="layoutadmin :: navbar"></th:block>
             <!-- Main Content -->
-           
+            <button class="col-6 btn btn-success btn-block fa-lg mb-3 align-self-center" onclick="location.href='/admin/createtuyen'">Thêm tuyến</button>
+
             <div id="content">
                 <div class="container-fluid">
                     <table class="table">
                         <tr>
-                            <th>Tên nhà xe</th>
-                            <th>Địa Chỉ</th>
-                            <th>Số Điện Thoại</th>
-                            <th>Email</th>
+                            <th>Điểm đi</th>
+                            <th>Điểm đến</th>
+                            <th>Thời gian xuất bến</th>
+                            <th>Thời gian về bến</th>
                         </tr>
-                        <tr th:each="nhaxe : ${nhaXes}">
-                            <td th:text="${nhaxe.TenChuXe}"></td>
-                            <td th:text="${nhaxe.DiaChi}"></td>
-                            <td th:text="${nhaxe.SDT}"></td>
-                            <td th:text="${nhaxe.Email}"></td>
+                        <tr th:each="tuyen : ${tuyens}">
+                            <td th:text="${tuyen.DiemDi}"></td>
+                            <td th:text="${tuyen.DiemDen}"></td>
+                            <td th:text="${tuyen.ThoiGianXuatBen}"></td>
+                            <td th:text="${tuyen.ThoiGianVeBen}"></td>
                         </tr>
                     </table>
             </div>
@@ -47,7 +48,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <th:block th:replace="layoutnhanvien :: link-javascript"></th:block>
+    <th:block th:replace="layoutadmin :: link-javascript"></th:block>
 </body>
 
 </html>

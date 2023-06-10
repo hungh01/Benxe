@@ -9,18 +9,18 @@
     
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <th:block th:replace="layoutadmin :: link-css"></th:block>
+    <th:block th:replace="layoutnhanvien :: link-css"></th:block>
 </head>
 
 <body id="page-top">
     <div  id="wrapper">
 
         <!-- Sidebar -->
-        <th:block th:replace="layoutadmin :: sidebar"></th:block>
+        <th:block th:replace="layoutnhanvien :: sidebar"></th:block>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-            <th:block th:replace="layoutadmin :: navbar"></th:block>
+            <th:block th:replace="layoutnhanvien :: navbar"></th:block>
             <!-- Main Content -->
            
             <div id="content">
@@ -29,41 +29,41 @@
                         <div class="col-12 mb-3">
                             <label class="form-label" for="title">Thời gian đăng ký tuyến: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.ThoiGianNopPhieu}" id="ThoiGianNopPhieu"></input>
+                            <input disabled th:value ="${pdkt.ThoiGianNopPhieu}" id="ThoiGianNopPhieu">
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label" for="author">Thời gian xin vận hành: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.ThoiGianBatDauVanHanh}" ></input>
+                            <input disabled th:value ="${pdkt.ThoiGianBatDauVanHanh}" >
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label" for="author">Tên nhà xe: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.chuXe.TenChuXe}" ></input>
+                            <input disabled th:value ="${pdkt.chuXe.TenChuXe}" >
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label" for="author">Loại xe: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.loaiXe.TenLoaiXe}"></input>
+                            <input disabled th:value ="${pdkt.loaiXe.TenLoaiXe}">
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label" for="author">Tuyến: </label>
                             <br>
                             <label class="form-label" for="author">Từ: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.tuyen.DiemDi}"></input>
+                            <input disabled th:value ="${pdkt.tuyen.DiemDi}">
                             <br>
                             <label class="form-label" for="author">Đến: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.tuyen.DiemDen}"></input>
+                            <input disabled th:value ="${pdkt.tuyen.DiemDen}">
                             <br>
                             <label class="form-label" for="author">Thời gian xuất bến: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.tuyen.ThoiGianXuatBen}"></input>
+                            <input disabled th:value ="${pdkt.tuyen.ThoiGianXuatBen}">
                             <br>
                             <label class="form-label" for="author">Thời Gian Về Bến: </label>
                             <br>
-                            <input disabled th:value ="${pdkt.tuyen.ThoiGianVeBen}"></input>
+                            <input disabled th:value ="${pdkt.tuyen.ThoiGianVeBen}">
                         </div>
                         <input class="btn btn-success" type="submit" value="Duyệt">
                     </form>
@@ -75,7 +75,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <th:block th:replace="layoutadmin :: link-javascript"></th:block>
+    <th:block th:replace="layoutnhanvien :: link-javascript"></th:block>
 </body>
 
 </html>

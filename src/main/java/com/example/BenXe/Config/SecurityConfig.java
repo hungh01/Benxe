@@ -44,6 +44,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/assets/**","/fonts/**","/img/**", "/", "/register", "/error","/contact")
                         .permitAll()
+                        .requestMatchers("/admin")
+                        .hasAnyAuthority("Admin")
                         .requestMatchers("/nhanvien")
                         .hasAnyAuthority("NhanVien")
                         .requestMatchers("/khachhang")
@@ -73,8 +75,14 @@ public class SecurityConfig {
                                     .anyMatch(auth -> auth.getAuthority().equals("NhanVien"))) {
                                 response.sendRedirect("/nhanvien");
                             } else if (userDetails.getAuthorities().stream()
+                                    .anyMatch(auth -> auth.getAuthority().equals("Admin"))) {
+                                response.sendRedirect("/admin");
+                            } else if (userDetails.getAuthorities().stream()
                                     .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
                                 response.sendRedirect("/khachhang");
+                            } else if (userDetails.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
+                                response.sendRedirect("/nhaxe");
                             } else {
                                 response.sendRedirect("/");
                             }

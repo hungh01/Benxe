@@ -46,6 +46,11 @@ public class CustomTaiKhoanDetail implements UserDetails {
         return true;
     }
 
+    public ITaiKhoanRepository getUserRepository() {
+        return this.userRepository;
+    }
+
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -55,7 +60,6 @@ public class CustomTaiKhoanDetail implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
     public TaiKhoan getUser() {
         return user;
     }

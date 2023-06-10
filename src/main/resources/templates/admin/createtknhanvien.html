@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>Flight - Travel and Tour</title>
+    	<title>Bến xe miền đông</title>
     
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,7 @@
             <th:block th:replace="layoutadmin :: navbar"></th:block>
             <!-- Main Content -->
 
-        <form class="w-100 d-flex align-items-center flex-column" th:action="@{/nhanvien/createtknhanvien}" method="post">
+        <form class="w-100 d-flex align-items-center flex-column" th:action="@{/admin/createnhanvien}" method="post">
             <div class="form-outline mb-4 col-9">
                 <label class="title">Tên Đăng Nhập</label>
                 <input type="username" class="form-control" th:value="${taiKhoan.TenDangNhap}" id="TenDangNhap" name="TenDangNhap"

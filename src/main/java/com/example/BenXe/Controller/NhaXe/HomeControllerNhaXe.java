@@ -10,15 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/nhaxe")
 public class HomeControllerNhaXe {
 
-
     @GetMapping
     public String index(){
         return "nhaxe/home/index";
     }
-    @GetMapping("/home/contact")
-    public String contact(){
-        return "nhaxe/home/contact";
+
+    @GetMapping("/listxe")
+    public String listxe(){
+        return "nhaxe/home/listxe";
     }
-
-
+    @GetMapping("listchuyenxe")
+    public String listchuyenxe(){
+        return "nhaxe/home/listchuyenxe";
+    }
+    @GetMapping("/listhoadon")
+    public String listhoadon(){
+        return "nhaxe/home/listhoadon";
+    }
 }

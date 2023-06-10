@@ -39,76 +39,16 @@
                <a class="nav-link text-center "><span>NHÀ XE</span></a>
            </li>
            <li class="nav-item">
-               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1"
-                  aria-expanded="true" aria-controls="collapseBS">
-                   <span>Quản lý.......</span>
+               <a class="nav-link collapsed" href="/nhaxe/listxe" aria-expanded="true" aria-controls="collapseBS">
+                   <span>Quản lý xe</span>
                </a>
-               <div id="collapse1" class="collapse" aria-labelledby="headingBS" data-parent="#accordionSidebar">
-                   <div class="bg-white py-2 collapse-inner rounded ">
 
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-
-                   </div>
-               </div>
-
-               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2"
-                  aria-expanded="true" aria-controls="collapseTwo">
-                   <span> Quản lý......</span>
+               <a class="nav-link collapsed" href="/nhaxe/listchuyenxe" aria-expanded="true" aria-controls="collapseTwo">
+                   <span> Quản lý chuyến xe</span>
                </a>
-               <div id="collapse2" class="collapse" aria-labelledby="headingCK" data-parent="#accordionSidebar">
-                   <div class="bg-white py-2 collapse-inner rounded ">
-
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-
-                   </div>
-               </div>
-
-
-               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
-                  aria-expanded="true" aria-controls="collapseTwo">
-                   <span> Quản lý......</span>
+               <a class="nav-link collapsed" href="/nhaxe/listhoadon" aria-expanded="true" aria-controls="collapseTwo">
+                   <span> Quản lý hóa đơn</span>
                </a>
-               <div id="collapse3" class="collapse" aria-labelledby="headingCK" data-parent="#accordionSidebar">
-                   <div class="bg-white py-2 collapse-inner rounded ">
-
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-
-                   </div>
-               </div>
-
-               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4"
-                  aria-expanded="true" aria-controls="collapseTwo">
-                   <span> Quản lý......</span>
-               </a>
-               <div id="collapse4" class="collapse" aria-labelledby="headingCK" data-parent="#accordionSidebar">
-                   <div class="bg-white py-2 collapse-inner rounded ">
-
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-                        <a class="collapse-item" href="#">item</a>
-
-                   </div>
-               </div>
-
-               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5"
-                  aria-expanded="true" aria-controls="collapseTwo">
-                   <span> Quản lý......</span>
-               </a>
-               <div id="collapse5" class="collapse" aria-labelledby="headingCK" data-parent="#accordionSidebar">
-                   <div class="bg-white py-2 collapse-inner rounded ">
-
-                       <a class="collapse-item" href="#">item</a>
-                       <a class="collapse-item" href="#">item</a>
-                       <a class="collapse-item" href="#">item</a>
-
-                   </div>
-               </div>
            </li>
         </ul>
         <!-- End of Sidebar -->
@@ -129,11 +69,11 @@
                 <ul class="navbar-nav ml-auto text-uppercase">
                     <li class="nav-item">
                         <a class="nav-link">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 font-weight-bold">Tên người dùng</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 font-weight-bold" th:text="${session.infoUser.user.chuXes[0].TenChuXe}" ></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link dangxuat" href="#">
+                        <a class="nav-link dangxuat" href="/logout">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-600"></i>
                             <span class="mr-2 d-none d-lg-inline text-gray-600 font-weight-bold">Đăng xuất</span>
                         </a>

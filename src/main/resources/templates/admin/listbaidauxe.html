@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>Flight - Travel and Tour</title>
+    	<title>Bến xe miền đông</title>
     
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,21 +22,25 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <th:block th:replace="layoutadmin :: navbar"></th:block>
             <!-- Main Content -->
-           
+            <button class="col-6 btn btn-success btn-block fa-lg mb-3 align-self-center" onclick="location.href='/admin/createbaidauxe'">Thêm bãi đậu xe</button>
+
             <div id="content">
                 <div class="container-fluid">
                     <table class="table">
                         <tr>
-                            <th>Loại xe</th>
-                            <th>Điểm đi</th>
-                            <th>Điểm đến</th>
-                            <th>Giá</th>
+                            <th>Vị trí</th>
+                            <th>Thời gian đến</th>
+                            <th>Thời gian đi</th>
+                            <th>Tình trạng</th>
                         </tr>
-                        <tr th:each = "pdv : ${giaVes}">
-                            <td th:text="${pdv.loaiXe.TenLoaiXe}"></td>
-                            <td th:text="${pdv.tuyen.DiemDi}"></td>
-                            <td th:text="${pdv.tuyen.DiemDen}"></td>
-                            <td th:text="${pdv.Gia}"></td>
+                        <tr th:each = "bdx : ${baiDauXes}">
+                            <td th:text="${bdx.MoTaViTri}"></td>
+                            <td th:text="${bdx.ThoiGianDen}"></td>
+                            <td th:text="${bdx.ThoiGianDi}"></td>
+                            <td th:switch="${bdx.TinhTrang}">
+                                    <p th:case = "false">Còn Trống</p>
+                                    <p th:case = "true">Đã có xe</p>
+                            </td>
                         </tr>
                     </table>
             </div>

@@ -14,6 +14,9 @@ public class TaiKhoanService {
     public List<TaiKhoan> getAllTaiKhoan(){
         return taiKhoanRepository.findAll();
     }
+    public TaiKhoan getTaiKhoanByUsername(String username){
+        return taiKhoanRepository.findByUsername(username);
+    }
     public void save( TaiKhoan taiKhoan){
         taiKhoanRepository.save(taiKhoan);
 

@@ -42,11 +42,13 @@ public class TaiKhoanController {
             session.setAttribute("infoUser", userDetails);
             if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("NhanVien"))) {
+                return  "redirect:/nhanvien";
+            } else if (userDetails.getAuthorities().stream()
+                    .anyMatch(auth -> auth.getAuthority().equals("Admin"))) {
                 return  "redirect:/admin";
             } else if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
                 return  "redirect:/khachhang";
-
             } else if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
                 return  "redirect:/nhaxe";
@@ -77,7 +79,7 @@ public class TaiKhoanController {
             }
             return "Login/register";
         }
-        LoaiTK loaiTK = loaiTKService.getLoaiTkById(2L);
+        LoaiTK loaiTK = loaiTKService.getLoaiTkById(5L);
         taiKhoan.setLoaitk(loaiTK);
         taiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(taiKhoan.getMatKhau()));
         List<NhanVien> khs = new ArrayList<NhanVien>();

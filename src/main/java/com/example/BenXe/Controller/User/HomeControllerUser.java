@@ -1,5 +1,7 @@
 package com.example.BenXe.Controller.User;
 
+import java.util.List;
+
 // import com.example.BenXe.Service.TaiKhoanService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.BenXe.Model.Tuyen;
 import com.example.BenXe.Service.TuyenService;
 
 
@@ -21,10 +24,10 @@ public class HomeControllerUser {
 
     @GetMapping
     public String home(Model model){
-        model.addAttribute("tuyens", tuyenService.getAllTuyens());
+        List<Tuyen> tuyens = tuyenService.getAllTuyens();
+        model.addAttribute("tuyens",tuyens);
         return "user/home/index";
     }
-
     @GetMapping("/contact")
     public String contact(){
         return "user/home/contact";
