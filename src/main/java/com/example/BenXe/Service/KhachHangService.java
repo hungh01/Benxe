@@ -1,10 +1,7 @@
 package com.example.BenXe.Service;
 
 import com.example.BenXe.Model.KhachHang;
-import com.example.BenXe.Model.LoaiTK;
-import com.example.BenXe.Model.TaiKhoan;
 import com.example.BenXe.Repository.IKhachHangRepository;
-import com.example.BenXe.Repository.ILoaiTKRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

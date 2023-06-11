@@ -1,7 +1,6 @@
 package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
-import lombok.extern.slf4j.XSlf4j;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.BenXe.Model.Tuyen;
 import com.example.BenXe.Service.TuyenService;
 
-
 @Controller
 
 @RequestMapping("/khachhang")
@@ -33,4 +32,8 @@ public class HomeControllerUser {
         return "user/home/contact";
     }
 
+    @GetMapping("timve")
+    public String timve(){
+        return "user/home/timve";
+    }
 }
