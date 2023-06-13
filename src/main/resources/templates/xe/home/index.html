@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Bến xe miền đông</title>
-    <th:block th:replace="layoutxe :: link-css"></th:block>
+    <th:block th:replace="layoutnhaxe :: link-css"></th:block>
 </head>
 
 <body id="page-top">
     <div  id="wrapper">
-        <th:block th:replace="layoutxe :: sidebar"></th:block>
+        <th:block th:replace="layoutnhaxe :: sidebar"></th:block>
         <div id="content-wrapper" class="d-flex flex-column">
-            <th:block th:replace="layoutxe :: navbar"></th:block>
+            <th:block th:replace="layoutnhaxe :: navbar"></th:block>
             <!--==================================== Main Content===================================== -->
+<<<<<<< HEAD
             <div id="content">
                 <div class="container-fluid">
                     <table class="table">
@@ -37,6 +38,11 @@
                             <td th:text="${xe.baiDauXe.MoTaViTri}"></td>
                         </tr>
                     </table>
+=======
+           <section>
+                <div>
+                    <span>Index Nhà xe</span>
+>>>>>>> origin/hieu
                 </div>
             </div>
         </div>
@@ -44,7 +50,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <th:block th:replace="layoutxe :: link-javascript"></th:block>
+    <th:block th:replace="layoutnhaxe :: link-javascript"></th:block>
 </body>
 
 </html>

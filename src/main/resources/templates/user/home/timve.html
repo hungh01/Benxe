@@ -8,6 +8,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <th:block th:replace="layoutuser :: link-css"></th:block>
+<<<<<<< HEAD
         <style>
             table {
                 border-collapse: collapse;
@@ -24,10 +25,13 @@
                 background-color: #f2f2f2;
             }
         </style>
+=======
+>>>>>>> origin/hieu
     </head>
 
 <body>
     <th:block th:replace="layoutuser :: header"></th:block>
+<<<<<<< HEAD
 
     <section class="map">
         <div class="container">
@@ -60,6 +64,61 @@
     </section>
    
 
+=======
+    <section class="banner" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="left-side">
+                        <div class="logo">
+                            <img src="/img/img.png" style="width:20%;height:20%" alt="Flight Template" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <section id="first-tab-group" class="tabgroup">
+                        <div id="tab1">
+                            <div class="submit-form">
+                                <h4><em>Tìm chuyến xe</em>:</h4>
+                                <form id="form" action="" method="get">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label >Ngày đi:</label>
+                                                <input name="deparure" type="date" class="form-control date" id="deparure" required >
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label for="return">Giờ đi:</label>
+                                                <input name="return" type="time" class="form-control date" id="return"  required>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <fieldset>
+                                                <label >Điểm đến:</label>
+                                                    <select class = "form-control" id = "tuyen" name="tuyen.MaTuyen">
+                                                        <option value="">--Chọn điểm đến--</option>
+                                                        <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.DiemDen}"></option>
+                                                    </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <fieldset>
+                                                <button type="submit" id="form-submit" class="btn">Tìm vé ngay</button>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+>>>>>>> origin/hieu
 
     <section id="most-visited">
         <div class="container">
@@ -154,6 +213,45 @@
     </section>
     <th:block th:replace="layoutuser :: footer"></th:block>
     <th:block th:replace="layoutuser :: link-javascript"></th:block>
+<<<<<<< HEAD
    
+=======
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // navigation click actions 
+            $('.scroll-link').on('click', function(event){
+                event.preventDefault();
+                var sectionID = $(this).attr("data-id");
+                scrollToID('#' + sectionID, 750);
+            });
+            // scroll to top action
+            $('.scroll-top').on('click', function(event) {
+                event.preventDefault();
+                $('html, body').animate({scrollTop:0}, 'slow');         
+            });
+            // mobile nav toggle
+            $('#nav-toggle').on('click', function (event) {
+                event.preventDefault();
+                $('#main-nav').toggleClass("open");
+            });
+        });
+        // scroll function
+        function scrollToID(id, speed){
+            var offSet = 0;
+            var targetOffset = $(id).offset().top - offSet;
+            var mainNav = $('#main-nav');
+            $('html,body').animate({scrollTop:targetOffset}, speed);
+            if (mainNav.hasClass("open")) {
+                mainNav.css("height", "1px").removeClass("in").addClass("collapse");
+                mainNav.removeClass("open");
+            }
+        }
+        if (typeof console === "undefined") {
+            console = {
+                log: function() { }
+            };
+        }
+        </script>
+>>>>>>> origin/hieu
 </body>
 </html>

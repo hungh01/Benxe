@@ -26,7 +26,6 @@ import com.example.BenXe.Service.PhieuDatVeService;
 import com.example.BenXe.Service.TaiKhoanService;
 import com.example.BenXe.Service.TuyenService;
 
-
 @Controller
 
 @RequestMapping("/khachhang")
@@ -107,4 +106,8 @@ public class HomeControllerUser {
 
     }
 
+    @GetMapping("timve")
+    public String timve(){
+        return "user/home/timve";
+    }
 }

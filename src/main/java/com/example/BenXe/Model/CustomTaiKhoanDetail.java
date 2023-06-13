@@ -1,6 +1,5 @@
 package com.example.BenXe.Model;
 
-import com.example.BenXe.Repository.IKhachHangRepository;
 import com.example.BenXe.Repository.ITaiKhoanRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
