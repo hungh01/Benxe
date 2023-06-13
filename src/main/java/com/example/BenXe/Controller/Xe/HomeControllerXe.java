@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,11 +54,18 @@ public class HomeControllerXe {
         List<Xe> cx = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getXes();
         Xe xe = cx.get(0);
         PhieuDangKyTuyen pdkt = xe.getPhieuDangKyTuyens().get(0);
+        chuyen.setSoViTriConTrong(xe.getSoGhe());
         chuyen.setXe(xe);
         chuyen.setTuyen(pdkt.getTuyen());
         chuyen.setLoaiXe(xe.getLoaiXe());
         chuyen.setGiaVe(pdkt.getGiaVe());
         chuyenXeService.save(chuyen);
-        return"redirect:/xe/chuyenxe";
+        return"redirect:/xe/listchuyenxe";
+    }
+    @GetMapping("/xemkhachhang/{id}")
+    public String xemkhachhang(@PathVariable("id") Long id, Model model){
+        ChuyenXe chuyenXe = chuyenXeService.getChuyenXeById(id);
+        model.addAttribute("ves", chuyenXe.getPhieuDatVes());
+        return "/xe/home/xemkhachhang";
     }
 }

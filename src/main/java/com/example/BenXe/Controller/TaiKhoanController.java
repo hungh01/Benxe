@@ -69,7 +69,7 @@ public class TaiKhoanController {
         return "Login/register";
     }
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("taiKhoan") TaiKhoan taiKhoan,@ModelAttribute("khachHang") NhanVien khachHang,
+    public String register(@Valid @ModelAttribute("taiKhoan") TaiKhoan taiKhoan,@ModelAttribute("khachHang") KhachHang khachHang,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -79,16 +79,15 @@ public class TaiKhoanController {
             }
             return "Login/register";
         }
-        LoaiTK loaiTK = loaiTKService.getLoaiTkById(5L);
+        LoaiTK loaiTK = loaiTKService.getLoaiTkById(1L);
         taiKhoan.setLoaitk(loaiTK);
         taiKhoan.setMatKhau(new BCryptPasswordEncoder().encode(taiKhoan.getMatKhau()));
-        List<NhanVien> khs = new ArrayList<NhanVien>();
+        List<KhachHang> khs = new ArrayList<KhachHang>();
         khs.add(khachHang);
-        taiKhoan.setNhanViens(khs);
+        taiKhoan.setKhachHangs(khs);
         taiKhoanService.save(taiKhoan);
         khachHang.setTaiKhoan(taiKhoan);
-        nhanVienService.save(khachHang);
+        khachHangService.save(khachHang);
         return "redirect:/login";
     }
-   
 }

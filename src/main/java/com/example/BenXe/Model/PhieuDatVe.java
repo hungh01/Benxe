@@ -2,6 +2,7 @@ package com.example.BenXe.Model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.Fetch;
@@ -19,10 +20,10 @@ public class PhieuDatVe {
     private String ViTriLenXe;
 
     @Column(name = "TinhTrangVe")
-    private Long TinhTrangVe;
+    private String TinhTrangVe;
 
     @Column(name = "NgayDat")
-    private Date NgayDat;
+    private LocalDate NgayDat;
 
     @Column(name = "GhiChu")
     private String GhiChu;
@@ -37,6 +38,11 @@ public class PhieuDatVe {
 
     @Fetch(FetchMode.JOIN)
     @ManyToOne
+    @JoinColumn(name = "MaChuyenXe")
+    private ChuyenXe chuyenXe;
+
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
     @JoinColumn(name = "MaGhe")
     private Ghe ghe;
 
@@ -45,8 +51,10 @@ public class PhieuDatVe {
     @JoinColumn(name = "MaKH")
     private KhachHang khachHang;
 
+    public PhieuDatVe() {
+    }
 
-    public PhieuDatVe(Long MaPhieuDatVe, String ViTriLenXe, Long TinhTrangVe, Date NgayDat, String GhiChu, String DanhGiaChuyenXe, NhanVien nhanVien, Ghe ghe, KhachHang khachHang) {
+    public PhieuDatVe(Long MaPhieuDatVe, String ViTriLenXe, String TinhTrangVe, LocalDate NgayDat, String GhiChu, String DanhGiaChuyenXe, NhanVien nhanVien, ChuyenXe chuyenXe, Ghe ghe, KhachHang khachHang) {
         this.MaPhieuDatVe = MaPhieuDatVe;
         this.ViTriLenXe = ViTriLenXe;
         this.TinhTrangVe = TinhTrangVe;
@@ -54,16 +62,89 @@ public class PhieuDatVe {
         this.GhiChu = GhiChu;
         this.DanhGiaChuyenXe = DanhGiaChuyenXe;
         this.nhanVien = nhanVien;
+        this.chuyenXe = chuyenXe;
         this.ghe = ghe;
         this.khachHang = khachHang;
     }
 
-    public Date getNgayDat() {
+    public Long getMaPhieuDatVe() {
+        return this.MaPhieuDatVe;
+    }
+
+    public void setMaPhieuDatVe(Long MaPhieuDatVe) {
+        this.MaPhieuDatVe = MaPhieuDatVe;
+    }
+
+    public String getViTriLenXe() {
+        return this.ViTriLenXe;
+    }
+
+    public void setViTriLenXe(String ViTriLenXe) {
+        this.ViTriLenXe = ViTriLenXe;
+    }
+
+    public String getTinhTrangVe() {
+        return this.TinhTrangVe;
+    }
+
+    public void setTinhTrangVe(String TinhTrangVe) {
+        this.TinhTrangVe = TinhTrangVe;
+    }
+
+    public LocalDate getNgayDat() {
         return this.NgayDat;
     }
 
-    public void setNgayDat(Date NgayDat) {
+    public void setNgayDat(LocalDate NgayDat) {
         this.NgayDat = NgayDat;
+    }
+
+    public String getGhiChu() {
+        return this.GhiChu;
+    }
+
+    public void setGhiChu(String GhiChu) {
+        this.GhiChu = GhiChu;
+    }
+
+    public String getDanhGiaChuyenXe() {
+        return this.DanhGiaChuyenXe;
+    }
+
+    public void setDanhGiaChuyenXe(String DanhGiaChuyenXe) {
+        this.DanhGiaChuyenXe = DanhGiaChuyenXe;
+    }
+
+    public NhanVien getNhanVien() {
+        return this.nhanVien;
+    }
+
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
+    }
+
+    public ChuyenXe getChuyenXe() {
+        return this.chuyenXe;
+    }
+
+    public void setChuyenXe(ChuyenXe chuyenXe) {
+        this.chuyenXe = chuyenXe;
+    }
+
+    public Ghe getGhe() {
+        return this.ghe;
+    }
+
+    public void setGhe(Ghe ghe) {
+        this.ghe = ghe;
+    }
+
+    public KhachHang getKhachHang() {
+        return this.khachHang;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
     }
 
     public PhieuDatVe MaPhieuDatVe(Long MaPhieuDatVe) {
@@ -76,12 +157,12 @@ public class PhieuDatVe {
         return this;
     }
 
-    public PhieuDatVe TinhTrangVe(Long TinhTrangVe) {
+    public PhieuDatVe TinhTrangVe(String TinhTrangVe) {
         setTinhTrangVe(TinhTrangVe);
         return this;
     }
 
-    public PhieuDatVe NgayDat(Date NgayDat) {
+    public PhieuDatVe NgayDat(LocalDate NgayDat) {
         setNgayDat(NgayDat);
         return this;
     }
@@ -98,6 +179,11 @@ public class PhieuDatVe {
 
     public PhieuDatVe nhanVien(NhanVien nhanVien) {
         setNhanVien(nhanVien);
+        return this;
+    }
+
+    public PhieuDatVe chuyenXe(ChuyenXe chuyenXe) {
+        setChuyenXe(chuyenXe);
         return this;
     }
 
@@ -119,12 +205,12 @@ public class PhieuDatVe {
             return false;
         }
         PhieuDatVe phieuDatVe = (PhieuDatVe) o;
-        return Objects.equals(MaPhieuDatVe, phieuDatVe.MaPhieuDatVe) && Objects.equals(ViTriLenXe, phieuDatVe.ViTriLenXe) && Objects.equals(TinhTrangVe, phieuDatVe.TinhTrangVe) && Objects.equals(NgayDat, phieuDatVe.NgayDat) && Objects.equals(GhiChu, phieuDatVe.GhiChu) && Objects.equals(DanhGiaChuyenXe, phieuDatVe.DanhGiaChuyenXe) && Objects.equals(nhanVien, phieuDatVe.nhanVien) && Objects.equals(ghe, phieuDatVe.ghe) && Objects.equals(khachHang, phieuDatVe.khachHang);
+        return Objects.equals(MaPhieuDatVe, phieuDatVe.MaPhieuDatVe) && Objects.equals(ViTriLenXe, phieuDatVe.ViTriLenXe) && Objects.equals(TinhTrangVe, phieuDatVe.TinhTrangVe) && Objects.equals(NgayDat, phieuDatVe.NgayDat) && Objects.equals(GhiChu, phieuDatVe.GhiChu) && Objects.equals(DanhGiaChuyenXe, phieuDatVe.DanhGiaChuyenXe) && Objects.equals(nhanVien, phieuDatVe.nhanVien) && Objects.equals(chuyenXe, phieuDatVe.chuyenXe) && Objects.equals(ghe, phieuDatVe.ghe) && Objects.equals(khachHang, phieuDatVe.khachHang);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaPhieuDatVe, ViTriLenXe, TinhTrangVe, NgayDat, GhiChu, DanhGiaChuyenXe, nhanVien, ghe, khachHang);
+        return Objects.hash(MaPhieuDatVe, ViTriLenXe, TinhTrangVe, NgayDat, GhiChu, DanhGiaChuyenXe, nhanVien, chuyenXe, ghe, khachHang);
     }
 
     @Override
@@ -137,76 +223,10 @@ public class PhieuDatVe {
             ", GhiChu='" + getGhiChu() + "'" +
             ", DanhGiaChuyenXe='" + getDanhGiaChuyenXe() + "'" +
             ", nhanVien='" + getNhanVien() + "'" +
+            ", chuyenXe='" + getChuyenXe() + "'" +
             ", ghe='" + getGhe() + "'" +
             ", khachHang='" + getKhachHang() + "'" +
             "}";
     }
-    
 
-    public PhieuDatVe() {
-    }
-
-    public Long getMaPhieuDatVe() {
-        return MaPhieuDatVe;
-    }
-
-    public void setMaPhieuDatVe(Long maPhieuDatVe) {
-        MaPhieuDatVe = maPhieuDatVe;
-    }
-
-    public String getViTriLenXe() {
-        return ViTriLenXe;
-    }
-
-    public void setViTriLenXe(String viTriLenXe) {
-        ViTriLenXe = viTriLenXe;
-    }
-
-    public Long getTinhTrangVe() {
-        return TinhTrangVe;
-    }
-
-    public void setTinhTrangVe(Long tinhTrangVe) {
-        TinhTrangVe = tinhTrangVe;
-    }
-
-    public String getGhiChu() {
-        return GhiChu;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        GhiChu = ghiChu;
-    }
-
-    public String getDanhGiaChuyenXe() {
-        return DanhGiaChuyenXe;
-    }
-
-    public void setDanhGiaChuyenXe(String danhGiaChuyenXe) {
-        DanhGiaChuyenXe = danhGiaChuyenXe;
-    }
-
-    public NhanVien getNhanVien() {
-        return nhanVien;
-    }
-
-    public void setNhanVien(NhanVien nhanVien) {
-        this.nhanVien = nhanVien;
-    }
-
-    public Ghe getGhe() {
-        return ghe;
-    }
-
-    public void setGhe(Ghe ghe) {
-        this.ghe = ghe;
-    }
-
-    public KhachHang getKhachHang() {
-        return khachHang;
-    }
-
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
-    }
 }

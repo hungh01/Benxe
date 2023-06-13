@@ -16,6 +16,9 @@ public class TuyenService {
     public List<Tuyen> getAllTuyens(){
         return tuyenRepository.findAll();
     }
+    public List<String> getDiemDen(){
+        return tuyenRepository.getDiemDen();
+    }
     public Tuyen getTuyenById(Long id){
         Optional<Tuyen> optional =tuyenRepository.findById(id);
         return optional.orElse(null);

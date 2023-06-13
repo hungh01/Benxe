@@ -1,5 +1,6 @@
 package com.example.BenXe.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +14,15 @@ import com.example.BenXe.Repository.IChuyenXeRepository;
 public class ChuyenXeService {
     @Autowired
     private IChuyenXeRepository chuyenXeRepository;
-    public List<ChuyenXe> getAllChuXes(){
+    public List<ChuyenXe> getAllChuenXes(){
         return chuyenXeRepository.findAll();
     }
-    public ChuyenXe getChuXeById(Long id){
+    public ChuyenXe getChuyenXeById(Long id){
         Optional<ChuyenXe> optional = chuyenXeRepository.findById(id);
         return optional.orElse(null);
+    }
+    public List<ChuyenXe> getChuyenXeByNgayChay(LocalDate ngayChay){
+        return chuyenXeRepository.findAllbyNgayChay(ngayChay);
     }
     public void save( ChuyenXe chuyenXe){
         chuyenXeRepository.save(chuyenXe);

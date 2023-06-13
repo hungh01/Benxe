@@ -23,12 +23,16 @@
                             <th>Số vị trí trống</th>
                             <th>Giá vé</th>
                             <th>Điểm đến</th>
+                            <th>Action</th>
                         </tr>
                         <tr th:each="chuyen : ${chuyenxes}">
                             <td th:text="${chuyen.NgayChay}"></td>
                             <td th:text="${chuyen.SoViTriConTrong}"></td>
                             <td th:text="${chuyen.GiaVe.Gia}"></td>
                             <td th:text="${chuyen.Tuyen.DiemDen}"></td>
+                            <td>
+                                <a th:href="@{/xe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a>
+                            </td>
                         </tr>
                     </table>
                 </div>

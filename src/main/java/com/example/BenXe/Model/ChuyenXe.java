@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,7 @@ public class ChuyenXe {
     private Double GiaTriChuyenXe;
 
     @Column(name = "NgayChay")
-    private Date NgayChay;
+    private LocalDate NgayChay;
 
     @Fetch(FetchMode.JOIN)
     @ManyToOne
@@ -54,10 +55,14 @@ public class ChuyenXe {
     @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
     private List<HoaDon> hoaDons;
 
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
+    private List<PhieuDatVe> phieuDatVes;
+
     public ChuyenXe() {
     }
 
-    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Double GiaTriChuyenXe, Date NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons) {
+    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Double GiaTriChuyenXe, LocalDate NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons, List<PhieuDatVe> phieuDatVes) {
         this.MaChuyenXe = MaChuyenXe;
         this.SoViTriConTrong = SoViTriConTrong;
         this.GiaTriChuyenXe = GiaTriChuyenXe;
@@ -68,6 +73,7 @@ public class ChuyenXe {
         this.loaiXe = loaiXe;
         this.giaVe = giaVe;
         this.hoaDons = hoaDons;
+        this.phieuDatVes = phieuDatVes;
     }
 
     public Long getMaChuyenXe() {
@@ -94,11 +100,11 @@ public class ChuyenXe {
         this.GiaTriChuyenXe = GiaTriChuyenXe;
     }
 
-    public Date getNgayChay() {
+    public LocalDate getNgayChay() {
         return this.NgayChay;
     }
 
-    public void setNgayChay(Date NgayChay) {
+    public void setNgayChay(LocalDate NgayChay) {
         this.NgayChay = NgayChay;
     }
 
@@ -150,6 +156,14 @@ public class ChuyenXe {
         this.hoaDons = hoaDons;
     }
 
+    public List<PhieuDatVe> getPhieuDatVes() {
+        return this.phieuDatVes;
+    }
+
+    public void setPhieuDatVes(List<PhieuDatVe> phieuDatVes) {
+        this.phieuDatVes = phieuDatVes;
+    }
+
     public ChuyenXe MaChuyenXe(Long MaChuyenXe) {
         setMaChuyenXe(MaChuyenXe);
         return this;
@@ -165,7 +179,7 @@ public class ChuyenXe {
         return this;
     }
 
-    public ChuyenXe NgayChay(Date NgayChay) {
+    public ChuyenXe NgayChay(LocalDate NgayChay) {
         setNgayChay(NgayChay);
         return this;
     }
@@ -200,6 +214,11 @@ public class ChuyenXe {
         return this;
     }
 
+    public ChuyenXe phieuDatVes(List<PhieuDatVe> phieuDatVes) {
+        setPhieuDatVes(phieuDatVes);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -208,12 +227,12 @@ public class ChuyenXe {
             return false;
         }
         ChuyenXe chuyenXe = (ChuyenXe) o;
-        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons);
+        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons) && Objects.equals(phieuDatVes, chuyenXe.phieuDatVes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaChuyenXe, SoViTriConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons);
+        return Objects.hash(MaChuyenXe, SoViTriConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons, phieuDatVes);
     }
 
     @Override
@@ -229,7 +248,9 @@ public class ChuyenXe {
             ", loaiXe='" + getLoaiXe() + "'" +
             ", giaVe='" + getGiaVe() + "'" +
             ", hoaDons='" + getHoaDons() + "'" +
+            ", phieuDatVes='" + getPhieuDatVes() + "'" +
             "}";
     }
+    
 
 }

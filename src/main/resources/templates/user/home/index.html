@@ -35,26 +35,23 @@
                         <div id="tab1">
                             <div class="submit-form">
                                 <h4><em>Tìm chuyến xe</em>:</h4>
-                                <form id="form" action="" method="get">
+                                <form id="form" action="khachhang/timve" method="get">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label >Ngày đi:</label>
-                                                <input name="deparure" type="date" class="form-control date" id="deparure" required >
+                                                <input type="date" class="form-control date" id="ngaydi" name="ngaydi" required >
                                             </fieldset>
                                         </div>
-                                        <div class="col-md-6">
-                                            <fieldset>
-                                                <label for="return">Giờ đi:</label>
-                                                <input name="return" type="time" class="form-control date" id="return"  required>
-                                            </fieldset>
-                                        </div>
+                    
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <label >Điểm đến:</label>
-                                                    <select class = "form-control" id = "tuyen" name="tuyen.MaTuyen">
+                                                <br>
+                                                <br>
+                                                    <select class = "form-control" id = "diemden" name="diemden">
                                                         <option value="">--Chọn điểm đến--</option>
-                                                        <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.DiemDen}"></option>
+                                                        <option th:each="tuyen : ${tuyens}" th:value = "${tuyen}" th:text="${tuyen}"></option>
                                                     </select>
                                             </fieldset>
                                         </div>
