@@ -11,17 +11,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.BenXe.Model.BaiDauXe;
+import com.example.BenXe.Model.GiaVe;
 import com.example.BenXe.Model.LoaiTK;
+import com.example.BenXe.Model.LoaiXe;
 import com.example.BenXe.Model.NhanVien;
 import com.example.BenXe.Model.TaiKhoan;
 import com.example.BenXe.Model.Tuyen;
 import com.example.BenXe.Service.BaiDauXeService;
 import com.example.BenXe.Service.GiaVeService;
 import com.example.BenXe.Service.LoaiTKService;
+import com.example.BenXe.Service.LoaiXeService;
 import com.example.BenXe.Service.NhanVienService;
 import com.example.BenXe.Service.PheuDatVeService;
 import com.example.BenXe.Service.TaiKhoanService;
@@ -45,9 +49,11 @@ public class HomeControllerAdmin {
     private BaiDauXeService baiDauXeService;
     @Autowired
     private GiaVeService giaVeService;
-
     @Autowired
     private TuyenService tuyenService;
+    @Autowired
+    private LoaiXeService loaiXeService;
+
     @GetMapping()
     public String listNhanVien(Model model){
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
@@ -98,6 +104,12 @@ public class HomeControllerAdmin {
     @PostMapping("createtuyen")
     public String createtuyen(@ModelAttribute("tuyen") Tuyen tuyen){
         tuyenService.save(tuyen);
+        for(LoaiXe loaiXe : loaiXeService.getAllLoaiXes()){
+            GiaVe gv = new GiaVe();
+            gv.setLoaiXe(loaiXe);
+            gv.setTuyen(tuyen);
+            gv.setGia(0D);
+        }
         return"redirect:/admin/qltuyen";
     }
 
@@ -105,6 +117,20 @@ public class HomeControllerAdmin {
     public String listGiaVe(Model model){
         model.addAttribute("giaVes",giaVeService.getAllGiaVes());
         return "admin/listgiave";
+    }
+
+    @GetMapping("/editgiave/{id}")
+    public String editgiave(@PathVariable("id") Long id,Model model){
+        GiaVe giaVe = giaVeService.getGiaVeById(id);
+        model.addAttribute("giaVe", giaVe);
+        return"admin/editgiave";
+    }
+    @PostMapping("/editgiave/{id}")
+    public String editgiave(@PathVariable("id")Long id ,@ModelAttribute("giaVe") GiaVe giaVe) {
+        GiaVe giaVe1 = giaVeService.getGiaVeById(id);
+        giaVe1.setGia(giaVe.getGia());
+        giaVeService.save(giaVe1);
+        return"redirect:/admin/qlgiave";
     }
     @GetMapping("/qlbaidauxe")
     public String listBaiDauXe(Model model){

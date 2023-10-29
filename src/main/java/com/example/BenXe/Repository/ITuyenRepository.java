@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.BenXe.Model.Tuyen;
 
+
 @Repository
 public interface ITuyenRepository extends JpaRepository<Tuyen, Long>{
-    @Query("SELECT DISTINCT u.DiemDen FROM Tuyen u")
+    @Query(value = "SELECT DISTINCT v.dia_diem FROM tuyen u INNER JOIN dia_diem v ON u.diem_den = v.ma_dia_diem", nativeQuery = true)
     List<String> getDiemDen();
+
 }

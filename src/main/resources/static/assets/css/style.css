@@ -2074,8 +2074,9 @@ section {
         transition: 0.3s;
     }
 
-        #footer .social-links a:hover {
-            background: #1c84e3;
-            color: #fff;
-            text-decoration: none;
-        }
+    #footer .social-links a:hover {
+        background: #1c84e3;
+        color: #fff;
+        text-decoration: none;
+    }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }

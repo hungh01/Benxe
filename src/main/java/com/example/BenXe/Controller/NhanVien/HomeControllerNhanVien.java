@@ -31,6 +31,7 @@ import com.example.BenXe.Model.Tuyen;
 import com.example.BenXe.Model.Xe;
 import com.example.BenXe.Service.BaiDauXeService;
 import com.example.BenXe.Service.ChuXeService;
+import com.example.BenXe.Service.EmailService;
 import com.example.BenXe.Service.GiaVeService;
 import com.example.BenXe.Service.KhachHangService;
 import com.example.BenXe.Service.LoaiTKService;
@@ -65,6 +66,8 @@ public class HomeControllerNhanVien {
     private GiaVeService giaVeService;
     @Autowired
     private PheuDatVeService phieuDatVeService;
+    @Autowired
+    private EmailService senderServicce;
 
     @GetMapping
     public String index(Model model){
@@ -137,14 +140,24 @@ public class HomeControllerNhanVien {
             Xe xe = pdkt.getXe();
             ChuXe chuXe = pdkt.getChuXe();
             //Set info tài khoản cho chủ xe và xe
-            TaiKhoan taiKhoanChuXe = new TaiKhoan();
+
             TaiKhoan taiKhoanXe = new TaiKhoan();
             //-----
-            taiKhoanChuXe.setLoaitk(loaiTKService.getLoaiTkById(3L));
+            if(chuXe.getTaiKhoan()==null){
+                TaiKhoan taiKhoanChuXe = new TaiKhoan();
+                taiKhoanChuXe.setLoaitk(loaiTKService.getLoaiTkById(3L));
+                taiKhoanChuXe.setTenDangNhap(chuXe.getEmail());
+                taiKhoanChuXe.setMatKhau(new BCryptPasswordEncoder().encode("123"));
+                List<ChuXe> chuXes = new ArrayList<ChuXe>();
+                chuXes.add(chuXe);
+                taiKhoanChuXe.setChuXes(chuXes);
+                taiKhoanService.save(taiKhoanChuXe);
+                chuXe.setTaiKhoan(taiKhoanChuXe);
+            }
+            
             taiKhoanXe.setLoaitk(loaiTKService.getLoaiTkById(4L));
             //-----
-            taiKhoanChuXe.setTenDangNhap(chuXe.getEmail());
-            taiKhoanChuXe.setMatKhau(new BCryptPasswordEncoder().encode("123"));
+
             //------
             taiKhoanXe.setMatKhau(new BCryptPasswordEncoder().encode("123"));
             taiKhoanXe.setTenDangNhap(xe.getBKS());
@@ -157,9 +170,7 @@ public class HomeControllerNhanVien {
                     break;
             }
             //================================================================
-            List<ChuXe> chuXes = new ArrayList<ChuXe>();
-            chuXes.add(chuXe);
-            taiKhoanChuXe.setChuXes(chuXes);
+
             List<Xe> xes = new ArrayList<Xe>();
             xes.add(xe);
             taiKhoanXe.setXes(xes);
@@ -167,23 +178,32 @@ public class HomeControllerNhanVien {
             CustomTaiKhoanDetail userDetail = (CustomTaiKhoanDetail) authentication.getPrincipal();
             List<NhanVien> nv = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getNhanViens();
             pdkt.setNhanVien(nv.get(0));
+            
             BaiDauXe bdx = pdkt.getXe().getBaiDauXe();
             bdx.setTinhTrang(true);
             baiDauXeService.save(bdx);
             taiKhoanService.save(taiKhoanXe);
             xe.setTaiKhoan(taiKhoanXe);
             xeService.save(xe);
-
-            taiKhoanService.save(taiKhoanChuXe);
-            chuXe.setTaiKhoan(taiKhoanChuXe);
             chuXeService.save(chuXe);
+            String temp = "Thông tin đăng nhập của bạn là: "+"\n"
+                        +"Tài khoản nhà xe "+ chuXe.getTenChuXe()+"\n"
+                        +"Tên đăng nhập: "+chuXe.getEmail()+"\n"
+                        +"Mật khẩu mặc định khi đăng ký lần đầu: 123"+"\n------------------------------\n"
+                        +"Tài khoản xe "+xe.getBKS()+"\n"
+                        +"Tên đăng nhập: "+xe.getBKS()+"\n"
+                        +"Mật khẩu: 123"+"\n"
+                        +"Vui lòng đổi mật khẩu khi đăng nhập lần đầu để tính bảo mật tốt hơn."+"\n"
+                        +"Chân thành cảm ơn quý đối tác đã chọn Bến Xe Miền Đông chúng tôi!";
             
             pdkt.setTrangThai(true);
             phieuDangKyTuyenService.save(pdkt);
+            senderServicce.sendEmail(chuXe.getEmail(),
+                            "Đơn đăng ký tuyến của bạn đã được phê duyệt",
+                            temp);
+
             return "redirect:/nhanvien/qldondangkytuyen";
         }else
             return "not-found!";
-            
-            
     }
 }

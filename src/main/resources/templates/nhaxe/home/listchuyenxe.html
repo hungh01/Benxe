@@ -13,11 +13,31 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <th:block th:replace="layoutnhaxe :: navbar"></th:block>
             <!--==================================== Main Content===================================== -->
-           <section>
-                <div>
-                    <span>Index Nhà xe</span>
+            <div id="content">
+                <div class="container-fluid">
+                    <table class="table">
+                        <tr>
+                            <th>BKS</th>
+                            <th>Ngày chạy</th>
+                            <th>Số vị trí trống</th>
+                            <th>Giá vé</th>
+                            <th>Điểm đến</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr th:each="chuyen : ${chuyenxes}">
+                            <td th:text="${chuyen.xe.BKS}" ></td>
+                            <td th:text="${chuyen.NgayChay}"></td>
+                            <td th:text="${chuyen.SoViTriConTrong}"></td>
+                            <td th:text="${chuyen.GiaVe.Gia}"></td>
+                            <td th:text="${chuyen.Tuyen.DiemDen}"></td>
+                            <td>
+                                <a th:href="@{/nhaxe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> |
+                                <a th:href="@{/nhaxe/xemhoadon/{id}(id=${chuyen.MaChuyenXe})}">Xem các hóa đơn</a>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-           </section>
+            </div>
             <!-- ================================== End Main Content ==================================-->
             </div>
         </div>

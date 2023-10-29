@@ -39,12 +39,14 @@ public class TaiKhoanController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             session.setAttribute("infoUser", userDetails);
             if (userDetails.getAuthorities().stream()
-                    .anyMatch(auth -> auth.getAuthority().equals("NhanVien"))) {
+                    .anyMatch(auth -> auth.getAuthority().equals("Admin"))) {
                 return "redirect:/admin";
+            } else if (userDetails.getAuthorities().stream()
+                    .anyMatch(auth -> auth.getAuthority().equals("NhanVien"))) {
+                return "redirect:/nhanvien";
             } else if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
                 return "redirect:/khachhang";
-
             } else if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
                 return "redirect:/nhaxe";
@@ -96,7 +98,7 @@ public class TaiKhoanController {
     }
 
     @PostMapping("/resetpassword")
-public String resetPassword( String oldPassword,String newPassword,String confirmPassword,Authentication authentication) {
+    public String resetPassword( String oldPassword,String newPassword,String confirmPassword,Authentication authentication) {
 
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     String encodedOldPassword = userDetails.getPassword();
@@ -110,7 +112,7 @@ public String resetPassword( String oldPassword,String newPassword,String confir
         tk.setMatKhau(encodedNewPassword);
         taiKhoanService.save(tk);
         
-        return "redirect:/";
+        return "redirect:/logout";
     }
     
     return "redirect:/resetpassword";

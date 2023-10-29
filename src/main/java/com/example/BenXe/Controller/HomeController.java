@@ -47,7 +47,8 @@ public class HomeController {
     private XeService xeService;
     @Autowired
     private BaiDauXeService baiDauXeService;
-    @Autowired PhieuDangKyTuyenService phieuDangKyTuyenService;
+    @Autowired 
+    private PhieuDangKyTuyenService phieuDangKyTuyenService;
     
         @GetMapping
         public String home(){
@@ -58,7 +59,11 @@ public class HomeController {
         public String contact(Model model){
             model.addAttribute("tuyens", tuyenService.getAllTuyens());
             model.addAttribute("loaiXes", loaiXeService.getAllLoaiXes());
-            model.addAttribute("baiDauXes", baiDauXeService.getAllBaiDauXes());
+            List<BaiDauXe> bdxs = new ArrayList<BaiDauXe>();
+            for(BaiDauXe bdx : baiDauXeService.getAllBaiDauXes())
+                if(!bdx.getTinhTrang())
+                    bdxs.add(bdx);
+            model.addAttribute("baiDauXes", bdxs);
             model.addAttribute("pdkt", new PhieuDangKyTuyen());
             model.addAttribute("chuXe", new ChuXe());
             model.addAttribute("xe", new Xe());
@@ -69,6 +74,7 @@ public class HomeController {
         public String dangkytuyen(@ModelAttribute("chuXe") ChuXe chuXe,@ModelAttribute("pdkt") PhieuDangKyTuyen pdkt, @ModelAttribute("xe") Xe xe, @ModelAttribute("baiDauXe") BaiDauXe baiDauXe){
             LocalDate date = LocalDate.now();
             pdkt.setThoiGianNopPhieu(date);
+            
             List<PhieuDangKyTuyen> p = new ArrayList<PhieuDangKyTuyen>();
             p.add(pdkt);
             chuXe.setPhieuDangKyTuyens(p);

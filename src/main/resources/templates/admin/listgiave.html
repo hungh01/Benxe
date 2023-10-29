@@ -31,12 +31,16 @@
                             <th>Điểm đi</th>
                             <th>Điểm đến</th>
                             <th>Giá</th>
+                            <th>Action</th>
                         </tr>
                         <tr th:each = "pdv : ${giaVes}">
                             <td th:text="${pdv.loaiXe.TenLoaiXe}"></td>
                             <td th:text="${pdv.tuyen.DiemDi}"></td>
                             <td th:text="${pdv.tuyen.DiemDen}"></td>
                             <td th:text="${pdv.Gia}"></td>
+                            <td>
+                                <a th:href="@{/admin/editgiave/{id}(id=${pdv.giaveId})}">Chỉnh Sửa</a>
+                            </td>
                         </tr>
                     </table>
             </div>

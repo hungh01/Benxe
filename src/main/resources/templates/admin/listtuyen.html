@@ -49,6 +49,27 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <th:block th:replace="layoutadmin :: link-javascript"></th:block>
+    <script>
+        $(document).ready(function() {
+            $('#createtuyen').submit(function(event) {
+                event.preventDefault(); 
+                $.ajax({
+                    url: '/admin/createtuyen',
+                    type: 'POST',
+                    data: $('#createTuyen').serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            alert("Thêm thành công");
+                            window.location.href = '/admin/qltuyen';
+                        } 
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -7,6 +7,8 @@
     	<title>Bến Xe Miền Đông</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
         <th:block th:replace="layoutuser :: link-css"></th:block>
         <style>
             table {
@@ -23,6 +25,9 @@
             th {
                 background-color: #f2f2f2;
             }
+            body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        #geocoder { position: absolute; top: 10px; left: 10px; z-index: 1; }
         </style>
     </head>
 
@@ -74,8 +79,7 @@
                 </div>
                 <div class="col-6 mb-3">
                     <label class="form-label" for="author">Vị trí lên xe: </label>
-                    <br>
-                    <input th:value ="${phieuDatVe.ViTriLenXe}" style="width:100%; padding: 10px" id ="ViTriLenXe" name ="ViTriLenXe">
+                    <script src = "../js/mapuser.js"></script>
                 </div>
                 <div class="col-6 mb-3">
                     <label class="form-label" for="author">Ghi chú: </label>
@@ -83,7 +87,7 @@
                     <input th:value ="${phieuDatVe.GhiChu}" style="width:100%; padding: 10px" id ="GhiChu" name = "GhiChu">
                 </div>
                 <br>
-                <input class="btn btn-success" type="submit" value="Duyệt">
+                <input class="btn btn-success" type="submit" value="Đặt vé">
             </form>
         </div>
     </section>

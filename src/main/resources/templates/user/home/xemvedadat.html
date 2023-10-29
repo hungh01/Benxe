@@ -28,7 +28,6 @@
 
 <body>
     <th:block th:replace="layoutuser :: header"></th:block>
-
     <section class="map">
         <div style="position: absolute; top:0; right: 0;">
             <div class="page-contact-direction-button" style="padding: 100px 100px 0px 0px;">
@@ -37,31 +36,22 @@
         </div>
         <br>
         <br>
-        <br>
+        <br>    
         <div class="container">
             <table class="table">
                 <tr>
+                    <th>Ngày đặt</th>
                     <th>Nhà xe</th>
-                    <th>Vị trí còn trống</th>
-                    <th>Điểm đến</th>
-                    <th>Thời gian xuất bến</th>
-                    <th>Giá vé</th>
-                    <th>loại xe</th>
-                    <th>Biển số xe</th>
-                    <th>Chọn xe</th>
-        
+                    <th>Biển kiểm soát</th>
+                    <th>Ngày đi</th>
+                    <th>Vị trí lên xe</th>
                 </tr>
-                <tr th:each="chuyenxe : ${chuyenxes}">
-                    <td th:text="${chuyenxe.xe.chuXe.TenChuXe}"></td>
-                    <td th:text="${chuyenxe.SoViTriConTrong}"></td>
-                    <td th:text="${chuyenxe.tuyen.DiemDen}"></td>
-                    <td th:text="${chuyenxe.tuyen.ThoiGianXuatBen}"></td>
-                    <td th:text="${chuyenxe.giaVe.Gia}"></td>
-                    <td th:text="${chuyenxe.loaiXe.TenLoaiXe}"></td>
-                    <td th:text="${chuyenxe.xe.BKS}"></td>
-                    <td>
-                        <a th:href="@{/khachhang/datve/{id}(id=${chuyenxe.MaChuyenXe})}">Đặt vé</a>
-                    </td>
+                <tr th:each="pdv : ${phieuDatVes}">
+                    <td th:text="${pdv.NgayDat}"></td>
+                    <td th:text="${pdv.chuyenXe.xe.chuXe.TenChuXe}"></td>
+                    <td th:text="${pdv.chuyenXe.xe.BKS}"></td>
+                    <td th:text="${pdv.chuyenXe.NgayChay}"></td>
+                    <td th:text="${pdv.ViTriLenXe}"></td>
                 </tr>
             </table>
         </div>

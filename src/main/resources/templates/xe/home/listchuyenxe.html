@@ -28,10 +28,12 @@
                         <tr th:each="chuyen : ${chuyenxes}">
                             <td th:text="${chuyen.NgayChay}"></td>
                             <td th:text="${chuyen.SoViTriConTrong}"></td>
-                            <td th:text="${chuyen.GiaVe.Gia}"></td>
-                            <td th:text="${chuyen.Tuyen.DiemDen}"></td>
+                            <td th:text="${chuyen.giaVe.Gia}"></td>
+                            <td th:text="${chuyen.tuyen.diemDen.DiaDiem}"></td>
                             <td>
-                                <a th:href="@{/xe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a>
+                                <a th:href="@{/xe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> | 
+                                <a th:href="@{/xe/hoadon/{id}(id=${chuyen.MaChuyenXe})}">Hóa đơn</a> | 
+                                <a th:href="@{/xe/chuyendi}">Đường Đi</a>
                             </td>
                         </tr>
                     </table>

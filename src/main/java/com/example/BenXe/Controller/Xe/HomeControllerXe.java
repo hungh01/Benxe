@@ -1,8 +1,11 @@
 package com.example.BenXe.Controller.Xe;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.BenXe.Model.ChuXe;
 import com.example.BenXe.Model.ChuyenXe;
 import com.example.BenXe.Model.CustomTaiKhoanDetail;
+import com.example.BenXe.Model.HoaDon;
 import com.example.BenXe.Model.PhieuDangKyTuyen;
 import com.example.BenXe.Model.Xe;
 import com.example.BenXe.Service.ChuyenXeService;
+import com.example.BenXe.Service.HoaDonService;
 import com.example.BenXe.Service.TaiKhoanService;
-
-
 
 @Controller
 @RequestMapping("/xe")
@@ -29,27 +32,26 @@ public class HomeControllerXe {
     private TaiKhoanService taiKhoanService;
     @Autowired
     private ChuyenXeService chuyenXeService;
+    @Autowired
+    private HoaDonService hoaDonService;
 
     @GetMapping
-    public String index(){
-        return "xe/home/index";
-    }
-    
-    @GetMapping("/listchuyenxe")
-    public String chuyenxe(Model model, Authentication authentication){
+    public String chuyenxe(Model model, Authentication authentication) {
         CustomTaiKhoanDetail userDetail = (CustomTaiKhoanDetail) authentication.getPrincipal();
         List<Xe> cx = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getXes();
         Xe xe = cx.get(0);
         model.addAttribute("chuyenxes", xe.getChuyenXes());
         return "xe/home/listchuyenxe";
     }
+
     @GetMapping("/themchuyen")
-    public String themchuyenxe(Model model){
+    public String themchuyenxe(Model model) {
         model.addAttribute("chuyen", new ChuyenXe());
         return "xe/home/themchuyen";
     }
+
     @PostMapping("/themchuyen")
-    public String themchuyen(Model model, Authentication authentication,@ModelAttribute("chuyen") ChuyenXe chuyen){
+    public String themchuyen(Model model, Authentication authentication, @ModelAttribute("chuyen") ChuyenXe chuyen) {
         CustomTaiKhoanDetail userDetail = (CustomTaiKhoanDetail) authentication.getPrincipal();
         List<Xe> cx = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getXes();
         Xe xe = cx.get(0);
@@ -60,12 +62,56 @@ public class HomeControllerXe {
         chuyen.setLoaiXe(xe.getLoaiXe());
         chuyen.setGiaVe(pdkt.getGiaVe());
         chuyenXeService.save(chuyen);
-        return"redirect:/xe/listchuyenxe";
+        return "redirect:/xe";
     }
+
     @GetMapping("/xemkhachhang/{id}")
-    public String xemkhachhang(@PathVariable("id") Long id, Model model){
+    public String xemkhachhang(@PathVariable("id") Long id, Model model) {
         ChuyenXe chuyenXe = chuyenXeService.getChuyenXeById(id);
         model.addAttribute("ves", chuyenXe.getPhieuDatVes());
-        return "/xe/home/xemkhachhang";
+        return "xe/home/xemkhachhang";
     }
+
+    @GetMapping("/hoadon/{id}")
+    public String hoadon(@PathVariable("id") Long id, Model model) {
+        ChuyenXe chuyenXe = chuyenXeService.getChuyenXeById(id);
+        model.addAttribute("hoaDons", chuyenXe.getHoaDons());
+        model.addAttribute("chuyenXe", chuyenXe);
+        return "xe/home/hoadon";
+    }
+
+    @GetMapping("/themhoadon/{id}")
+    public String themhoadon(@PathVariable("id") Long id, Model model) {
+        ChuyenXe chuyenXe = chuyenXeService.getChuyenXeById(id);
+        model.addAttribute("hoaDon", new HoaDon());
+        model.addAttribute("chuyenXe", chuyenXe);
+        return "xe/home/themhoadon";
+    }
+
+    @PostMapping("/themhoadon/{id}")
+    public String themhoadon(@PathVariable("id") Long id, @ModelAttribute("hoaDon") HoaDon hoaDon) {
+        ChuyenXe chuyenXe = chuyenXeService.getChuyenXeById(id);
+        List<HoaDon> lstHD = chuyenXe.getHoaDons();
+        hoaDon.setChuyenXe(chuyenXe);
+        hoaDonService.save(hoaDon);
+        lstHD.add(hoaDon);
+        chuyenXe.setHoaDons(lstHD);
+        return "redirect:/xe/hoadon/{id}";
+    }
+
+    @GetMapping("/chuyendi")
+    public String chuyendi() {
+        return "xe/home/chuyendi";
+    }
+
+    // @GetMapping("/getData")
+    // public ResponseEntity<?> getData(Authentication authentication) {
+    //     CustomTaiKhoanDetail userDetail = (CustomTaiKhoanDetail) authentication.getPrincipal();
+    //     List<Xe> cx = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getXes();
+    //     Xe xe = cx.get(0);
+    //     // Fetch data from your data source
+    //     List<ChuyenXe> data = xe.getChuyenXes();
+    //     return ResponseEntity.ok(data);
+    // }
+
 }

@@ -34,9 +34,6 @@
                             <th>Địa Chỉ</th>
                             <th>Số Điện Thoại</th>
                             <th>Email</th>
-                            <th>Chức Vụ</th>
-                            <th>Phòng Ban</th>
-                            <th>Thao Tác</th>
                         </tr>
                         <tr th:each="nhanvien : ${NhanViens}">
                             <td th:text="${nhanvien.MaNV}"></td>
@@ -45,9 +42,6 @@
                             <td th:text="${nhanvien.DiaChi}"></td>
                             <td th:text="${nhanvien.SDT}"></td>
                             <td th:text="${nhanvien.Email}"></td>
-                            <td th:if= "${nhanvien.chucVu}" th:text="${nhanvien.chucVu.TenChucVu}"></td>
-                            <td th:if= "${nhanvien.chucVu}" th:text=" "></td>
-                            <td th:if= "${nhanvien.phongBan}" th:text="${nhanvien.phongBan.TenPhongBan}"></td>
                         </tr>
                     </table>
             </div>

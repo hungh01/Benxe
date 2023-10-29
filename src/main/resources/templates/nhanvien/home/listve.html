@@ -22,7 +22,6 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <th:block th:replace="layoutnhanvien :: navbar"></th:block>
             <!-- Main Content -->
-           
             <div id="content">
                 <div class="container-fluid">
                     <table class="table">
@@ -33,7 +32,6 @@
                             <th>Tên Khách Hàng</th>
                             <th>Ghi Chú</th>
                             <th>Đánh giá chuyến xe</th>
-                            <th>Tên nhân viên</th>
                         </tr>
                         <tr th:each = "pdv : ${phieuDatVes}">
                             <td th:text="${pdv.NgayDat}"></td>
@@ -41,7 +39,6 @@
                             <td th:text="${pdv.ViTriLenXe}"></td>
                             <td th:text="${pdv.khachHang.TenKH}"></td>
                             <td th:text="${pdv.DanhGiaChuyenXe}"></td>
-                            <td th:text="${pdv.nhanVien.TenNV}"></td>
                         </tr>
                     </table>
             </div>

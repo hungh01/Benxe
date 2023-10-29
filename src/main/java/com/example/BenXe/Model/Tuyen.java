@@ -17,10 +17,6 @@ public class Tuyen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long MaTuyen;
 
-    @Column(name = "DiemDi")
-    private String DiemDi;
-    @Column(name = "DiemDen")
-    private String DiemDen;
     @Column(name = "ThoiGianXuatBen")
     private LocalTime ThoiGianXuatBen;
     @Column(name = "ThoiGianVeBen")
@@ -38,19 +34,28 @@ public class Tuyen {
     @OneToMany(mappedBy = "tuyen", cascade = CascadeType.ALL)
     private List<GiaVe> giaVes;
 
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    @JoinColumn(name = "DiemDi")
+    private DiaDiem diemDi;
+
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    @JoinColumn(name = "DiemDen")
+    private DiaDiem diemDen;
 
     public Tuyen() {
     }
 
-    public Tuyen(Long MaTuyen, String DiemDi, String DiemDen, LocalTime ThoiGianXuatBen, LocalTime ThoiGianVeBen, List<ChuyenXe> chuyenXes, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<GiaVe> giaVes) {
+    public Tuyen(Long MaTuyen, LocalTime ThoiGianXuatBen, LocalTime ThoiGianVeBen, List<ChuyenXe> chuyenXes, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<GiaVe> giaVes, DiaDiem diemDi, DiaDiem diemDen) {
         this.MaTuyen = MaTuyen;
-        this.DiemDi = DiemDi;
-        this.DiemDen = DiemDen;
         this.ThoiGianXuatBen = ThoiGianXuatBen;
         this.ThoiGianVeBen = ThoiGianVeBen;
         this.chuyenXes = chuyenXes;
         this.phieuDangKyTuyens = phieuDangKyTuyens;
         this.giaVes = giaVes;
+        this.diemDi = diemDi;
+        this.diemDen = diemDen;
     }
 
     public Long getMaTuyen() {
@@ -59,22 +64,6 @@ public class Tuyen {
 
     public void setMaTuyen(Long MaTuyen) {
         this.MaTuyen = MaTuyen;
-    }
-
-    public String getDiemDi() {
-        return this.DiemDi;
-    }
-
-    public void setDiemDi(String DiemDi) {
-        this.DiemDi = DiemDi;
-    }
-
-    public String getDiemDen() {
-        return this.DiemDen;
-    }
-
-    public void setDiemDen(String DiemDen) {
-        this.DiemDen = DiemDen;
     }
 
     public LocalTime getThoiGianXuatBen() {
@@ -117,18 +106,24 @@ public class Tuyen {
         this.giaVes = giaVes;
     }
 
+    public DiaDiem getDiemDi() {
+        return this.diemDi;
+    }
+
+    public void setDiemDi(DiaDiem diemDi) {
+        this.diemDi = diemDi;
+    }
+
+    public DiaDiem getDiemDen() {
+        return this.diemDen;
+    }
+
+    public void setDiemDen(DiaDiem diemDen) {
+        this.diemDen = diemDen;
+    }
+
     public Tuyen MaTuyen(Long MaTuyen) {
         setMaTuyen(MaTuyen);
-        return this;
-    }
-
-    public Tuyen DiemDi(String DiemDi) {
-        setDiemDi(DiemDi);
-        return this;
-    }
-
-    public Tuyen DiemDen(String DiemDen) {
-        setDiemDen(DiemDen);
         return this;
     }
 
@@ -157,6 +152,16 @@ public class Tuyen {
         return this;
     }
 
+    public Tuyen diemDi(DiaDiem diemDi) {
+        setDiemDi(diemDi);
+        return this;
+    }
+
+    public Tuyen diemDen(DiaDiem diemDen) {
+        setDiemDen(diemDen);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -165,27 +170,27 @@ public class Tuyen {
             return false;
         }
         Tuyen tuyen = (Tuyen) o;
-        return Objects.equals(MaTuyen, tuyen.MaTuyen) && Objects.equals(DiemDi, tuyen.DiemDi) && Objects.equals(DiemDen, tuyen.DiemDen) && Objects.equals(ThoiGianXuatBen, tuyen.ThoiGianXuatBen) && Objects.equals(ThoiGianVeBen, tuyen.ThoiGianVeBen) && Objects.equals(chuyenXes, tuyen.chuyenXes) && Objects.equals(phieuDangKyTuyens, tuyen.phieuDangKyTuyens) && Objects.equals(giaVes, tuyen.giaVes);
+        return Objects.equals(MaTuyen, tuyen.MaTuyen) && Objects.equals(ThoiGianXuatBen, tuyen.ThoiGianXuatBen) && Objects.equals(ThoiGianVeBen, tuyen.ThoiGianVeBen) && Objects.equals(chuyenXes, tuyen.chuyenXes) && Objects.equals(phieuDangKyTuyens, tuyen.phieuDangKyTuyens) && Objects.equals(giaVes, tuyen.giaVes) && Objects.equals(diemDi, tuyen.diemDi) && Objects.equals(diemDen, tuyen.diemDen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaTuyen, DiemDi, DiemDen, ThoiGianXuatBen, ThoiGianVeBen, chuyenXes, phieuDangKyTuyens, giaVes);
+        return Objects.hash(MaTuyen, ThoiGianXuatBen, ThoiGianVeBen, chuyenXes, phieuDangKyTuyens, giaVes, diemDi, diemDen);
     }
 
     @Override
     public String toString() {
         return "{" +
             " MaTuyen='" + getMaTuyen() + "'" +
-            ", DiemDi='" + getDiemDi() + "'" +
-            ", DiemDen='" + getDiemDen() + "'" +
             ", ThoiGianXuatBen='" + getThoiGianXuatBen() + "'" +
             ", ThoiGianVeBen='" + getThoiGianVeBen() + "'" +
             ", chuyenXes='" + getChuyenXes() + "'" +
             ", phieuDangKyTuyens='" + getPhieuDangKyTuyens() + "'" +
             ", giaVes='" + getGiaVes() + "'" +
+            ", diemDi='" + getDiemDi() + "'" +
+            ", diemDen='" + getDiemDen() + "'" +
             "}";
     }
-    
+
     
 }

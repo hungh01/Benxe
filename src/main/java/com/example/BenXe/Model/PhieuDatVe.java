@@ -16,9 +16,6 @@ public class PhieuDatVe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long MaPhieuDatVe;
 
-    @Column(name = "ViTriLenXe")
-    private String ViTriLenXe;
-
     @Column(name = "TinhTrangVe")
     private String TinhTrangVe;
 
@@ -51,12 +48,17 @@ public class PhieuDatVe {
     @JoinColumn(name = "MaKH")
     private KhachHang khachHang;
 
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    @JoinColumn(name = "ViTriLenXe")
+    private DiaDiem diaDiem;
+
+
     public PhieuDatVe() {
     }
 
-    public PhieuDatVe(Long MaPhieuDatVe, String ViTriLenXe, String TinhTrangVe, LocalDate NgayDat, String GhiChu, String DanhGiaChuyenXe, NhanVien nhanVien, ChuyenXe chuyenXe, Ghe ghe, KhachHang khachHang) {
+    public PhieuDatVe(Long MaPhieuDatVe, String TinhTrangVe, LocalDate NgayDat, String GhiChu, String DanhGiaChuyenXe, NhanVien nhanVien, ChuyenXe chuyenXe, Ghe ghe, KhachHang khachHang, DiaDiem diaDiem) {
         this.MaPhieuDatVe = MaPhieuDatVe;
-        this.ViTriLenXe = ViTriLenXe;
         this.TinhTrangVe = TinhTrangVe;
         this.NgayDat = NgayDat;
         this.GhiChu = GhiChu;
@@ -65,6 +67,7 @@ public class PhieuDatVe {
         this.chuyenXe = chuyenXe;
         this.ghe = ghe;
         this.khachHang = khachHang;
+        this.diaDiem = diaDiem;
     }
 
     public Long getMaPhieuDatVe() {
@@ -73,14 +76,6 @@ public class PhieuDatVe {
 
     public void setMaPhieuDatVe(Long MaPhieuDatVe) {
         this.MaPhieuDatVe = MaPhieuDatVe;
-    }
-
-    public String getViTriLenXe() {
-        return this.ViTriLenXe;
-    }
-
-    public void setViTriLenXe(String ViTriLenXe) {
-        this.ViTriLenXe = ViTriLenXe;
     }
 
     public String getTinhTrangVe() {
@@ -147,13 +142,16 @@ public class PhieuDatVe {
         this.khachHang = khachHang;
     }
 
-    public PhieuDatVe MaPhieuDatVe(Long MaPhieuDatVe) {
-        setMaPhieuDatVe(MaPhieuDatVe);
-        return this;
+    public DiaDiem getDiaDiem() {
+        return this.diaDiem;
     }
 
-    public PhieuDatVe ViTriLenXe(String ViTriLenXe) {
-        setViTriLenXe(ViTriLenXe);
+    public void setDiaDiem(DiaDiem diaDiem) {
+        this.diaDiem = diaDiem;
+    }
+
+    public PhieuDatVe MaPhieuDatVe(Long MaPhieuDatVe) {
+        setMaPhieuDatVe(MaPhieuDatVe);
         return this;
     }
 
@@ -197,6 +195,11 @@ public class PhieuDatVe {
         return this;
     }
 
+    public PhieuDatVe diaDiem(DiaDiem diaDiem) {
+        setDiaDiem(diaDiem);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -205,19 +208,18 @@ public class PhieuDatVe {
             return false;
         }
         PhieuDatVe phieuDatVe = (PhieuDatVe) o;
-        return Objects.equals(MaPhieuDatVe, phieuDatVe.MaPhieuDatVe) && Objects.equals(ViTriLenXe, phieuDatVe.ViTriLenXe) && Objects.equals(TinhTrangVe, phieuDatVe.TinhTrangVe) && Objects.equals(NgayDat, phieuDatVe.NgayDat) && Objects.equals(GhiChu, phieuDatVe.GhiChu) && Objects.equals(DanhGiaChuyenXe, phieuDatVe.DanhGiaChuyenXe) && Objects.equals(nhanVien, phieuDatVe.nhanVien) && Objects.equals(chuyenXe, phieuDatVe.chuyenXe) && Objects.equals(ghe, phieuDatVe.ghe) && Objects.equals(khachHang, phieuDatVe.khachHang);
+        return Objects.equals(MaPhieuDatVe, phieuDatVe.MaPhieuDatVe) && Objects.equals(TinhTrangVe, phieuDatVe.TinhTrangVe) && Objects.equals(NgayDat, phieuDatVe.NgayDat) && Objects.equals(GhiChu, phieuDatVe.GhiChu) && Objects.equals(DanhGiaChuyenXe, phieuDatVe.DanhGiaChuyenXe) && Objects.equals(nhanVien, phieuDatVe.nhanVien) && Objects.equals(chuyenXe, phieuDatVe.chuyenXe) && Objects.equals(ghe, phieuDatVe.ghe) && Objects.equals(khachHang, phieuDatVe.khachHang) && Objects.equals(diaDiem, phieuDatVe.diaDiem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaPhieuDatVe, ViTriLenXe, TinhTrangVe, NgayDat, GhiChu, DanhGiaChuyenXe, nhanVien, chuyenXe, ghe, khachHang);
+        return Objects.hash(MaPhieuDatVe, TinhTrangVe, NgayDat, GhiChu, DanhGiaChuyenXe, nhanVien, chuyenXe, ghe, khachHang, diaDiem);
     }
 
     @Override
     public String toString() {
         return "{" +
             " MaPhieuDatVe='" + getMaPhieuDatVe() + "'" +
-            ", ViTriLenXe='" + getViTriLenXe() + "'" +
             ", TinhTrangVe='" + getTinhTrangVe() + "'" +
             ", NgayDat='" + getNgayDat() + "'" +
             ", GhiChu='" + getGhiChu() + "'" +
@@ -226,7 +228,8 @@ public class PhieuDatVe {
             ", chuyenXe='" + getChuyenXe() + "'" +
             ", ghe='" + getGhe() + "'" +
             ", khachHang='" + getKhachHang() + "'" +
+            ", diaDiem='" + getDiaDiem() + "'" +
             "}";
     }
-
+    
 }

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    	<title>Bến xe miền đông</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/fontAwesome.css">
+        <link rel="stylesheet" href="css/hero-slider.css">
+        <link rel="stylesheet" href="css/owl-carousel.css">
+        <link rel="stylesheet" href="css/tooplate-style.css">
+
+        <link href="https://fonts.googleapis.com/css?family=Spectral:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+
+<body>
+
+
+    <section class="page-heading" id="top">
+        <div class="container" style="margin: 0 !important; width: 100%; padding: 0;">
+            <div class="col-md-12" style="padding: 0 !important;">
+                <div class="logo" style="padding: 0">
+                    <img src="img/header.png" alt="Flight Template">
+                </div>
+            </div>
+
+            <div style="position: absolute; top:0;">
+                <div class="logo" style="text-align: center !important; padding: 20px 0px 0px 100px;">
+                    <img src="img/img.png" alt="header" style="width: 100px; height: 100px">
+                </div>
+            </div>
+            <div style="position: absolute; top:0; right: 0;">
+                <div class="page-contact-direction-button" style="padding: 170px 100px 0px 0px;">
+                    <a href="/"><i class="fa fa-home"></i>Về Trang Chủ</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <section class="contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Đăng ký làm đối tác</h2>
+                        <p> Công ty TNHH Một thành viên Bến xe Miền Đông (gọi tắt là Bến xe Miền Đông) tọa lạc tại số 292 Đinh Bộ Lĩnh, Phường 26, Quận Bình Thạnh, TP.HCM; là đơn vị trực thuộc Tổng Công ty Cơ khí Giao thông Vận tải Sài Gòn – TNHH một thành viên; là một trong các Bến xe lớn nhất cả nước. Với lợi thế tọa lạc tại cửa ngõ phía Đông của Thành phố, Bến xe Miền Đông phục vụ sự đi lại của hành khách đến các tỉnh thành trong cả nước.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="img/contact-01.jpg" alt="">
+                </div>
+                <div class="col-md-6">
+                    <img src="img/contact-02.jpg" alt="">
+                </div>
+                <div class="col-md-4">
+                    <h6>Tầm nhìn</h6>
+                    <p>Bến xe Miền Đông hướng tới mục tiêu trở thành doanh nghiệp kinh doanh dịch vụ vận tải có uy tín hàng đầu, được xã hội ghi nhận và tự hào.</p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Sứ mệnh</h6>
+                    <p>Mang đến cho khách hàng sự hài lòng khi sử dụng dịch vụ của Bến xe Miền Đông, góp phần vào sự phát triển bền vững của Tổng công ty SAMCO, của ngành GTVT và của toàn xã hội.</p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Giá trị cốt lõi</h6>
+                    <p>Luôn đặt uy tín và chất lượng dịch vụ của Bến xe Miền Đông lên hàng đầu
+                        Nhân viên: Đoàn kết, Tận tâm, Chuyên nghiệp, Năng động, Sáng tạo; Luôn nỗ lực vì sự phát triển bền vững của Bến xe Miền Đông.
+                        Mang đến cho bạn niềm vui khi gặp gỡ với khách hàng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="contact-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Đơn đăng ký đối tác</h2>
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <form  th:action="@{/contact}" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">THÔNG TIN NHÀ XE </label>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">Tên nhà xe hoặc tên người đại diện: </label>
+                                    <input type="text" class="form-control" th:value="${chuXe.TenChuXe}" id="TenChuXe" name="TenChuXe" placeholder="" required>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">Địa chỉ: </label>
+                                    <input type="text" class="form-control"  th:value="${chuXe.DiaChi}" id="DiaChi" name="DiaChi" placeholder="" required>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">Số điện thoại: </label>
+                                    <input type="text" class="form-control" th:field="${chuXe.SDT}"  placeholder="" required>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">Email: </label>
+                                    <input type="text" class="form-control" th:value="${chuXe.Email}" id="Email" name="Email" placeholder="" required>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">Chọn tuyến: </label>
+                                        <select class = "form-control" id = "tuyen" name="tuyen.MaTuyen">
+                                                <option value="">--Chọn Tuyến--</option>
+                                                <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.DiemDi}+' -> '+ ${tuyen.DiemDen} +' | Thời gian xuất bến: '+ ${tuyen.ThoiGianXuatBen}+' | Thời Gian Về Bến: ' + ${tuyen.ThoiGianVeBen}"></option>
+                                        </select>
+                                        <br>
+                                </fieldset>
+
+                                <fieldset>
+                                    <label class="form-label" style="color: whitesmoke;">Thời gian xin bắt đầu vận hành: </label>
+                                    <input type="date" class="form-control" th:value="${pdkt.ThoiGianBatDauVanHanh}" id="ThoiGianBatDauVanHanh" name="ThoiGianBatDauVanHanh" placeholder="" required>
+                                </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">THÔNG TIN XE </label>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Biển kiểm soát xe: </label>
+                                <input  type="text" class="form-control" th:value="${xe.BKS}" id="BKS" name="BKS" placeholder="" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Tên Tài xế: </label>
+                                <input type="text" class="form-control" th:value="${xe.TenTaiXe}" id="TenTaiXe" name="TenTaiXe" placeholder="" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Số ghế: </label>
+                                <input type="text" class="form-control" th:value="${xe.SoGhe}" id="SoGhe" name="SoGhe" placeholder="" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Năm sản xuất: </label>
+                                <input type="year" class="form-control" th:value="${xe.NamSX}" id="NamSX" name="NamSX" placeholder="" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Số điện thoại của xe: </label>
+                                <input type="text" class="form-control" th:field="${xe.SDT}" placeholder="" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Loại xe: </label>
+                                <select class = "form-control" id = "loaiXe" name="loaiXe.MaLX">
+                                    <option value="">--Chọn Loại xe--</option>
+                                    <option th:each="loaiXe : ${loaiXes}" th:value = "${loaiXe.MaLX}" th:text="${loaiXe.TenLoaiXe}"></option>
+                            </select>
+                            <br>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: whitesmoke;">Chọn vị trí đậu xe: </label>
+                                <select class = "form-control" id = "baiDauXe" name="baiDauXe.MaBDX">
+                                    <option value="">--Chọn bãi đậu--</option>
+                                    <option th:each="baiDauXe : ${baiDauXes}" th:value = "${baiDauXe.MaBDX}" th:text="'Vị Trí: '+${baiDauXe.MoTaViTri}+' | Thời gian đậu xe từ: '+ ${baiDauXe.ThoiGianDen}+' đến: ' + ${baiDauXe.ThoiGianDi}"></option>
+                                </select>
+                                <br>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-12">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn">Nộp đơn xin tuyến</button>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="map">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="map">
+
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62693.68012682849!2d106.75180783253677!3d10.860579937660278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8ad820b6271%3A0x45060ac68fc6046!2zQuG6v24gWGUgTWnhu4FuIMSQw7RuZyBN4bubaQ!5e0!3m2!1svi!2s!4v1686013719636!5m2!1svi!2s" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="primary-button">
+                        <a href="#" class="scroll-top">Back To Top</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p>
+                        Đồ án cơ sở
+                |</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // navigation click actions 
+        $('.scroll-link').on('click', function(event){
+            event.preventDefault();
+            var sectionID = $(this).attr("data-id");
+            scrollToID('#' + sectionID, 750);
+        });
+        // scroll to top action
+        $('.scroll-top').on('click', function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop:0}, 'slow');         
+        });
+        // mobile nav toggle
+        $('#nav-toggle').on('click', function (event) {
+            event.preventDefault();
+            $('#main-nav').toggleClass("open");
+        });
+    });
+    // scroll function
+    function scrollToID(id, speed){
+        var offSet = 0;
+        var targetOffset = $(id).offset().top - offSet;
+        var mainNav = $('#main-nav');
+        $('html,body').animate({scrollTop:targetOffset}, speed);
+        if (mainNav.hasClass("open")) {
+            mainNav.css("height", "1px").removeClass("in").addClass("collapse");
+            mainNav.removeClass("open");
+        }
+    }
+    if (typeof console === "undefined") {
+        console = {
+            log: function() { }
+        };
+    }
+    </script>
+</body>
+</html>

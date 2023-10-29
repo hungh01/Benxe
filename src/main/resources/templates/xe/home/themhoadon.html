@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bến xe miền đông</title>
+    <th:block th:replace="layoutxe :: link-css"></th:block>
+</head>
+
+<body id="page-top">
+    <div  id="wrapper">
+        <th:block th:replace="layoutxe :: sidebar"></th:block>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <th:block th:replace="layoutxe :: navbar"></th:block>
+            <!--==================================== Main Content===================================== -->
+            <form class="w-100 d-flex align-items-center flex-column" th:action="@{/xe/themhoadon/{id}(id=${chuyenXe.MaChuyenXe})}" method="post">
+                <fieldset>
+                    <label class="form-label" style="color: black;">Ảnh: </label>
+                    <input  type="text" class="form-control" th:value="${hoaDon.AnhHoaDon}" id="Anh" name="Anh" placeholder="" required>
+                </fieldset>
+                <fieldset>
+                    <label class="form-label" style="color: black;">Thông tin chi tiết: </label>
+                    <input type="text" class="form-control" th:value="${hoaDon.ThongTinChiTiet}" id="ThongTinChiTiet" name="ThongTinChiTiet" placeholder="">
+                </fieldset>
+                <fieldset>
+                    <label class="form-label" style="color: black;">Chi phí: </label>
+                    <input type="text" class="form-control" style="width:100%" th:value="${hoaDon.ChiPhi}" id="ChiPhi" name="ChiPhi" placeholder="" required>
+                </fieldset>
+                <br>
+                <div class="text-center pt-1 mb-5 pb-1 col-3">
+                    <input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Thêm">
+                </div>
+                <br>
+            </form>
+             
+            <!-- ================================== End Main Content ==================================-->
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <th:block th:replace="layoutxe :: link-javascript"></th:block>
+</body>
+
+</html>

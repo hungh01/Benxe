@@ -48,7 +48,11 @@
                             </fieldset>
                             <fieldset>
                                 <label class="form-label" style="color: black;">Số điện thoại của xe: </label>
-                                <input type="text" class="form-control" th:field="${xe.SDT}" placeholder="" required>
+                                <input type="text" class="form-control" th:value="${xe.SDT}" id = "SDT" name="SDT" placeholder="" required>
+                            </fieldset>
+                            <fieldset>
+                                <label class="form-label" style="color: black;">Thời gian xin vận hành: </label>
+                                <input type="date" class="form-control" th:value="${pdkt.ThoiGianBatDauVanHanh}" id="ThoiGianBatDauVanHanh" name="ThoiGianBatDauVanHanh" placeholder="" required>
                             </fieldset>
                             <fieldset>
                                 <label class="form-label" style="color: black;">Loại xe: </label>
@@ -56,12 +60,13 @@
                                     <option value="">--Chọn Loại xe--</option>
                                     <option th:each="loaiXe : ${loaiXes}" th:value = "${loaiXe.MaLX}" th:text="${loaiXe.TenLoaiXe}"></option>
                             </select>
+                            
                             <br>
                             <fieldset>
                                 <label class="form-label" style="color: black;">Chọn tuyến: </label>
                                     <select class = "form-control" id = "tuyen" name="tuyen.MaTuyen">
                                             <option value="">--Chọn Tuyến--</option>
-                                            <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.DiemDi}+' -> '+ ${tuyen.DiemDen} +' | Thời gian xuất bến: '+ ${tuyen.ThoiGianXuatBen}+' | Thời Gian Về Bến: ' + ${tuyen.ThoiGianVeBen}"></option>
+                                            <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.diemDi.DiaDiem}+' -> '+ ${tuyen.diemDen.DiaDiem} +' | Thời gian xuất bến: '+ ${tuyen.ThoiGianXuatBen}+' | Thời Gian Về Bến: ' + ${tuyen.ThoiGianVeBen}"></option>
                                     </select>
                             </fieldset>
                             <br>
