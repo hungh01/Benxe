@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,10 @@ public class TaiKhoanController {
     private KhachHangService khachHangService;
 
     @GetMapping("/login")
-    public String login(Model model, HttpSession session, Authentication authentication) {
+    public String login(@RequestHeader(value = "referer", defaultValue = "") String referrer,Model model, HttpSession session, Authentication authentication) {
+        if(!referrer.equals("http://localhost:7070/login")){
+            session.setAttribute("PreviousURLData", referrer);
+        }
         if (authentication != null && authentication.isAuthenticated()) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             session.setAttribute("infoUser", userDetails);
@@ -46,7 +51,7 @@ public class TaiKhoanController {
                 return "redirect:/nhanvien";
             } else if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
-                return "redirect:/khachhang";
+                return "redirect:/";
             } else if (userDetails.getAuthorities().stream()
                     .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
                 return "redirect:/nhaxe";

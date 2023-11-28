@@ -7,53 +7,41 @@
     	<title>Bến Xe Miền Đông</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <th:block th:replace="layoutuser :: link-css"></th:block>
-        <style>
-            table {
-                border-collapse: collapse;
-
-            }
-    
-            th, td {
-                border: 1px solid black;
-                padding: 8px;
-                text-align: left;
-            }
-    
-            th {
-                background-color: #f2f2f2;
-            }
-        </style>
+        <th:block th:replace="layout :: link-css"></th:block>
     </head>
-
 <body>
-    <th:block th:replace="layoutuser :: header"></th:block>
-    <section class="map">
-        <div style="position: absolute; top:0; right: 0;">
-            <div class="page-contact-direction-button" style="padding: 100px 100px 0px 0px;">
-                <a href="/login"><i class="fa fa-home"></i>Về Trang Chủ</a>
-            </div>
-        </div>
-        <br>
-        <br>
-        <br>    
+    <section class="map" style="background-image:url(/img/banner-bg.jpg) !important;">
+        <th:block th:replace="layout :: header"></th:block>
         <div class="container">
-            <table class="table">
-                <tr>
-                    <th>Ngày đặt</th>
-                    <th>Nhà xe</th>
-                    <th>Biển kiểm soát</th>
-                    <th>Ngày đi</th>
-                    <th>Vị trí lên xe</th>
-                </tr>
-                <tr th:each="pdv : ${phieuDatVes}">
-                    <td th:text="${pdv.NgayDat}"></td>
-                    <td th:text="${pdv.chuyenXe.xe.chuXe.TenChuXe}"></td>
-                    <td th:text="${pdv.chuyenXe.xe.BKS}"></td>
-                    <td th:text="${pdv.chuyenXe.NgayChay}"></td>
-                    <td th:text="${pdv.ViTriLenXe}"></td>
-                </tr>
-            </table>
+            <main class="table">
+                <section class="table__header">
+                    <h1 style="margin-left: 30px; font-family: Comic Sans MScursive;">Vé của bạn</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="  Tìm theo...">
+                        <img src="/img/search.png" alt="">
+                    </div>
+                </section>
+                <section class="table__body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ngày đặt<span class="icon-arrow">&UpArrow;</span></th>
+                                <th>Nhà xe<span class="icon-arrow">&UpArrow;</span></th>
+                                <th>Biển kiểm soát<span class="icon-arrow">&UpArrow;</span></th>
+                                <th>Ngày đi<span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pdv : ${phieuDatVes}">
+                                <td th:text="${pdv.NgayDat}"></td>
+                                <td th:text="${pdv.chuyenXe.xe.chuXe.TenChuXe}"></td>
+                                <td th:text="${pdv.chuyenXe.xe.BKS}"></td>
+                                <td th:text="${pdv.chuyenXe.NgayChay}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </main>
         </div>
     </section>
 
@@ -148,8 +136,8 @@
             </div>
         </div>
     </section>
-    <th:block th:replace="layoutuser :: footer"></th:block>
-    <th:block th:replace="layoutuser :: link-javascript"></th:block>
+    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="layout :: link-javascript"></th:block>
     <script type="text/javascript">
         $(document).ready(function() {
             // navigation click actions 
@@ -185,6 +173,8 @@
                 log: function() { }
             };
         }
+
         </script>
+        <script src="/js/table.js"></script>
 </body>
 </html>

@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.BenXe.Model.BaiDauXe;
 import com.example.BenXe.Model.ChuXe;
+import com.example.BenXe.Model.ChuyenXe;
+import com.example.BenXe.Model.GheCuaChuyen;
 import com.example.BenXe.Model.PhieuDangKyTuyen;
 import com.example.BenXe.Model.Tuyen;
 import com.example.BenXe.Model.Xe;
 import com.example.BenXe.Service.BaiDauXeService;
 import com.example.BenXe.Service.ChuXeService;
+import com.example.BenXe.Service.ChuyenXeService;
+import com.example.BenXe.Service.GheCuaChuyenService;
 import com.example.BenXe.Service.GiaVeService;
 import com.example.BenXe.Service.LoaiXeService;
 import com.example.BenXe.Service.PhieuDangKyTuyenService;
@@ -49,10 +53,31 @@ public class HomeController {
     private BaiDauXeService baiDauXeService;
     @Autowired 
     private PhieuDangKyTuyenService phieuDangKyTuyenService;
+    @Autowired
+    private ChuyenXeService chuyenXeService;
+    @Autowired
+    private GheCuaChuyenService gheCuaChuyenService;
     
         @GetMapping
-        public String home(){
+        public String home(Model model){
+            List<String> tuyens = tuyenService.getDiemDen();
+            LocalDate ngaydi = null;
+            model.addAttribute("tuyens", tuyens);
+            model.addAttribute("ngaydi", ngaydi);
             return "index";
+        }
+
+        @GetMapping("/timve")
+        public String timve(String diemdi,String diemden, LocalDate ngaydi, Model model) {
+        List<ChuyenXe> findChuyenXes = new ArrayList<ChuyenXe>();
+        List<ChuyenXe> cxs = chuyenXeService.getChuyenXeByNgayChay(ngaydi);
+        for (ChuyenXe cx : cxs)
+            if (cx.getTuyen().getDiemDi().getDiaDiem().equals(diemdi) && cx.getTuyen().getDiemDen().getDiaDiem().equals(diemden) && cx.getSoViTriConTrong() > 0)
+                findChuyenXes.add(cx);
+        List<GheCuaChuyen> gheCuaChuyens =gheCuaChuyenService.getAllGheCuaChuyens();
+        model.addAttribute("chuyenxes", findChuyenXes);
+        model.addAttribute("gheCuaChuyens", gheCuaChuyens);
+        return "timve";
         }
 
         @GetMapping("/contact")
@@ -91,5 +116,9 @@ public class HomeController {
             xeService.save(xe);
             phieuDangKyTuyenService.save(pdkt);
             return "redirect:/";
+        }
+        @GetMapping("/support")
+        public String getSupport(){
+            return"support";
         }
 }

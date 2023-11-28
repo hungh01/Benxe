@@ -1,97 +1,113 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.Thymeleaf.org">
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>Bến Xe Miền Đông</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
-        <th:block th:replace="layoutuser :: link-css"></th:block>
-        <style>
-            table {
-                border-collapse: collapse;
 
-            }
-    
-            th, td {
-                border: 1px solid black;
-                padding: 8px;
-                text-align: left;
-            }
-    
-            th {
-                background-color: #f2f2f2;
-            }
-            body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-        #geocoder { position: absolute; top: 10px; left: 10px; z-index: 1; }
-        </style>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bến Xe Miền Đông</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
 
 <body>
-    <th:block th:replace="layoutuser :: header"></th:block>
+    <section class="map" style="background-image:url(/img/banner-bg.jpg) !important;">
+        <th:block th:replace="layout :: header"></th:block>
+        <main class="table">
+            <div class="section-heading">
+                <h2>Thanh toán</h2>
+            </div>
+            <form class="payment-form" th:action="@{/khachhang/datve/{id}(id=${chuyenXe.MaChuyenXe})}" method="post">
+                <div class="col-md-6">
+                    <div class="" id="input">
+                        <label class="form-label" for="author">Họ tên khách hàng: </label>
+                        <input disabled th:value="${khachHang.TenKH}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="title">Nhà xe: </label>
+                        <input disabled th:value="${chuyenXe.xe.chuXe.TenChuXe}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Điểm đến: </label>
+                        <input disabled th:value="${chuyenXe.tuyen.diemDen.DiaDiem}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Thời gian xuất bến: </label>
+                        <input disabled th:value="${chuyenXe.tuyen.ThoiGianXuatBen}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Số tiền thanh toán: </label>
+                        <input id="amount" disabled th:value="${chuyenXe.giaVe.Gia}" style="width:100%; padding: 10px">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Loại xe: </label>
+                        <input disabled th:value="${chuyenXe.loaiXe.TenLoaiXe}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Giá vé: </label>
+                        <input id="amount" disabled th:value="${chuyenXe.giaVe.Gia}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Biển số xe: </label>
 
-    <section class="map">
-        <div class="container">
-            <form th:action="@{/khachhang/datve/{id}(id=${chuyenXe.MaChuyenXe})}" class="col-12" method="post">
-                <div class="col-12 mb-3">
-                    <label class="form-label" for="author">Họ tên khách hàng: </label>
-                    <br>
-                    <input disabled th:value ="${khachHang.TenKH}" style="width:100%; padding: 10px">
+                        <input disabled th:value="${chuyenXe.xe.BKS}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="author">Số điện thoại: </label>
+                        <input disabled th:value="${chuyenXe.xe.SDT}" style="width:100%; padding: 10px">
+                    </div>
+                    <div class="col-6 mb-3" style="padding-bottom: 10px;">
+                        <label class="form-label" for="author">Chọn ghế: </label>
+                        <select style="width:100%; padding: 10px" th:id="myBtnshowmodal" th:attr="data-target=myModal">
+
+                        </select>
+                        <div id="myModal" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <h2>Modal Header</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <table>
+                                        <tr th:each="ghe : ${gheCuaChuyens}">
+                                            <td class="ghe">
+                                                <div th:switch="${ghe.TrangThai}">
+                                                    <p th:case="${false}" th:text="${ghe.ghe.MoTa}"></p>
+                                                    <p th:case="${true}" th:text="${ghe.ghe.MoTa}"></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <h3>Modal Footer</h3>
+                                </div>
+                            </div>
+                            <!-- The Modal -->
+
+                        </div>
+
+
+                    </div>
                 </div>
-                <div class="col-12 mb-3">
-                    <label class="form-label" for="title">Nhà xe: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.xe.chuXe.TenChuXe}"  style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Điểm đến: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.tuyen.DiemDen}"  style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Thời gian xuất bến: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.tuyen.ThoiGianXuatBen}"  style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Loại xe: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.loaiXe.TenLoaiXe}"  style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Giá vé: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.giaVe.Gia}" style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Biển số xe: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.xe.BKS}" style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Số điện thoại: </label>
-                    <br>
-                    <input disabled th:value ="${chuyenXe.xe.SDT}" style="width:100%; padding: 10px">
-                </div>
-                <div class="col-6 mb-3">
-                    <label class="form-label" for="author">Vị trí lên xe: </label>
-                    <script src = "../js/mapuser.js"></script>
-                </div>
-                <div class="col-6 mb-3">
+
+                <div style="margin:auto; padding:15px;">
                     <label class="form-label" for="author">Ghi chú: </label>
-                    <br>
-                    <input th:value ="${phieuDatVe.GhiChu}" style="width:100%; padding: 10px" id ="GhiChu" name = "GhiChu">
+                    <input type="text" th:value="${phieuDatVe.GhiChu}" style="width:100%; padding: 10px" id="GhiChu"
+                        name="GhiChu">
                 </div>
-                <br>
                 <input class="btn btn-success" type="submit" value="Đặt vé">
             </form>
-        </div>
+        </main>
     </section>
-   
+
 
 
     <section id="most-visited">
@@ -179,14 +195,67 @@
                 <div class="col-md-12">
                     <div id="map">
 
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62693.68012682849!2d106.75180783253677!3d10.860579937660278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8ad820b6271%3A0x45060ac68fc6046!2zQuG6v24gWGUgTWnhu4FuIMSQw7RuZyBN4bubaQ!5e0!3m2!1svi!2s!4v1686013719636!5m2!1svi!2s" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen ></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62693.68012682849!2d106.75180783253677!3d10.860579937660278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8ad820b6271%3A0x45060ac68fc6046!2zQuG6v24gWGUgTWnhu4FuIMSQw7RuZyBN4bubaQ!5e0!3m2!1svi!2s!4v1686013719636!5m2!1svi!2s"
+                            width="100%" height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <th:block th:replace="layoutuser :: footer"></th:block>
-    <th:block th:replace="layoutuser :: link-javascript"></th:block>
-   
+    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="layout :: link-javascript"></th:block>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // navigation click actions 
+            $('.scroll-link').on('click', function (event) {
+                event.preventDefault();
+                var sectionID = $(this).attr("data-id");
+                scrollToID('#' + sectionID, 750);
+            });
+
+            // scroll to top action
+            $('.scroll-top').on('click', function (event) {
+                event.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            });
+
+            // mobile nav toggle
+            $('#nav-toggle').on('click', function (event) {
+                event.preventDefault();
+                $('#main-nav').toggleClass("open");
+            });
+        });
+    </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtnshowmodal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script src="/js/table.js"></script>
+    <script src="/js/defineVND.js"></script>
 </body>
+
 </html>

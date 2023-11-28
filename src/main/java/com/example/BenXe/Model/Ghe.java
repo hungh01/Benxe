@@ -27,17 +27,18 @@ public class Ghe {
 
     @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "ghe", cascade = CascadeType.ALL)
-    private List<PhieuDatVe> phieuDatVes;
+    private List<GheCuaChuyen> gheCuaChuyens;
+
 
     public Ghe() {
     }
 
-    public Ghe(Long Ghe, String MoTa, Boolean TrangThai, Xe xe, List<PhieuDatVe> phieuDatVes) {
+    public Ghe(Long Ghe, String MoTa, Boolean TrangThai, Xe xe, List<GheCuaChuyen> gheCuaChuyens) {
         this.Ghe = Ghe;
         this.MoTa = MoTa;
         this.TrangThai = TrangThai;
         this.xe = xe;
-        this.phieuDatVes = phieuDatVes;
+        this.gheCuaChuyens = gheCuaChuyens;
     }
 
     public Long getGhe() {
@@ -76,12 +77,12 @@ public class Ghe {
         this.xe = xe;
     }
 
-    public List<PhieuDatVe> getPhieuDatVes() {
-        return this.phieuDatVes;
+    public List<GheCuaChuyen> getGheCuaChuyens() {
+        return this.gheCuaChuyens;
     }
 
-    public void setPhieuDatVes(List<PhieuDatVe> phieuDatVes) {
-        this.phieuDatVes = phieuDatVes;
+    public void setGheCuaChuyens(List<GheCuaChuyen> gheCuaChuyens) {
+        this.gheCuaChuyens = gheCuaChuyens;
     }
 
     public Ghe Ghe(Long Ghe) {
@@ -104,8 +105,8 @@ public class Ghe {
         return this;
     }
 
-    public Ghe phieuDatVes(List<PhieuDatVe> phieuDatVes) {
-        setPhieuDatVes(phieuDatVes);
+    public Ghe gheCuaChuyens(List<GheCuaChuyen> gheCuaChuyens) {
+        setGheCuaChuyens(gheCuaChuyens);
         return this;
     }
 
@@ -117,12 +118,12 @@ public class Ghe {
             return false;
         }
         Ghe ghe = (Ghe) o;
-        return Objects.equals(Ghe, ghe.Ghe) && Objects.equals(MoTa, ghe.MoTa) && Objects.equals(TrangThai, ghe.TrangThai) && Objects.equals(xe, ghe.xe) && Objects.equals(phieuDatVes, ghe.phieuDatVes);
+        return Objects.equals(Ghe, ghe.Ghe) && Objects.equals(MoTa, ghe.MoTa) && Objects.equals(TrangThai, ghe.TrangThai) && Objects.equals(xe, ghe.xe) && Objects.equals(gheCuaChuyens, ghe.gheCuaChuyens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Ghe, MoTa, TrangThai, xe, phieuDatVes);
+        return Objects.hash(Ghe, MoTa, TrangThai, xe, gheCuaChuyens);
     }
 
     @Override
@@ -132,9 +133,9 @@ public class Ghe {
             ", MoTa='" + getMoTa() + "'" +
             ", TrangThai='" + isTrangThai() + "'" +
             ", xe='" + getXe() + "'" +
-            ", phieuDatVes='" + getPhieuDatVes() + "'" +
+            ", gheCuaChuyens='" + getGheCuaChuyens() + "'" +
             "}";
     }
-
+    
     
 }

@@ -4,6 +4,8 @@ package com.example.BenXe.Config;
 import com.example.BenXe.Repository.IKhachHangRepository;
 import com.example.BenXe.Service.CustomUserDetailService;
 import jakarta.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,6 +17,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.web.bind.annotation.RequestHeader;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+
 
 @Configuration
 @EnableWebSecurity
@@ -37,12 +46,11 @@ public class SecurityConfig {
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/assets/**","/fonts/**","/img/**", "/", "/register", "/error","/contact")
+                        .requestMatchers("/static/**","/css/**", "/js/**", "/assets/**","/fonts/**","/img/**", "/", "/register", "/error","/contact","/timve","/support","/layout.html")
                         .permitAll()
                         .requestMatchers("/admin")
                         .hasAnyAuthority("Admin")
@@ -71,6 +79,9 @@ public class SecurityConfig {
                             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
                             HttpSession session = request.getSession();
                             session.setAttribute("infoUser", userDetails);
+        
+                            String previousURLData = (String) request.getSession().getAttribute("PreviousURLData");
+
                             if (userDetails.getAuthorities().stream()
                                     .anyMatch(auth -> auth.getAuthority().equals("NhanVien"))) {
                                 response.sendRedirect("/nhanvien");
@@ -78,8 +89,8 @@ public class SecurityConfig {
                                     .anyMatch(auth -> auth.getAuthority().equals("Admin"))) {
                                 response.sendRedirect("/admin");
                             } else if (userDetails.getAuthorities().stream()
-                                    .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
-                                response.sendRedirect("/khachhang");
+                                .anyMatch(auth -> auth.getAuthority().equals("KhachHang"))) {
+                                 response.sendRedirect(previousURLData);
                             } else if (userDetails.getAuthorities().stream()
                             .anyMatch(auth -> auth.getAuthority().equals("NhaXe"))) {
                                 response.sendRedirect("/nhaxe");
@@ -89,11 +100,13 @@ public class SecurityConfig {
                             } else {
                                 response.sendRedirect("/");
                             }
+                            
                         }))
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret")
                         .tokenValiditySeconds(86400)
                         .userDetailsService(userDetailsService()))
                 .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedPage("/403"))
                 .build();
+                
     }
 }

@@ -18,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.BenXe.Model.ChuXe;
 import com.example.BenXe.Model.ChuyenXe;
 import com.example.BenXe.Model.CustomTaiKhoanDetail;
+import com.example.BenXe.Model.Ghe;
+import com.example.BenXe.Model.GheCuaChuyen;
 import com.example.BenXe.Model.HoaDon;
 import com.example.BenXe.Model.PhieuDangKyTuyen;
 import com.example.BenXe.Model.Xe;
 import com.example.BenXe.Service.ChuyenXeService;
+import com.example.BenXe.Service.GheCuaChuyenService;
+import com.example.BenXe.Service.GheService;
 import com.example.BenXe.Service.HoaDonService;
 import com.example.BenXe.Service.TaiKhoanService;
 
@@ -34,6 +38,10 @@ public class HomeControllerXe {
     private ChuyenXeService chuyenXeService;
     @Autowired
     private HoaDonService hoaDonService;
+    @Autowired
+    private GheService gheService;
+    @Autowired
+    private GheCuaChuyenService gheCuaChuyenService;
 
     @GetMapping
     public String chuyenxe(Model model, Authentication authentication) {
@@ -56,13 +64,25 @@ public class HomeControllerXe {
         List<Xe> cx = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getXes();
         Xe xe = cx.get(0);
         PhieuDangKyTuyen pdkt = xe.getPhieuDangKyTuyens().get(0);
+
         chuyen.setSoViTriConTrong(xe.getSoGhe());
         chuyen.setXe(xe);
         chuyen.setTuyen(pdkt.getTuyen());
         chuyen.setLoaiXe(xe.getLoaiXe());
         chuyen.setGiaVe(pdkt.getGiaVe());
+
         chuyenXeService.save(chuyen);
+
+        List<Ghe> ghes = gheService.getAllGhes();
+        for(Ghe ghe : ghes) {
+            GheCuaChuyen gheCuaChuyen = new GheCuaChuyen();
+            gheCuaChuyen.setChuyenXe(chuyen);
+            gheCuaChuyen.setGhe(ghe);
+            gheCuaChuyen.setTrangThai(false);
+            gheCuaChuyenService.save(gheCuaChuyen);
+        }
         return "redirect:/xe";
+
     }
 
     @GetMapping("/xemkhachhang/{id}")

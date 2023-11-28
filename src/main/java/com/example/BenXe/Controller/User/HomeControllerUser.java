@@ -53,7 +53,7 @@ public class HomeControllerUser {
         LocalDate ngaydi = null;
         model.addAttribute("tuyens", tuyens);
         model.addAttribute("ngaydi", ngaydi);
-        return "user/home/index";
+        return "index";
     }
 
     @GetMapping("/xemvedadat")
@@ -65,16 +65,7 @@ public class HomeControllerUser {
         return "user/home/xemvedadat";
     }
 
-    @GetMapping("/timve")
-    public String timve(String diemden, LocalDate ngaydi, Model model) {
-        List<ChuyenXe> findChuyenXes = new ArrayList<ChuyenXe>();
-        List<ChuyenXe> cxs = chuyenXeService.getChuyenXeByNgayChay(ngaydi);
-        for (ChuyenXe cx : cxs)
-            if (cx.getTuyen().getDiemDen().equals(diemden) && cx.getSoViTriConTrong() > 0)
-                findChuyenXes.add(cx);
-        model.addAttribute("chuyenxes", findChuyenXes);
-        return "user/home/timve";
-    }
+    
 
     @GetMapping("/datve/{id}")
     public String datveForm(@PathVariable("id") Long id, Authentication authentication, Model model) {
@@ -85,6 +76,7 @@ public class HomeControllerUser {
         model.addAttribute("khachHang", khachHang);
         model.addAttribute("chuyenXe", cx);
         model.addAttribute("phieuDatVe", new PhieuDatVe());
+        model.addAttribute("gheCuaChuyens", cx.getGheCuaChuyens());
         return "user/home/datve";
     }
 

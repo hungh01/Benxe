@@ -1,66 +1,168 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.Thymeleaf.org">
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>Bến xe miền đông</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <th:block th:replace="layout :: link-css"></th:block>
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bến xe miền đông</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="background.js"></script>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
 
 <body>
-    <th:block th:replace="layout :: header"></th:block>
     <section class="banner" id="top">
+        <div class="background-container" id="backgroundContainer">
+            <!-- Các hình nền sẽ được thêm vào đây bằng JavaScript -->
+            <video autoplay muted loop id="video-bg">
+                <source src="img/aboutVietNam.mp4" type="video/mp4">
+                <!-- Thay "your-video.mp4" bằng đường dẫn thực của video của bạn -->
+              </video>
+          </div>
+        </div>
+        <th:block th:replace="layout :: header"></th:block>
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
                     <div class="left-side">
-                        <div class="logo">
-                            <img src="img/img.png" style="width:20%;height:20%" alt="Flight Template" >
-                        </div>
-                        <div class="tabs-content">
-                            <ul class="social-links">
-                                <li><a href="https://www.facebook.com/nguyenduyhhung/">Follow <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Follow <em>Youtube</em><i class="fa fa-youtube"></i></a></li>
-                                <li><a href="https://www.instagram.com/hun__sama/">Follow <em>Instagram</em><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="page-direction-button">
-                            <a href="contact"><i class="fa fa-phone"></i>Đăng ký làm đối tác</a>
+                        <br>
+                        <div>
+                            <div class="tabs-content">
+                                <ul class="social-links">
+                                    <li><a href="https://www.facebook.com/nguyenduyhhung/">Follow <em>Facebook</em><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Follow <em>Youtube</em><i class="fa fa-youtube"></i></a></li>
+                                    <li><a href="https://www.instagram.com/hun__sama/">Follow <em>Instagram</em><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <section id="first-tab-group" class="tabgroup">
                         <div id="tab1">
-                            <div class="submit-form">
-                                <h4><em>Tìm chuyến xe ngay!</em></h4>
-                                <form id="form" action="/login" method="get">
+                            <div class="submit-form" style="border-radius: 5% 5% 5% 5%;">
+                            
+                                    <h4><b>Mua vé, gửi hàng bến xe đều có!</b></h4>
+                                <h6><em>
+                                    Hãy để chúng tôi giúp bạn tìm chuyến xe nhé...
+                                </em></h6>
+                                <form id="form" action="/timve" method="get">
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div >
+                                            <fieldset style="color:white">
+                                                <label>Ngày đi</label>
+                                                <input type="date" class="form-control date" id="ngaydi" name="ngaydi" placeholder="Ngày đi"
+                                                    required>
+                                            </fieldset>
+                                        </div>
+                                        <div >
                                             <fieldset>
-                                                <button type="submit" id="form-submit" class="btn"> Đăng nhập và đặt vé ngay!</button>
+                                                <label>Điểm đi:</label>
+                                                <br>
+                                                <br>
+                                                <select class="form-control" id="diemdi" name="diemdi" >
+                                                    <option value="">--Chọn điểm đi--</option>
+                                                    <option th:each="tuyen : ${tuyens}" th:value="${tuyen}"
+                                                        th:text="${tuyen}"></option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div>
+                                            <fieldset>
+                                                <label>Điểm đến:</label>
+                                                <br>
+                                                <br>
+                                                <select class="form-control" id="diemden" name="diemden">
+                                                    <option value="">--Chọn điểm đến--</option>
+                                                    <option th:each="tuyen : ${tuyens}" th:value="${tuyen}"
+                                                        th:text="${tuyen}"></option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6" style="place-content: center;">
+                                            <br>
+                                            <fieldset>
+                                                <button style="background:linear-gradient(180deg,rgba(254,152,0,1),rgba(254,152,0,0.9));color:white" type="submit" id="form-submit" class="btn">Tìm vé ngay</button>
                                             </fieldset>
                                         </div>
                                     </div>
                                 </form>
-                                <form id="form" action="/register" method="get">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <fieldset>
-                                                <button type="submit" id="form-submit" class="btn">Đăng ký tài khoản để đặt vé!</button>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </form>
-        
+                                
                             </div>
                         </div>
+
                     </section>
                 </div>
             </div>
+
+        </div>
+        <div class="background2ofpage1">
+            <ul class="background2ofpage1-list">
+                <li>
+                    <p>Từ <span>Thành phố hồ chí minh</span></p>
+                    <div class="background2ofpage1-list-content">
+                        <div class="background2ofpage1-list-content-text">
+                            <p style="font-weight: lighter;">Chỉ từ</p>
+                            <i><p style="font-size: 22px;">250.000đ</p></i>
+                            <i><p>VND</p></i>  
+                        </div>
+                        <img src="https://vja-ui.useleadr.com/wp-content/themes/vietjetair/assets/images/bg-fare.svg">
+                    </div>
+                    <p>Đến <span>Đăk Lăk</span></p>
+                
+                </li>
+                <li>
+                    <p>Từ <span>Thành phố hồ chí minh</span></p>
+                    <div class="background2ofpage1-list-content">
+                        <div class="background2ofpage1-list-content-text">
+                            <p style="font-weight: lighter;">Chỉ từ</p>
+                            <i><p style="font-size: 22px;">350.000đ</p></i>
+                            <i><p>VND</p></i>  
+                        </div>
+                        <img src="https://vja-ui.useleadr.com/wp-content/themes/vietjetair/assets/images/bg-fare.svg">
+                    </div>
+                    <p>Đến <span>Đà Nẵng</span></p>
+                
+                </li><li>
+                    <p>Từ <span>Thành phố hồ chí minh</span></p>
+                    <div class="background2ofpage1-list-content">
+                        <div class="background2ofpage1-list-content-text">
+                            <p style="font-weight: lighter;">Chỉ từ</p>
+                            <i><p style="font-size: 22px;">400.000đ</p></i>
+                            <i><p>VND</p></i>  
+                        </div>
+                        <img src="https://vja-ui.useleadr.com/wp-content/themes/vietjetair/assets/images/bg-fare.svg">
+                    </div>
+                    <p>Đến <span>Cần Thơ</span></p>
+                
+                </li><li>
+                    <p>Từ <span>Thành phố hồ chí minh</span></p>
+                    <div class="background2ofpage1-list-content">
+                        <div class="background2ofpage1-list-content-text">
+                            <p style="font-weight: lighter;">Chỉ từ</p>
+                            <i><p style="font-size: 22px;">200.000đ</p></i>
+                            <i><p>VND</p></i>  
+                        </div>
+                        <img src="https://vja-ui.useleadr.com/wp-content/themes/vietjetair/assets/images/bg-fare.svg">
+                    </div>
+                    <p>Đến <span>Phan Thiết</span></p>
+                
+                </li><li>
+                    <p>Từ <span>Thành phố hồ chí minh</span></p>
+                    <div class="background2ofpage1-list-content">
+                        <div class="background2ofpage1-list-content-text">
+                            <p style="font-weight: lighter;">Chỉ từ</p>
+                            <i><p style="font-size: 22px;">150.000đ</p></i>
+                            <i><p>VND</p></i>  
+                        </div>
+                        <img src="https://vja-ui.useleadr.com/wp-content/themes/vietjetair/assets/images/bg-fare.svg">
+                    </div>
+                    <p>Đến <span>Long An</span></p>
+                
+                </li>
+            </ul>
         </div>
     </section>
 
@@ -68,9 +170,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="section-heading">
-                        <h2>Các đối tác nhà xe</h2>
+                    <div style="text-align: center;">
+                        <h1><b>BẾN XE MIỀN ĐÔNG<b></h1>
+                        <p>
+                            Công ty TNHH Một thành viên Bến xe Miền Đông (gọi tắt là Bến xe Miền Đông) tọa lạc tại số 292 Đinh Bộ Lĩnh, Phường 26, Quận Bình Thạnh, TP.HCM; là đơn vị trực thuộc Tổng Công ty Cơ khí Giao thông Vận tải Sài Gòn – TNHH một thành viên; là một trong các Bến xe lớn nhất cả nước. Với lợi thế tọa lạc tại cửa ngõ phía Đông của Thành phố, Bến xe Miền Đông phục vụ sự đi lại của hành khách đến các tỉnh thành trong cả nước.
+                        </p>
                     </div>
+                    <div class="col-md-4">
+                        <h3>Tầm nhìn</h3>
+                        <p>Bến xe Miền Đông hướng tới mục tiêu trở thành doanh nghiệp kinh doanh dịch vụ vận tải có uy tín hàng đầu, được xã hội ghi nhận và tự hào.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Sứ mệnh</h3>
+                        <p>Mang đến cho khách hàng sự hài lòng khi sử dụng dịch vụ của Bến xe Miền Đông, góp phần vào sự phát triển bền vững của Tổng công ty SAMCO, của ngành GTVT và của toàn xã hội.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Giá trị cốt lõi</h3>
+                        <p>Luôn đặt uy tín và chất lượng dịch vụ của Bến xe Miền Đông lên hàng đầu
+                            Nhân viên: Đoàn kết, Tận tâm, Chuyên nghiệp, Năng động, Sáng tạo; Luôn nỗ lực vì sự phát triển bền vững của Bến xe Miền Đông.
+                            Mang đến cho bạn niềm vui khi gặp gỡ với khách hàng.</p>
+                    </div>
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <h2><b>Đối tác chiến lược</b></h2>
                 </div>
                 <div class="col-md-12">
                     <div id="owl-mostvisited" class="owl-carousel owl-theme">
@@ -145,29 +267,34 @@
     <section class="map">
         <div class="container">
             <div class="row">
+                <br><br>
                 <div class="col-md-12">
                     <div id="map">
 
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62693.68012682849!2d106.75180783253677!3d10.860579937660278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8ad820b6271%3A0x45060ac68fc6046!2zQuG6v24gWGUgTWnhu4FuIMSQw7RuZyBN4bubaQ!5e0!3m2!1svi!2s!4v1686013719636!5m2!1svi!2s" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen ></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62693.68012682849!2d106.75180783253677!3d10.860579937660278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8ad820b6271%3A0x45060ac68fc6046!2zQuG6v24gWGUgTWnhu4FuIMSQw7RuZyBN4bubaQ!5e0!3m2!1svi!2s!4v1686013719636!5m2!1svi!2s"
+                            width="100%" height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
+                <br>
+                <br>
             </div>
         </div>
     </section>
     <th:block th:replace="layout :: footer"></th:block>
     <th:block th:replace="layout :: link-javascript"></th:block>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             // navigation click actions 
-            $('.scroll-link').on('click', function(event){
+            $('.scroll-link').on('click', function (event) {
                 event.preventDefault();
                 var sectionID = $(this).attr("data-id");
                 scrollToID('#' + sectionID, 750);
             });
             // scroll to top action
-            $('.scroll-top').on('click', function(event) {
+            $('.scroll-top').on('click', function (event) {
                 event.preventDefault();
-                $('html, body').animate({scrollTop:0}, 'slow');         
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
             });
             // mobile nav toggle
             $('#nav-toggle').on('click', function (event) {
@@ -176,11 +303,11 @@
             });
         });
         // scroll function
-        function scrollToID(id, speed){
+        function scrollToID(id, speed) {
             var offSet = 0;
             var targetOffset = $(id).offset().top - offSet;
             var mainNav = $('#main-nav');
-            $('html,body').animate({scrollTop:targetOffset}, speed);
+            $('html,body').animate({ scrollTop: targetOffset }, speed);
             if (mainNav.hasClass("open")) {
                 mainNav.css("height", "1px").removeClass("in").addClass("collapse");
                 mainNav.removeClass("open");
@@ -188,9 +315,10 @@
         }
         if (typeof console === "undefined") {
             console = {
-                log: function() { }
+                log: function () { }
             };
         }
-        </script>
+    </script>
 </body>
+
 </html>

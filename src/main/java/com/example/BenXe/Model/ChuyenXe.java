@@ -59,10 +59,15 @@ public class ChuyenXe {
     @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
     private List<PhieuDatVe> phieuDatVes;
 
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "chuyenXe", cascade = CascadeType.ALL)
+    private List<GheCuaChuyen> gheCuaChuyens;
+
+
     public ChuyenXe() {
     }
 
-    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Double GiaTriChuyenXe, LocalDate NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons, List<PhieuDatVe> phieuDatVes) {
+    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Double GiaTriChuyenXe, LocalDate NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons, List<PhieuDatVe> phieuDatVes, List<GheCuaChuyen> gheCuaChuyens) {
         this.MaChuyenXe = MaChuyenXe;
         this.SoViTriConTrong = SoViTriConTrong;
         this.GiaTriChuyenXe = GiaTriChuyenXe;
@@ -74,6 +79,7 @@ public class ChuyenXe {
         this.giaVe = giaVe;
         this.hoaDons = hoaDons;
         this.phieuDatVes = phieuDatVes;
+        this.gheCuaChuyens = gheCuaChuyens;
     }
 
     public Long getMaChuyenXe() {
@@ -164,6 +170,14 @@ public class ChuyenXe {
         this.phieuDatVes = phieuDatVes;
     }
 
+    public List<GheCuaChuyen> getGheCuaChuyens() {
+        return this.gheCuaChuyens;
+    }
+
+    public void setGheCuaChuyens(List<GheCuaChuyen> gheCuaChuyens) {
+        this.gheCuaChuyens = gheCuaChuyens;
+    }
+
     public ChuyenXe MaChuyenXe(Long MaChuyenXe) {
         setMaChuyenXe(MaChuyenXe);
         return this;
@@ -219,6 +233,11 @@ public class ChuyenXe {
         return this;
     }
 
+    public ChuyenXe gheCuaChuyens(List<GheCuaChuyen> gheCuaChuyens) {
+        setGheCuaChuyens(gheCuaChuyens);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -227,12 +246,12 @@ public class ChuyenXe {
             return false;
         }
         ChuyenXe chuyenXe = (ChuyenXe) o;
-        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons) && Objects.equals(phieuDatVes, chuyenXe.phieuDatVes);
+        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons) && Objects.equals(phieuDatVes, chuyenXe.phieuDatVes) && Objects.equals(gheCuaChuyens, chuyenXe.gheCuaChuyens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaChuyenXe, SoViTriConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons, phieuDatVes);
+        return Objects.hash(MaChuyenXe, SoViTriConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons, phieuDatVes, gheCuaChuyens);
     }
 
     @Override
@@ -249,8 +268,9 @@ public class ChuyenXe {
             ", giaVe='" + getGiaVe() + "'" +
             ", hoaDons='" + getHoaDons() + "'" +
             ", phieuDatVes='" + getPhieuDatVes() + "'" +
+            ", gheCuaChuyens='" + getGheCuaChuyens() + "'" +
             "}";
     }
-    
+
 
 }

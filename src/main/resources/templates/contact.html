@@ -23,27 +23,14 @@
     </head>
 
 <body>
-
-
     <section class="page-heading" id="top">
-        <div class="container" style="margin: 0 !important; width: 100%; padding: 0;">
+        <th:block th:replace="layout :: header"></th:block>
+        <div class="background-container">
             <div class="col-md-12" style="padding: 0 !important;">
                 <div class="logo" style="padding: 0">
                     <img src="img/header.png" alt="Flight Template">
                 </div>
             </div>
-
-            <div style="position: absolute; top:0;">
-                <div class="logo" style="text-align: center !important; padding: 20px 0px 0px 100px;">
-                    <img src="img/img.png" alt="header" style="width: 100px; height: 100px">
-                </div>
-            </div>
-            <div style="position: absolute; top:0; right: 0;">
-                <div class="page-contact-direction-button" style="padding: 170px 100px 0px 0px;">
-                    <a href="/"><i class="fa fa-home"></i>Về Trang Chủ</a>
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -119,7 +106,7 @@
                                     <label class="form-label" style="color: whitesmoke;">Chọn tuyến: </label>
                                         <select class = "form-control" id = "tuyen" name="tuyen.MaTuyen">
                                                 <option value="">--Chọn Tuyến--</option>
-                                                <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.DiemDi}+' -> '+ ${tuyen.DiemDen} +' | Thời gian xuất bến: '+ ${tuyen.ThoiGianXuatBen}+' | Thời Gian Về Bến: ' + ${tuyen.ThoiGianVeBen}"></option>
+                                                <option th:each="tuyen : ${tuyens}" th:value = "${tuyen.MaTuyen}" th:text="${tuyen.diemDi.DiaDiem}+' -> '+ ${tuyen.diemDen.DiaDiem} +' | Thời gian xuất bến: '+ ${tuyen.ThoiGianXuatBen}+' | Thời Gian Về Bến: ' + ${tuyen.ThoiGianVeBen}"></option>
                                         </select>
                                         <br>
                                 </fieldset>
@@ -196,24 +183,8 @@
         </div>
     </section>
 
-
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="primary-button">
-                        <a href="#" class="scroll-top">Back To Top</a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <p>
-                        Đồ án cơ sở
-                |</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="layout :: link-javascript"></th:block>
 
 
     
