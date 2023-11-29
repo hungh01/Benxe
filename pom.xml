@@ -11,9 +11,13 @@
 	<groupId>com.example</groupId>
 	<artifactId>BenXe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<name>BenXe</name>
+	
 	<description>Demo project for Spring Boot</description>
+	
 	<packaging>jar</packaging>
+	
 	<properties>
 		<java.version>17</java.version>
 	</properties>
