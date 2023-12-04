@@ -15,24 +15,23 @@
 
     <section class="map" style="background-image: url(img/banner-bg.jpg);">
         <th:block th:replace="layout :: header"></th:block>
-        <main class="table">
+        <main class="table" style="height:80vh !important">
             <section class="table__header">
                 <h1 style="margin-left: 30px; font-family: Comic Sans MScursive;">Vé dành cho bạn</h1>
                 <div class="input-group">
                     <input type="search" placeholder="  Tìm theo...">
                     <img src="img/search.png" alt="">
                 </div>
-
             </section>
             <section class="table__body">
                 <table>
                     <thead>
                         <tr>
                             <th> Nhà xe <span class="icon-arrow">&UpArrow;</span></th>
-                            <th> Biển kiểm soát <span class="icon-arrow">&UpArrow;</span></th>
-                            <th> Ghế trống <span class="icon-arrow">&UpArrow;</span></th>
+                            <th> BKS <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Xem </th>
-                            <th> Đơn giá vé <span class="icon-arrow">&UpArrow;</span></th>
+                            <th> Đơn giá (/người) <span class="icon-arrow">&UpArrow;</span></th>
+                            <th> Đơn giá hàng(/m³) <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Điểm đi <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Điểm đến <span class="icon-arrow">&UpArrow;</span></th>
                             <th> Giờ chạy <span class="icon-arrow">&UpArrow;</span></th>
@@ -44,42 +43,86 @@
                             <td th:text="${cx.xe.chuXe.TenChuXe}"></td>
                             <td th:text="${cx.xe.BKS}"></td>
                             <td>
-                                <a th:text="${cx.SoViTriConTrong}"></a>
-                            </td>
-                            <td>
                                 <div class="model-apear">
                                     <button style="border-radius: none !important;" class="status shipped"
                                         th:id="'myBtn_' + ${iterStat.index}"
                                         th:attr="data-target='#myModal_' + ${iterStat.index}">
                                         Xem ghế trống
                                     </button>
-                                    <div class="modal" th:id="'myModal_' + ${iterStat.index}">
+                                    <div class="modal" th:id="'myModal_' + ${iterStat.index}" style="margin-left: 100px;">
                                         <!-- Modal content -->
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <span class="close">&times;</span>
-                                                <h2>Ghế</h2>
+                                                <div style="text-align:center">
+                                                    <h3>Tầng dưới</h3>
+                                                </div>
+                                                <div style="text-align:center">
+                                                    <span class="close">&times;</span>
+                                                    <h3>Tầng trên</h3>
+
+                                                </div>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="table_seats">
-                                                    <div th:each="ghe : ${gheCuaChuyens}">
-                                                            <div th:if="${ghe.chuyenXe.MaChuyenXe}==${cx.MaChuyenXe}">
-                                                                <div th:switch="${ghe.TrangThai}">
-                                                                    <p th:case="${false}" th:text="${ghe.ghe.MoTa}"></p>
-                                                                    <p th:case="${true}" th:text="${ghe.ghe.MoTa}"></p>
+                                                <div class="table_seats" style="margin-right: 20px;">
+                                                    <div th:each="ghe : ${cx.gheCuaChuyens}" th:if="!${ghe.ghe.Tang}">
+                                                        <div class="seat-wrapper" data-seat-id="${ghe.ghe.Ghe}">
+                                                            <div class="seat" th:switch="${ghe.TrangThai}">
+                                                                <div class="seat_disabled" th:case="${true}">
+                                                                    <img class="img_seat" src="img/seat_disabled.svg"
+                                                                        alt="seat icon">
+                                                                    <span class="text_seat"
+                                                                        th:text="${ghe.ghe.MoTa}"></span>
+                                                                </div>
+                                                                <div class="seat_active" th:case="${false}">
+                                                                    <img class="img_seat" src="img/seat_active.svg"
+                                                                        alt="seat icon">
+                                                                    <span class="text_seat"
+                                                                        th:text="${ghe.ghe.MoTa}"></span>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div>
-                                                    Khu 2
+
+                                                <div class="table_seats" style="margin-left: 20px;">
+                                                    <div th:each="ghe : ${cx.gheCuaChuyens}" th:if="${ghe.ghe.Tang}">
+                                                        <div class="seat-wrapper" data-seat-id="${ghe.ghe.Id}">
+                                                            <div class="seat" th:switch="${ghe.TrangThai}">
+                                                                <div class="seat_disabled" th:case="${true}">
+                                                                    <img class="img_seat" src="img/seat_disabled.svg"
+                                                                        alt="seat icon">
+                                                                    <span class="text_seat"
+                                                                        th:text="${ghe.ghe.MoTa}"></span>
+                                                                </div>
+                                                                <div class="seat_active" th:case="${false}">
+                                                                    <img class="img_seat" src="img/seat_active.svg"
+                                                                        alt="seat icon">
+                                                                    <span class="text_seat"
+                                                                        th:text="${ghe.ghe.MoTa}"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <span>
+                                                    <img src="img/seat_active.svg">
+                                                    Chỗ còn trống
+                                                </span>
+                                                <span>
+                                                    <img src="img/seat_disabled.svg">
+                                                    Chỗ đã đặt
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </td>
-                            <td id="amount" th:text="${cx.giaVe.Gia}"></td>
+                            <td class="amount" th:text="${cx.giaVe.GiaHanhKhach}"></td>
+                            <td class="amount" th:text="${cx.giaVe.GiaHangHoa}"></td>
                             <td th:text="${cx.tuyen.diemDi.DiaDiem}"></td>
                             <td th:text="${cx.tuyen.diemDen.DiaDiem}"></td>
                             <td th:text="${cx.tuyen.ThoiGianXuatBen}"></td>
@@ -220,18 +263,41 @@
                 var modalId = '#' + $(this).closest('.modal').attr('id');
                 $(modalId).hide();
             });
-            // Iterate through modals and hide them when clicking outside
-            // $('[id^=myModal_]').each(function () {
-            //     var modalId = '#' + $(this).attr('id');
-            //     $(document).on('click', function (event) {
-            //         if (!$(event.target).closest(modalId).length && !$(event.target).is(modalId)) {
-            //             $(modalId).hide();
-            //         }
-            //     });
-            // });
         });
-
-        
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy ra danh sách các phần tử trong HTML có class "amount"
+        const amountList = document.querySelectorAll('.amount');
+    
+        // Chuyển đổi và cập nhật giá trị cho từng phần tử trong danh sách
+        amountList.forEach(convertAndSetCurrency);
+    
+        function convertAndSetCurrency(element) {
+            // Lấy giá trị số thực từ phần tử
+            const floatValue = parseFloat(element.innerText);
+    
+            // Chuyển đổi số thực sang định dạng tiền tệ VND
+            const currencyValue = convertToCurrency(floatValue, 'VND');
+    
+            // Đặt giá trị mới cho phần tử
+            element.innerText = currencyValue;
+        }
+    
+        function convertToCurrency(amount, currencyCode) {
+            try {
+                const formatter = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: currencyCode,
+                });
+    
+                return formatter.format(amount);
+            } catch (error) {
+                console.error("Error converting to currency:", error);
+                return "Error";
+            }
+        }
+    });
     </script>
 </body>
 

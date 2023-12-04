@@ -21,6 +21,10 @@ public class GheCuaChuyenService {
         Optional<GheCuaChuyen> optional =gheCuaChuyenRepository.findById(id);
         return optional.orElse(null);
     }
+    public GheCuaChuyen getGheCuaChuyenByChuyenGhe(String gheChuyenGhe,Long chuyen){
+        GheCuaChuyen optional = gheCuaChuyenRepository.findGheCuaChuyenbyChuyenGhe(gheChuyenGhe,chuyen);
+        return optional;
+    }
     public void save(GheCuaChuyen gheCuaChuyen){
         gheCuaChuyenRepository.save(gheCuaChuyen);
     }

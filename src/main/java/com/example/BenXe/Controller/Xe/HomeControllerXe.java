@@ -65,7 +65,9 @@ public class HomeControllerXe {
         Xe xe = cx.get(0);
         PhieuDangKyTuyen pdkt = xe.getPhieuDangKyTuyens().get(0);
 
-        chuyen.setSoViTriConTrong(xe.getSoGhe());
+        List<Ghe> ghes = gheService.getAllGhes();
+
+        chuyen.setSoViTriConTrong((long)36);
         chuyen.setXe(xe);
         chuyen.setTuyen(pdkt.getTuyen());
         chuyen.setLoaiXe(xe.getLoaiXe());
@@ -73,7 +75,6 @@ public class HomeControllerXe {
 
         chuyenXeService.save(chuyen);
 
-        List<Ghe> ghes = gheService.getAllGhes();
         for(Ghe ghe : ghes) {
             GheCuaChuyen gheCuaChuyen = new GheCuaChuyen();
             gheCuaChuyen.setChuyenXe(chuyen);

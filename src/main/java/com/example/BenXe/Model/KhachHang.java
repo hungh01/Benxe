@@ -5,6 +5,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "KhachHang")
@@ -34,53 +35,55 @@ public class KhachHang {
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
     private List<PhieuDatVe> phieuDatVes;
 
+
+
     public KhachHang() {
     }
 
-    public KhachHang(Long maKH, String tenKH, String diaChi, String email, String SDT, TaiKhoan taiKhoan, List<PhieuDatVe> phieuDatVes) {
-        MaKH = maKH;
-        TenKH = tenKH;
-        DiaChi = diaChi;
-        Email = email;
+    public KhachHang(Long MaKH, String TenKH, String DiaChi, String Email, String SDT, TaiKhoan taiKhoan, List<PhieuDatVe> phieuDatVes) {
+        this.MaKH = MaKH;
+        this.TenKH = TenKH;
+        this.DiaChi = DiaChi;
+        this.Email = Email;
         this.SDT = SDT;
         this.taiKhoan = taiKhoan;
         this.phieuDatVes = phieuDatVes;
     }
 
     public Long getMaKH() {
-        return MaKH;
+        return this.MaKH;
     }
 
-    public void setMaKH(Long maKH) {
-        MaKH = maKH;
+    public void setMaKH(Long MaKH) {
+        this.MaKH = MaKH;
     }
 
     public String getTenKH() {
-        return TenKH;
+        return this.TenKH;
     }
 
-    public void setTenKH(String tenKH) {
-        TenKH = tenKH;
+    public void setTenKH(String TenKH) {
+        this.TenKH = TenKH;
     }
 
     public String getDiaChi() {
-        return DiaChi;
+        return this.DiaChi;
     }
 
-    public void setDiaChi(String diaChi) {
-        DiaChi = diaChi;
+    public void setDiaChi(String DiaChi) {
+        this.DiaChi = DiaChi;
     }
 
     public String getEmail() {
-        return Email;
+        return this.Email;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public String getSDT() {
-        return SDT;
+        return this.SDT;
     }
 
     public void setSDT(String SDT) {
@@ -88,7 +91,7 @@ public class KhachHang {
     }
 
     public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
+        return this.taiKhoan;
     }
 
     public void setTaiKhoan(TaiKhoan taiKhoan) {
@@ -96,10 +99,76 @@ public class KhachHang {
     }
 
     public List<PhieuDatVe> getPhieuDatVes() {
-        return phieuDatVes;
+        return this.phieuDatVes;
     }
 
     public void setPhieuDatVes(List<PhieuDatVe> phieuDatVes) {
         this.phieuDatVes = phieuDatVes;
     }
+
+    public KhachHang MaKH(Long MaKH) {
+        setMaKH(MaKH);
+        return this;
+    }
+
+    public KhachHang TenKH(String TenKH) {
+        setTenKH(TenKH);
+        return this;
+    }
+
+    public KhachHang DiaChi(String DiaChi) {
+        setDiaChi(DiaChi);
+        return this;
+    }
+
+    public KhachHang Email(String Email) {
+        setEmail(Email);
+        return this;
+    }
+
+    public KhachHang SDT(String SDT) {
+        setSDT(SDT);
+        return this;
+    }
+
+    public KhachHang taiKhoan(TaiKhoan taiKhoan) {
+        setTaiKhoan(taiKhoan);
+        return this;
+    }
+
+    public KhachHang phieuDatVes(List<PhieuDatVe> phieuDatVes) {
+        setPhieuDatVes(phieuDatVes);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof KhachHang)) {
+            return false;
+        }
+        KhachHang khachHang = (KhachHang) o;
+        return Objects.equals(MaKH, khachHang.MaKH) && Objects.equals(TenKH, khachHang.TenKH) && Objects.equals(DiaChi, khachHang.DiaChi) && Objects.equals(Email, khachHang.Email) && Objects.equals(SDT, khachHang.SDT) && Objects.equals(taiKhoan, khachHang.taiKhoan) && Objects.equals(phieuDatVes, khachHang.phieuDatVes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(MaKH, TenKH, DiaChi, Email, SDT, taiKhoan, phieuDatVes);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " MaKH='" + getMaKH() + "'" +
+            ", TenKH='" + getTenKH() + "'" +
+            ", DiaChi='" + getDiaChi() + "'" +
+            ", Email='" + getEmail() + "'" +
+            ", SDT='" + getSDT() + "'" +
+            ", taiKhoan='" + getTaiKhoan() + "'" +
+            ", phieuDatVes='" + getPhieuDatVes() + "'" +
+            "}";
+    }
+
+    
 }

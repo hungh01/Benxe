@@ -30,16 +30,23 @@ public class GheCuaChuyen {
     @JoinColumn(name = "MaGhe")
     private Ghe ghe;
 
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne
+    @JoinColumn(name = "PhieuDatVe")
+    private PhieuDatVe phieuDatVe;
+
     @Column(name = "TrangThai")
     private Boolean TrangThai;
-    
+
+
     public GheCuaChuyen() {
     }
 
-    public GheCuaChuyen(Long GheCuaChuyen, ChuyenXe chuyenXe, Ghe ghe, Boolean TrangThai) {
+    public GheCuaChuyen(Long GheCuaChuyen, ChuyenXe chuyenXe, Ghe ghe, PhieuDatVe phieuDatVe, Boolean TrangThai) {
         this.GheCuaChuyen = GheCuaChuyen;
         this.chuyenXe = chuyenXe;
         this.ghe = ghe;
+        this.phieuDatVe = phieuDatVe;
         this.TrangThai = TrangThai;
     }
 
@@ -65,6 +72,14 @@ public class GheCuaChuyen {
 
     public void setGhe(Ghe ghe) {
         this.ghe = ghe;
+    }
+
+    public PhieuDatVe getPhieuDatVe() {
+        return this.phieuDatVe;
+    }
+
+    public void setPhieuDatVe(PhieuDatVe phieuDatVe) {
+        this.phieuDatVe = phieuDatVe;
     }
 
     public Boolean isTrangThai() {
@@ -94,6 +109,11 @@ public class GheCuaChuyen {
         return this;
     }
 
+    public GheCuaChuyen phieuDatVe(PhieuDatVe phieuDatVe) {
+        setPhieuDatVe(phieuDatVe);
+        return this;
+    }
+
     public GheCuaChuyen TrangThai(Boolean TrangThai) {
         setTrangThai(TrangThai);
         return this;
@@ -107,12 +127,12 @@ public class GheCuaChuyen {
             return false;
         }
         GheCuaChuyen gheCuaChuyen = (GheCuaChuyen) o;
-        return Objects.equals(GheCuaChuyen, gheCuaChuyen.GheCuaChuyen) && Objects.equals(chuyenXe, gheCuaChuyen.chuyenXe) && Objects.equals(ghe, gheCuaChuyen.ghe) && Objects.equals(TrangThai, gheCuaChuyen.TrangThai);
+        return Objects.equals(GheCuaChuyen, gheCuaChuyen.GheCuaChuyen) && Objects.equals(chuyenXe, gheCuaChuyen.chuyenXe) && Objects.equals(ghe, gheCuaChuyen.ghe) && Objects.equals(phieuDatVe, gheCuaChuyen.phieuDatVe) && Objects.equals(TrangThai, gheCuaChuyen.TrangThai);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(GheCuaChuyen, chuyenXe, ghe, TrangThai);
+        return Objects.hash(GheCuaChuyen, chuyenXe, ghe, phieuDatVe, TrangThai);
     }
 
     @Override
@@ -121,8 +141,10 @@ public class GheCuaChuyen {
             " GheCuaChuyen='" + getGheCuaChuyen() + "'" +
             ", chuyenXe='" + getChuyenXe() + "'" +
             ", ghe='" + getGhe() + "'" +
+            ", phieuDatVe='" + getPhieuDatVe() + "'" +
             ", TrangThai='" + isTrangThai() + "'" +
             "}";
     }
+    
     
 }

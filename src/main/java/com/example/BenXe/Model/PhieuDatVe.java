@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,6 +28,9 @@ public class PhieuDatVe {
 
     @Column(name = "DanhGiaChuyenXe")
     private String DanhGiaChuyenXe;
+
+    @Column(name = "HangHoa")
+    private Long HangHoa;
 
     @Fetch(FetchMode.JOIN)
     @ManyToOne
@@ -54,10 +58,15 @@ public class PhieuDatVe {
     private DiaDiem diaDiem;
 
 
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "GheCuaChuyen", cascade = CascadeType.ALL)
+    private List<GheCuaChuyen> gheCuaChuyens;
+
+
     public PhieuDatVe() {
     }
 
-    public PhieuDatVe(Long MaPhieuDatVe, String TinhTrangVe, LocalDate NgayDat, String GhiChu, String DanhGiaChuyenXe, NhanVien nhanVien, ChuyenXe chuyenXe, Ghe ghe, KhachHang khachHang, DiaDiem diaDiem) {
+    public PhieuDatVe(Long MaPhieuDatVe, String TinhTrangVe, LocalDate NgayDat, String GhiChu, String DanhGiaChuyenXe, NhanVien nhanVien, ChuyenXe chuyenXe, Ghe ghe, KhachHang khachHang, DiaDiem diaDiem, List<GheCuaChuyen> gheCuaChuyens) {
         this.MaPhieuDatVe = MaPhieuDatVe;
         this.TinhTrangVe = TinhTrangVe;
         this.NgayDat = NgayDat;
@@ -68,6 +77,23 @@ public class PhieuDatVe {
         this.ghe = ghe;
         this.khachHang = khachHang;
         this.diaDiem = diaDiem;
+        this.gheCuaChuyens = gheCuaChuyens;
+    }
+
+
+    public PhieuDatVe(Long MaPhieuDatVe, String TinhTrangVe, LocalDate NgayDat, String GhiChu, String DanhGiaChuyenXe, Long HangHoa, NhanVien nhanVien, ChuyenXe chuyenXe, Ghe ghe, KhachHang khachHang, DiaDiem diaDiem, List<GheCuaChuyen> gheCuaChuyens) {
+        this.MaPhieuDatVe = MaPhieuDatVe;
+        this.TinhTrangVe = TinhTrangVe;
+        this.NgayDat = NgayDat;
+        this.GhiChu = GhiChu;
+        this.DanhGiaChuyenXe = DanhGiaChuyenXe;
+        this.HangHoa = HangHoa;
+        this.nhanVien = nhanVien;
+        this.chuyenXe = chuyenXe;
+        this.ghe = ghe;
+        this.khachHang = khachHang;
+        this.diaDiem = diaDiem;
+        this.gheCuaChuyens = gheCuaChuyens;
     }
 
     public Long getMaPhieuDatVe() {
@@ -110,6 +136,14 @@ public class PhieuDatVe {
         this.DanhGiaChuyenXe = DanhGiaChuyenXe;
     }
 
+    public Long getHangHoa() {
+        return this.HangHoa;
+    }
+
+    public void setHangHoa(Long HangHoa) {
+        this.HangHoa = HangHoa;
+    }
+
     public NhanVien getNhanVien() {
         return this.nhanVien;
     }
@@ -150,6 +184,14 @@ public class PhieuDatVe {
         this.diaDiem = diaDiem;
     }
 
+    public List<GheCuaChuyen> getGheCuaChuyens() {
+        return this.gheCuaChuyens;
+    }
+
+    public void setGheCuaChuyens(List<GheCuaChuyen> gheCuaChuyens) {
+        this.gheCuaChuyens = gheCuaChuyens;
+    }
+
     public PhieuDatVe MaPhieuDatVe(Long MaPhieuDatVe) {
         setMaPhieuDatVe(MaPhieuDatVe);
         return this;
@@ -172,6 +214,11 @@ public class PhieuDatVe {
 
     public PhieuDatVe DanhGiaChuyenXe(String DanhGiaChuyenXe) {
         setDanhGiaChuyenXe(DanhGiaChuyenXe);
+        return this;
+    }
+
+    public PhieuDatVe HangHoa(Long HangHoa) {
+        setHangHoa(HangHoa);
         return this;
     }
 
@@ -200,6 +247,11 @@ public class PhieuDatVe {
         return this;
     }
 
+    public PhieuDatVe gheCuaChuyens(List<GheCuaChuyen> gheCuaChuyens) {
+        setGheCuaChuyens(gheCuaChuyens);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -208,12 +260,12 @@ public class PhieuDatVe {
             return false;
         }
         PhieuDatVe phieuDatVe = (PhieuDatVe) o;
-        return Objects.equals(MaPhieuDatVe, phieuDatVe.MaPhieuDatVe) && Objects.equals(TinhTrangVe, phieuDatVe.TinhTrangVe) && Objects.equals(NgayDat, phieuDatVe.NgayDat) && Objects.equals(GhiChu, phieuDatVe.GhiChu) && Objects.equals(DanhGiaChuyenXe, phieuDatVe.DanhGiaChuyenXe) && Objects.equals(nhanVien, phieuDatVe.nhanVien) && Objects.equals(chuyenXe, phieuDatVe.chuyenXe) && Objects.equals(ghe, phieuDatVe.ghe) && Objects.equals(khachHang, phieuDatVe.khachHang) && Objects.equals(diaDiem, phieuDatVe.diaDiem);
+        return Objects.equals(MaPhieuDatVe, phieuDatVe.MaPhieuDatVe) && Objects.equals(TinhTrangVe, phieuDatVe.TinhTrangVe) && Objects.equals(NgayDat, phieuDatVe.NgayDat) && Objects.equals(GhiChu, phieuDatVe.GhiChu) && Objects.equals(DanhGiaChuyenXe, phieuDatVe.DanhGiaChuyenXe) && Objects.equals(HangHoa, phieuDatVe.HangHoa) && Objects.equals(nhanVien, phieuDatVe.nhanVien) && Objects.equals(chuyenXe, phieuDatVe.chuyenXe) && Objects.equals(ghe, phieuDatVe.ghe) && Objects.equals(khachHang, phieuDatVe.khachHang) && Objects.equals(diaDiem, phieuDatVe.diaDiem) && Objects.equals(gheCuaChuyens, phieuDatVe.gheCuaChuyens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaPhieuDatVe, TinhTrangVe, NgayDat, GhiChu, DanhGiaChuyenXe, nhanVien, chuyenXe, ghe, khachHang, diaDiem);
+        return Objects.hash(MaPhieuDatVe, TinhTrangVe, NgayDat, GhiChu, DanhGiaChuyenXe, HangHoa, nhanVien, chuyenXe, ghe, khachHang, diaDiem, gheCuaChuyens);
     }
 
     @Override
@@ -224,11 +276,13 @@ public class PhieuDatVe {
             ", NgayDat='" + getNgayDat() + "'" +
             ", GhiChu='" + getGhiChu() + "'" +
             ", DanhGiaChuyenXe='" + getDanhGiaChuyenXe() + "'" +
+            ", HangHoa='" + getHangHoa() + "'" +
             ", nhanVien='" + getNhanVien() + "'" +
             ", chuyenXe='" + getChuyenXe() + "'" +
             ", ghe='" + getGhe() + "'" +
             ", khachHang='" + getKhachHang() + "'" +
             ", diaDiem='" + getDiaDiem() + "'" +
+            ", gheCuaChuyens='" + getGheCuaChuyens() + "'" +
             "}";
     }
     

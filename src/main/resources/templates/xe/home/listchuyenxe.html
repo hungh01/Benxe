@@ -5,39 +5,54 @@
     <meta charset="UTF-8">
     <title>Bến xe miền đông</title>
     <th:block th:replace="layoutxe :: link-css"></th:block>
+    <th:block th:replace="layout :: link-css"></th:block>
+    <link rel="stylesheet" href="css/tooplate-style.css">
 </head>
 
 <body id="page-top">
     <div  id="wrapper">
         <th:block th:replace="layoutxe :: sidebar"></th:block>
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column" style="background-image: url(img/banner-bg.jpg);">
             <th:block th:replace="layoutxe :: navbar"></th:block>
             <!--==================================== Main Content===================================== -->
             <button class="col-6 btn btn-success btn-block fa-lg mb-3 align-self-center" onclick="location.href='/xe/themchuyen'">Thêm chuyến xe</button>
 
-            <div id="content">
-                <div class="container-fluid">
-                    <table class="table">
-                        <tr>
-                            <th>Ngày chạy</th>
-                            <th>Số vị trí trống</th>
-                            <th>Giá vé</th>
-                            <th>Điểm đến</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr th:each="chuyen : ${chuyenxes}">
-                            <td th:text="${chuyen.NgayChay}"></td>
-                            <td th:text="${chuyen.SoViTriConTrong}"></td>
-                            <td th:text="${chuyen.giaVe.Gia}"></td>
-                            <td th:text="${chuyen.tuyen.diemDen.DiaDiem}"></td>
-                            <td>
-                                <a th:href="@{/xe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> | 
-                                <a th:href="@{/xe/hoadon/{id}(id=${chuyen.MaChuyenXe})}">Hóa đơn</a> | 
-                                <a th:href="@{/xe/chuyendi}">Đường Đi</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            <div>
+                <main class="table">
+                    <section class="table__header">
+                        <h1 style="margin-left: 30px; font-family: Comic Sans MScursive;">Chuyến xe</h1>
+                        <div class="input-group">
+                            <input type="search" placeholder="  Tìm theo...">
+                            <img src="img/search.png" alt="">
+                        </div>
+                    </section>
+                    <section class="table__body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ngày chạy<span class="icon-arrow">&UpArrow;</span</th>
+                                    <th>Số vị trí trống<span class="icon-arrow">&UpArrow;</span</th>
+                                    <th>Giá vé<span class="icon-arrow">&UpArrow;</span</th>
+                                    <th>Điểm đến<span class="icon-arrow">&UpArrow;</span</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="chuyen : ${chuyenxes}">
+                                    <td th:text="${chuyen.NgayChay}"></td>
+                                    <td th:text="${chuyen.SoViTriConTrong}"></td>
+                                    <td id="amount" th:text="${chuyen.giaVe.Gia}"></td>
+                                    <td th:text="${chuyen.tuyen.diemDen.DiaDiem}"></td>
+                                    <td>
+                                        <a th:href="@{/xe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> | 
+                                        <a th:href="@{/xe/hoadon/{id}(id=${chuyen.MaChuyenXe})}">Hóa đơn</a> | 
+                                        <a th:href="@{/xe/chuyendi}">Đường Đi</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
             </div>
             <!-- ================================== End Main Content ==================================-->
             </div>
@@ -47,6 +62,8 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <th:block th:replace="layoutxe :: link-javascript"></th:block>
+    <script src="/js/table.js"></script>
+    <script src="/js/defineVND.js"></script>
 </body>
 
 </html>

@@ -19,6 +19,9 @@ public class ChuyenXe {
     @Column(name = "SoViTriConTrong")
     private Long SoViTriConTrong;
 
+    @Column(name = "HangHoaConTrong")
+    private Long HangHoaConTrong;
+
     @Column(name = "GiaTriChuyenXe")
     private Double GiaTriChuyenXe;
 
@@ -67,9 +70,10 @@ public class ChuyenXe {
     public ChuyenXe() {
     }
 
-    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Double GiaTriChuyenXe, LocalDate NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons, List<PhieuDatVe> phieuDatVes, List<GheCuaChuyen> gheCuaChuyens) {
+    public ChuyenXe(Long MaChuyenXe, Long SoViTriConTrong, Long HangHoaConTrong, Double GiaTriChuyenXe, LocalDate NgayChay, Xe xe, BaiDauXe baiDauXe, Tuyen tuyen, LoaiXe loaiXe, GiaVe giaVe, List<HoaDon> hoaDons, List<PhieuDatVe> phieuDatVes, List<GheCuaChuyen> gheCuaChuyens) {
         this.MaChuyenXe = MaChuyenXe;
         this.SoViTriConTrong = SoViTriConTrong;
+        this.HangHoaConTrong = HangHoaConTrong;
         this.GiaTriChuyenXe = GiaTriChuyenXe;
         this.NgayChay = NgayChay;
         this.xe = xe;
@@ -96,6 +100,14 @@ public class ChuyenXe {
 
     public void setSoViTriConTrong(Long SoViTriConTrong) {
         this.SoViTriConTrong = SoViTriConTrong;
+    }
+
+    public Long getHangHoaConTrong() {
+        return this.HangHoaConTrong;
+    }
+
+    public void setHangHoaConTrong(Long HangHoaConTrong) {
+        this.HangHoaConTrong = HangHoaConTrong;
     }
 
     public Double getGiaTriChuyenXe() {
@@ -188,6 +200,11 @@ public class ChuyenXe {
         return this;
     }
 
+    public ChuyenXe HangHoaConTrong(Long HangHoaConTrong) {
+        setHangHoaConTrong(HangHoaConTrong);
+        return this;
+    }
+
     public ChuyenXe GiaTriChuyenXe(Double GiaTriChuyenXe) {
         setGiaTriChuyenXe(GiaTriChuyenXe);
         return this;
@@ -246,12 +263,12 @@ public class ChuyenXe {
             return false;
         }
         ChuyenXe chuyenXe = (ChuyenXe) o;
-        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons) && Objects.equals(phieuDatVes, chuyenXe.phieuDatVes) && Objects.equals(gheCuaChuyens, chuyenXe.gheCuaChuyens);
+        return Objects.equals(MaChuyenXe, chuyenXe.MaChuyenXe) && Objects.equals(SoViTriConTrong, chuyenXe.SoViTriConTrong) && Objects.equals(HangHoaConTrong, chuyenXe.HangHoaConTrong) && Objects.equals(GiaTriChuyenXe, chuyenXe.GiaTriChuyenXe) && Objects.equals(NgayChay, chuyenXe.NgayChay) && Objects.equals(xe, chuyenXe.xe) && Objects.equals(baiDauXe, chuyenXe.baiDauXe) && Objects.equals(tuyen, chuyenXe.tuyen) && Objects.equals(loaiXe, chuyenXe.loaiXe) && Objects.equals(giaVe, chuyenXe.giaVe) && Objects.equals(hoaDons, chuyenXe.hoaDons) && Objects.equals(phieuDatVes, chuyenXe.phieuDatVes) && Objects.equals(gheCuaChuyens, chuyenXe.gheCuaChuyens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaChuyenXe, SoViTriConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons, phieuDatVes, gheCuaChuyens);
+        return Objects.hash(MaChuyenXe, SoViTriConTrong, HangHoaConTrong, GiaTriChuyenXe, NgayChay, xe, baiDauXe, tuyen, loaiXe, giaVe, hoaDons, phieuDatVes, gheCuaChuyens);
     }
 
     @Override
@@ -259,6 +276,7 @@ public class ChuyenXe {
         return "{" +
             " MaChuyenXe='" + getMaChuyenXe() + "'" +
             ", SoViTriConTrong='" + getSoViTriConTrong() + "'" +
+            ", HangHoaConTrong='" + getHangHoaConTrong() + "'" +
             ", GiaTriChuyenXe='" + getGiaTriChuyenXe() + "'" +
             ", NgayChay='" + getNgayChay() + "'" +
             ", xe='" + getXe() + "'" +
@@ -271,6 +289,5 @@ public class ChuyenXe {
             ", gheCuaChuyens='" + getGheCuaChuyens() + "'" +
             "}";
     }
-
 
 }

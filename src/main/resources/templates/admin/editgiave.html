@@ -31,18 +31,24 @@
             <br>
             <div class="form-outline mb-4 col-9">
                 <label class="title">Điểm đi</label>
-                <input type="text" disabled class="form-control" th:value="${giaVe.tuyen.DiemDi}" id="DiemDi" name="DiemDi"
+                <input type="text" disabled class="form-control" th:value="${giaVe.tuyen.diemDi.DiaDiem}" id="DiemDi" name="DiemDi"
                        placeholder="" />
             </div>
             <div class="form-outline mb-4 col-9">
                 <label class="title">Điểm đến</label>
-                <input type="text" disabled class="form-control" th:value="${giaVe.tuyen.DiemDen}" id="DiemDen" name="DiemDen"
+                <input type="text" disabled class="form-control" th:value="${giaVe.tuyen.diemDen.DiaDiem}" id="DiemDen" name="DiemDen"
                        placeholder="" />
             </div>
             <br>
             <div class="form-outline mb-4 col-9">
-                <label class="title">Giá vé</label>
-                <input type="text" class="form-control" th:value="${giaVe.Gia}" id="Gia" name="Gia"
+                <label class="title">Giá hành khách</label>
+                <input type="text" class="form-control" th:value="${giaVe.GiaHanhKhach}" id="GiaHanhKhach" name="GiaHanhKhach"
+                       placeholder=""/>
+            </div>
+            <br>
+            <div class="form-outline mb-4 col-9">
+                <label class="title">Giá hàng hóa</label>
+                <input type="text" class="form-control" th:value="${giaVe.GiaHangHoa}" id="GiaHangHoa" name="GiaHangHoa"
                        placeholder=""/>
             </div>
             <br>

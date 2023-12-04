@@ -105,10 +105,15 @@ public class HomeControllerAdmin {
     public String createtuyen(@ModelAttribute("tuyen") Tuyen tuyen){
         tuyenService.save(tuyen);
         for(LoaiXe loaiXe : loaiXeService.getAllLoaiXes()){
-            GiaVe gv = new GiaVe();
-            gv.setLoaiXe(loaiXe);
-            gv.setTuyen(tuyen);
-            gv.setGia(0D);
+            if(loaiXe.getTenLoaiXe().equals("Base")){
+                GiaVe gv = new GiaVe();
+                gv.setLoaiXe(loaiXe);
+                gv.setTuyen(tuyen);
+                gv.setGiaHanhKhach(0D);
+                gv.setGiaHangHoa(0D);
+                giaVeService.save(gv);
+            }
+                
         }
         return"redirect:/admin/qltuyen";
     }
@@ -128,7 +133,8 @@ public class HomeControllerAdmin {
     @PostMapping("/editgiave/{id}")
     public String editgiave(@PathVariable("id")Long id ,@ModelAttribute("giaVe") GiaVe giaVe) {
         GiaVe giaVe1 = giaVeService.getGiaVeById(id);
-        giaVe1.setGia(giaVe.getGia());
+        giaVe1.setGiaHanhKhach(giaVe.getGiaHanhKhach());
+        giaVe1.setGiaHangHoa(giaVe.getGiaHangHoa());
         giaVeService.save(giaVe1);
         return"redirect:/admin/qlgiave";
     }

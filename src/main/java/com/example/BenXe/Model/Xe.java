@@ -25,10 +25,10 @@ public class Xe {
     private String SDT;
     @Column(name = "Email")
     private String Email;
-    @Column(name = "SoGhe")
-    private Long SoGhe;
     @Column(name = "NamSX")
     private Long NamSX;
+    @Column(name = "HangHoa")
+    private Long HangHoa;
 
     @Fetch(FetchMode.JOIN)
     @ManyToOne
@@ -59,21 +59,16 @@ public class Xe {
     private List<ChuyenXe> chuyenXes;
 
 
-    @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "xe", cascade = CascadeType.ALL)
-    private List<Ghe> ghes;
-
     public Xe() {
     }
 
-    public Xe(Long MaXe, String BKS, String TenTaiXe, String TenPhuXe, String SDT, String Email, Long SoGhe, Long NamSX, LoaiXe loaiXe, BaiDauXe baiDauXe, TaiKhoan taiKhoan, ChuXe chuXe, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<ChuyenXe> chuyenXes, List<Ghe> ghes) {
+    public Xe(Long MaXe, String BKS, String TenTaiXe, String TenPhuXe, String SDT, String Email, Long NamSX, LoaiXe loaiXe, BaiDauXe baiDauXe, TaiKhoan taiKhoan, ChuXe chuXe, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<ChuyenXe> chuyenXes) {
         this.MaXe = MaXe;
         this.BKS = BKS;
         this.TenTaiXe = TenTaiXe;
         this.TenPhuXe = TenPhuXe;
         this.SDT = SDT;
         this.Email = Email;
-        this.SoGhe = SoGhe;
         this.NamSX = NamSX;
         this.loaiXe = loaiXe;
         this.baiDauXe = baiDauXe;
@@ -81,7 +76,6 @@ public class Xe {
         this.chuXe = chuXe;
         this.phieuDangKyTuyens = phieuDangKyTuyens;
         this.chuyenXes = chuyenXes;
-        this.ghes = ghes;
     }
 
     public Long getMaXe() {
@@ -130,14 +124,6 @@ public class Xe {
 
     public void setEmail(String Email) {
         this.Email = Email;
-    }
-
-    public Long getSoGhe() {
-        return this.SoGhe;
-    }
-
-    public void setSoGhe(Long SoGhe) {
-        this.SoGhe = SoGhe;
     }
 
     public Long getNamSX() {
@@ -196,14 +182,6 @@ public class Xe {
         this.chuyenXes = chuyenXes;
     }
 
-    public List<Ghe> getGhes() {
-        return this.ghes;
-    }
-
-    public void setGhes(List<Ghe> ghes) {
-        this.ghes = ghes;
-    }
-
     public Xe MaXe(Long MaXe) {
         setMaXe(MaXe);
         return this;
@@ -231,11 +209,6 @@ public class Xe {
 
     public Xe Email(String Email) {
         setEmail(Email);
-        return this;
-    }
-
-    public Xe SoGhe(Long SoGhe) {
-        setSoGhe(SoGhe);
         return this;
     }
 
@@ -274,11 +247,6 @@ public class Xe {
         return this;
     }
 
-    public Xe ghes(List<Ghe> ghes) {
-        setGhes(ghes);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -287,12 +255,12 @@ public class Xe {
             return false;
         }
         Xe xe = (Xe) o;
-        return Objects.equals(MaXe, xe.MaXe) && Objects.equals(BKS, xe.BKS) && Objects.equals(TenTaiXe, xe.TenTaiXe) && Objects.equals(TenPhuXe, xe.TenPhuXe) && Objects.equals(SDT, xe.SDT) && Objects.equals(Email, xe.Email) && Objects.equals(SoGhe, xe.SoGhe) && Objects.equals(NamSX, xe.NamSX) && Objects.equals(loaiXe, xe.loaiXe) && Objects.equals(baiDauXe, xe.baiDauXe) && Objects.equals(taiKhoan, xe.taiKhoan) && Objects.equals(chuXe, xe.chuXe) && Objects.equals(phieuDangKyTuyens, xe.phieuDangKyTuyens) && Objects.equals(chuyenXes, xe.chuyenXes) && Objects.equals(ghes, xe.ghes);
+        return Objects.equals(MaXe, xe.MaXe) && Objects.equals(BKS, xe.BKS) && Objects.equals(TenTaiXe, xe.TenTaiXe) && Objects.equals(TenPhuXe, xe.TenPhuXe) && Objects.equals(SDT, xe.SDT) && Objects.equals(Email, xe.Email) && Objects.equals(NamSX, xe.NamSX) && Objects.equals(loaiXe, xe.loaiXe) && Objects.equals(baiDauXe, xe.baiDauXe) && Objects.equals(taiKhoan, xe.taiKhoan) && Objects.equals(chuXe, xe.chuXe) && Objects.equals(phieuDangKyTuyens, xe.phieuDangKyTuyens) && Objects.equals(chuyenXes, xe.chuyenXes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaXe, BKS, TenTaiXe, TenPhuXe, SDT, Email, SoGhe, NamSX, loaiXe, baiDauXe, taiKhoan, chuXe, phieuDangKyTuyens, chuyenXes, ghes);
+        return Objects.hash(MaXe, BKS, TenTaiXe, TenPhuXe, SDT, Email, NamSX, loaiXe, baiDauXe, taiKhoan, chuXe, phieuDangKyTuyens, chuyenXes);
     }
 
     @Override
@@ -304,7 +272,6 @@ public class Xe {
             ", TenPhuXe='" + getTenPhuXe() + "'" +
             ", SDT='" + getSDT() + "'" +
             ", Email='" + getEmail() + "'" +
-            ", SoGhe='" + getSoGhe() + "'" +
             ", NamSX='" + getNamSX() + "'" +
             ", loaiXe='" + getLoaiXe() + "'" +
             ", baiDauXe='" + getBaiDauXe() + "'" +
@@ -312,7 +279,6 @@ public class Xe {
             ", chuXe='" + getChuXe() + "'" +
             ", phieuDangKyTuyens='" + getPhieuDangKyTuyens() + "'" +
             ", chuyenXes='" + getChuyenXes() + "'" +
-            ", ghes='" + getGhes() + "'" +
             "}";
     }
 

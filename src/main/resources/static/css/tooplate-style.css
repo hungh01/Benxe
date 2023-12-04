@@ -1089,8 +1089,8 @@ footer p em {
 	padding-bottom: 100px;
 }
 main.table {
-    width: 82vw;
-    height: 90vh;
+    width: 80%;
+    height: 100%;
     background-color: #fff5;
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
@@ -1385,9 +1385,9 @@ thead th.active,tbody td.active {
 	z-index: 999; /* Sit on top */
 	left: -280px;
 	top: 20px;
-	width: 60vw; /* Full width */
+	width: 30vw; /* Full width */
 	height: 60vh; /* Full height */
-
+	display:none;
 	padding-top: 10px;;
   }
   
@@ -1398,14 +1398,19 @@ thead th.active,tbody td.active {
 	margin: auto;
 	padding: 0;
 	border: 1px solid #888;
-	width: 80%;
+	border-radius: 10px;
+	width: 100%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 	-webkit-animation-name: animatetop;
 	-webkit-animation-duration: 0.4s;
 	animation-name: animatetop;
 	animation-duration: 0.4s
   }
-  
+  .infoChuyenDi{
+	border-style: inset;
+	border-radius: 10px;
+	background-color: white;
+  }
   /* Add Animation */
   @-webkit-keyframes animatetop {
 	from {top:-300px; opacity:0} 
@@ -1434,8 +1439,12 @@ thead th.active,tbody td.active {
   
   .modal-header {
 	padding: 2px 16px;
-	background-color: #5cb85c;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	background-color:  rgb(23, 148, 186);
 	color: white;
+	display: grid;
+	grid-template-columns: 1fr 1fr ;
 
   }
   
@@ -1450,16 +1459,56 @@ thead th.active,tbody td.active {
 	.table_seats{
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr ;
-		grid-gap: 20px;
+		grid-gap: 10px;
+		grid-row: 10px;
+		border-style: groove;
+		border-radius: 2px;
+		padding-bottom: 3px;
+		height: 280px;
+	}
+	.seat_disabled{
+		text-align: center!important;
+		justify-content: center!important;
+		cursor: not-allowed!important;
+		display: flex!important;
+		margin-top: 0.25rem!important;
+		position: relative!important;
+	}
 
+	.seat_active{
+		text-align: center!important;
+		justify-content: center!important;
+		cursor: pointer!important;
+		display: flex!important;
+		margin-top: 0.25rem!important;
+		position: relative!important;
 	}
-	.ghe{
-		padding: 20px;
+	.img_seat{
+		max-width: 100%;
+    	height: auto;
+		display:flexbox;
+		border-style: none !important;
+		border-radius: 0px;
+		width: 32px;
+		cursor: pointer;
+		
 	}
+
+	.text_seat{
+		font-weight: 600!important;
+		font-size: 10px!important;
+		position: absolute!important;
+		cursor: pointer;
+		padding: 7px 8px 5px 5px;
+		color: #339AF4;
+	}
+	
   .modal-footer {
 	padding: 2px 16px;
-	background-color: #5cb85c;
+	background-color: rgb(23, 148, 186);
 	color: white;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
   }
 
 
@@ -1567,3 +1616,41 @@ thead th.active,tbody td.active {
 @media (max-width: 768px) {}
 
 @media (max-width: 480px) {}
+
+
+.seat-wrapper input[type=checkbox] {
+    display:none;
+}
+
+.seat-wrapper input[type=checkbox] + label {
+    display:inline-block;
+    padding: 7px;
+    background:url("../../img/seat_active.svg") no-repeat;
+    height: 32px;
+    width: 32px;
+    background-size: 100%;
+	color: #339AF4;
+}
+
+.seat-wrapper input[type=checkbox]:checked + label {
+	background:url("../../img/seat_selecting.svg") no-repeat;
+    display:inline-block;
+	height: 32px;
+    width: 32px;
+	padding: 7px;
+    background-size: 100%;
+	color: #EF5222;
+	
+}
+
+.infoChuyenDi textarea {
+	height: 20px;
+	border: none;
+	pointer-events: none;
+	resize: both;
+	outline: none;
+	resize: none; 
+	background-color: transparent;
+	color: inherit;
+	text-align: right;
+}
