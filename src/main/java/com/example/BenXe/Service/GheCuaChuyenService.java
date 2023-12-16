@@ -17,6 +17,10 @@ public class GheCuaChuyenService {
     public List<GheCuaChuyen> getAllGheCuaChuyens(){
         return gheCuaChuyenRepository.findAll();
     }
+    public List<GheCuaChuyen> getAllGheCuaVe(Long id){
+        return gheCuaChuyenRepository.findGheCuaChuyenbyPDV(id);
+    }
+
     public GheCuaChuyen getGheCuaChuyenById(Long id){
         Optional<GheCuaChuyen> optional =gheCuaChuyenRepository.findById(id);
         return optional.orElse(null);

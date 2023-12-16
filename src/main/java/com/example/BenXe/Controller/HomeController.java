@@ -82,7 +82,6 @@ public class HomeController {
         model.addAttribute("listghechon", listghechon);
         return "timve";
         }
-
         @GetMapping("/contact")
         public String contact(Model model){
             model.addAttribute("tuyens", tuyenService.getAllTuyens());

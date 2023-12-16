@@ -41,12 +41,13 @@
                                 <tr th:each="chuyen : ${chuyenxes}">
                                     <td th:text="${chuyen.NgayChay}"></td>
                                     <td th:text="${chuyen.SoViTriConTrong}"></td>
-                                    <td id="amount" th:text="${chuyen.giaVe.Gia}"></td>
+                                    <td id="amount" th:text="${chuyen.giaVe.GiaHanhKhach}"></td>
                                     <td th:text="${chuyen.tuyen.diemDen.DiaDiem}"></td>
                                     <td>
                                         <a th:href="@{/xe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> | 
                                         <a th:href="@{/xe/hoadon/{id}(id=${chuyen.MaChuyenXe})}">Hóa đơn</a> | 
-                                        <a th:href="@{/xe/chuyendi}">Đường Đi</a>
+                                        <a th:href="@{/xe/chuyendi/{id}(id=${chuyen.MaChuyenXe})}"> Chỉ dẫn trung chuyển
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -64,6 +65,7 @@
     <th:block th:replace="layoutxe :: link-javascript"></th:block>
     <script src="/js/table.js"></script>
     <script src="/js/defineVND.js"></script>
+
 </body>
 
 </html>

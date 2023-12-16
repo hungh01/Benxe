@@ -20,6 +20,9 @@ public class PhieuDatVeService {
         Optional<PhieuDatVe> optional = phieuDatVeRepository.findById(id);
         return optional.orElse(null);
     }
+    public List<PhieuDatVe> getPhieuDatVeByChuyenXeId(Long id){
+        return phieuDatVeRepository.findbychuyenXeId(id);
+    }
     public void save(PhieuDatVe phieuDatVe){
         phieuDatVeRepository.save(phieuDatVe);
     }

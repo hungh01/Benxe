@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    	<title>Bến Xe Miền Đông</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <th:block th:replace="layout :: link-css"></th:block>
+    </head>
+<body>
+    <section class="map" style="background-image:url(/img/banner-bg.jpg) !important;">
+        <th:block th:replace="layout :: header"></th:block>
+        <div class="container">
+            <main class="table">
+                <br>
+                <form class="payment-form" th:action="@{/khachhang/chitietphieudatve/{id}(id=${pdv.MaPhieuDatVe})}" method="post">
+                    <div class="col-md-12">
+                        <div class="infoChuyenDi">
+                            <h4 style="text-align:center; font-weight:bold"
+                                th:text="'Nhà xe '+${pdv.chuyenXe.xe.chuXe.TenChuXe}"></h4>
+                            <div style="margin: 5px; display:grid; grid-template-columns: 1fr 1fr; ">
+                                <div style="border-right: 1px solid #eee;">
+                                    <div class="row" style="margin:10px">
+                                        <h5 style="font-weight: bold; text-align:center">Thông tin nhà xe </h5>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Tên nhà xe: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.chuXe.TenChuXe}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Địa chỉ: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.chuXe.DiaChi}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Email: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.chuXe.Email}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px;">
+                                        <span style="color: #637280;font-weight: bold;">Số điện thoại: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.chuXe.SDT}"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row" style="margin:10px">
+                                        <h5 style="font-weight: bold; text-align:center">Thông tin xe </h5>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Biển số xe: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.BKS}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Số điện thoại: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.SDT}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Tên tài xế: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.TenTaiXe}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Năm sản xuất: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.chuyenXe.xe.NamSX}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="infoChuyenDi" >
+                            <h4 style="text-align:center; font-weight:bold"
+                                >Chi tiết vé</h4>
+                            <div style="margin: 5px; display:grid; grid-template-columns: 1fr 1fr; ">
+                                <div style="border-right: 1px solid #eee;">
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Các ghế đã đặt: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${ghes}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Tồng tiền ghế: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${totalKH}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">số hàng hóa (/m3): </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${pdv.HangHoa}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Tổng tiền hàng hóa: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${totalHH}"></span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Tổng tiền: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                            th:text="${total}"></span>
+                                    </div>
+                                </div>
+                                <div th:if="${pdv.DanhGiaChuyenXe}==null">
+                                    <h4 style="text-align:center; font-weight:bold">Đánh giá chuyến xe</h4>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Đánh giá chuyến xe: </span>
+                                        <input style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px; padding-bottom: 30px ; padding-right: 80px" type="text"
+                                            th:value="${pdv.DanhGiaChuyenXe}"></input>
+                                    </div>
+                                    <div class="row" style="margin:10px; text-align: right;">
+                                        <button style="background: #f2754e;
+                                        color: #fff;height: 32px;
+                                        padding: 4px 16px;
+                                        font-size: 14px;
+                                        border-radius: 32px;" type="submit">Gửi phản hồi
+                                    </div>
+                                    
+                                </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <br>
+                    </div>
+                </form>
+                
+            </main>
+        </div>
+    </section>
+
+    <section id="most-visited">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Các đối tác nhà xe</h2>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div id="owl-mostvisited" class="owl-carousel owl-theme">
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac01.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Phương Trang</h4>
+                                    <span>SĐT: 1900.60.67</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac02.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Hồng Linh</h4>
+                                    <span>SĐT: 0358.989.857</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac03.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Kim Anh</h4>
+                                    <span>SĐT: 0932.404.301</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac04.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Kim Lý</h4>
+                                    <span>SĐT: 0981.375.385</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac05.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Hoàng Long</h4>
+                                    <span>SĐT: 02253.920.920</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac06.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Tây Nguyên</h4>
+                                    <span>SĐT: 0982.878.889</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-md-12">
+                            <div class="visited-item">
+                                <img src="/img/doitac07.jpg" alt="" class="img-fluid">
+                                <div class="text-content">
+                                    <h4>Phượng Thu</h4>
+                                    <span>SĐT: 0949.839.839</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="map">
+
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62693.68012682849!2d106.75180783253677!3d10.860579937660278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8ad820b6271%3A0x45060ac68fc6046!2zQuG6v24gWGUgTWnhu4FuIMSQw7RuZyBN4bubaQ!5e0!3m2!1svi!2s!4v1686013719636!5m2!1svi!2s" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="layout :: link-javascript"></th:block>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // navigation click actions 
+            $('.scroll-link').on('click', function(event){
+                event.preventDefault();
+                var sectionID = $(this).attr("data-id");
+                scrollToID('#' + sectionID, 750);
+            });
+            // scroll to top action
+            $('.scroll-top').on('click', function(event) {
+                event.preventDefault();
+                $('html, body').animate({scrollTop:0}, 'slow');         
+            });
+            // mobile nav toggle
+            $('#nav-toggle').on('click', function (event) {
+                event.preventDefault();
+                $('#main-nav').toggleClass("open");
+            });
+        });
+        // scroll function
+        function scrollToID(id, speed){
+            var offSet = 0;
+            var targetOffset = $(id).offset().top - offSet;
+            var mainNav = $('#main-nav');
+            $('html,body').animate({scrollTop:targetOffset}, speed);
+            if (mainNav.hasClass("open")) {
+                mainNav.css("height", "1px").removeClass("in").addClass("collapse");
+                mainNav.removeClass("open");
+            }
+        }
+        if (typeof console === "undefined") {
+            console = {
+                log: function() { }
+            };
+        }
+
+        </script>
+        <script src="/js/table.js"></script>
+</body>
+</html>

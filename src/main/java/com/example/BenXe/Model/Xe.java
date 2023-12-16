@@ -29,7 +29,8 @@ public class Xe {
     private Long NamSX;
     @Column(name = "HangHoa")
     private Long HangHoa;
-
+    @Column(name = "SoGhe")
+    private Long SoGhe;
     @Fetch(FetchMode.JOIN)
     @ManyToOne
     @JoinColumn(name = "MaLX")
@@ -62,7 +63,7 @@ public class Xe {
     public Xe() {
     }
 
-    public Xe(Long MaXe, String BKS, String TenTaiXe, String TenPhuXe, String SDT, String Email, Long NamSX, LoaiXe loaiXe, BaiDauXe baiDauXe, TaiKhoan taiKhoan, ChuXe chuXe, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<ChuyenXe> chuyenXes) {
+    public Xe(Long MaXe, String BKS, String TenTaiXe, String TenPhuXe, String SDT, String Email, Long NamSX, Long HangHoa, Long SoGhe, LoaiXe loaiXe, BaiDauXe baiDauXe, TaiKhoan taiKhoan, ChuXe chuXe, List<PhieuDangKyTuyen> phieuDangKyTuyens, List<ChuyenXe> chuyenXes) {
         this.MaXe = MaXe;
         this.BKS = BKS;
         this.TenTaiXe = TenTaiXe;
@@ -70,6 +71,8 @@ public class Xe {
         this.SDT = SDT;
         this.Email = Email;
         this.NamSX = NamSX;
+        this.HangHoa = HangHoa;
+        this.SoGhe = SoGhe;
         this.loaiXe = loaiXe;
         this.baiDauXe = baiDauXe;
         this.taiKhoan = taiKhoan;
@@ -132,6 +135,22 @@ public class Xe {
 
     public void setNamSX(Long NamSX) {
         this.NamSX = NamSX;
+    }
+
+    public Long getHangHoa() {
+        return this.HangHoa;
+    }
+
+    public void setHangHoa(Long HangHoa) {
+        this.HangHoa = HangHoa;
+    }
+
+    public Long getSoGhe() {
+        return this.SoGhe;
+    }
+
+    public void setSoGhe(Long SoGhe) {
+        this.SoGhe = SoGhe;
     }
 
     public LoaiXe getLoaiXe() {
@@ -217,6 +236,16 @@ public class Xe {
         return this;
     }
 
+    public Xe HangHoa(Long HangHoa) {
+        setHangHoa(HangHoa);
+        return this;
+    }
+
+    public Xe SoGhe(Long SoGhe) {
+        setSoGhe(SoGhe);
+        return this;
+    }
+
     public Xe loaiXe(LoaiXe loaiXe) {
         setLoaiXe(loaiXe);
         return this;
@@ -255,12 +284,12 @@ public class Xe {
             return false;
         }
         Xe xe = (Xe) o;
-        return Objects.equals(MaXe, xe.MaXe) && Objects.equals(BKS, xe.BKS) && Objects.equals(TenTaiXe, xe.TenTaiXe) && Objects.equals(TenPhuXe, xe.TenPhuXe) && Objects.equals(SDT, xe.SDT) && Objects.equals(Email, xe.Email) && Objects.equals(NamSX, xe.NamSX) && Objects.equals(loaiXe, xe.loaiXe) && Objects.equals(baiDauXe, xe.baiDauXe) && Objects.equals(taiKhoan, xe.taiKhoan) && Objects.equals(chuXe, xe.chuXe) && Objects.equals(phieuDangKyTuyens, xe.phieuDangKyTuyens) && Objects.equals(chuyenXes, xe.chuyenXes);
+        return Objects.equals(MaXe, xe.MaXe) && Objects.equals(BKS, xe.BKS) && Objects.equals(TenTaiXe, xe.TenTaiXe) && Objects.equals(TenPhuXe, xe.TenPhuXe) && Objects.equals(SDT, xe.SDT) && Objects.equals(Email, xe.Email) && Objects.equals(NamSX, xe.NamSX) && Objects.equals(HangHoa, xe.HangHoa) && Objects.equals(SoGhe, xe.SoGhe) && Objects.equals(loaiXe, xe.loaiXe) && Objects.equals(baiDauXe, xe.baiDauXe) && Objects.equals(taiKhoan, xe.taiKhoan) && Objects.equals(chuXe, xe.chuXe) && Objects.equals(phieuDangKyTuyens, xe.phieuDangKyTuyens) && Objects.equals(chuyenXes, xe.chuyenXes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaXe, BKS, TenTaiXe, TenPhuXe, SDT, Email, NamSX, loaiXe, baiDauXe, taiKhoan, chuXe, phieuDangKyTuyens, chuyenXes);
+        return Objects.hash(MaXe, BKS, TenTaiXe, TenPhuXe, SDT, Email, NamSX, HangHoa, SoGhe, loaiXe, baiDauXe, taiKhoan, chuXe, phieuDangKyTuyens, chuyenXes);
     }
 
     @Override
@@ -273,6 +302,8 @@ public class Xe {
             ", SDT='" + getSDT() + "'" +
             ", Email='" + getEmail() + "'" +
             ", NamSX='" + getNamSX() + "'" +
+            ", HangHoa='" + getHangHoa() + "'" +
+            ", SoGhe='" + getSoGhe() + "'" +
             ", loaiXe='" + getLoaiXe() + "'" +
             ", baiDauXe='" + getBaiDauXe() + "'" +
             ", taiKhoan='" + getTaiKhoan() + "'" +

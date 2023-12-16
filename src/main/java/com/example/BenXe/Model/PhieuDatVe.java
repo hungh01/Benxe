@@ -54,7 +54,7 @@ public class PhieuDatVe {
 
     @Fetch(FetchMode.JOIN)
     @ManyToOne
-    @JoinColumn(name = "ViTriLenXe")
+    @JoinColumn(name = "ViTriTrungChuyen")
     private DiaDiem diaDiem;
 
 

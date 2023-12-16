@@ -8,9 +8,10 @@
     <title>Bến Xe Miền Đông</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
     <th:block th:replace="layout :: link-css"></th:block>
+    <link rel="stylesheet" href="../../css/blue.css">
 </head>
 
 <body>
@@ -128,46 +129,51 @@
                     </div>
                     <div class="infoChuyenDi">
                         <div
+                            style="margin: 5px;">
+                            <div class="row" style="margin:10px">
+                                <h5 style="font-weight: bold; text-align:center">Chọn địa điểm giao hàng hoặc trung chuyển(*Nếu có)</h5>
+                            </div>
+                            <div class="row" style="margin:10px">
+                                <span style=" color: #637280;font-weight: bold;">Tỉnh, Thành phố: </span>
+                                <select class="form-select form-select-sm mb-3" id="city" name ="city" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn tỉnh thành</option>
+                                </select>
+                                <select class="form-select form-select-sm mb-3" id="district" name="district" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn quận huyện</option>
+                                </select>
+                                <select class="form-select form-select-sm mb-3" id="ward" name="ward" aria-label=".form-select-sm">
+                                    <option value="" selected>Chọn phường xã</option>
+                                </select>
+                            </div>
+                            <div class="row" style="margin:10px">
+                                <span style=" color: #637280;font-weight: bold;">Số nhà, tên đường: </span>
+                                    <input type="text" 
+                                        style="color: rgb(0 0 0/var(--tw-text-opacity)); padding-right: 40%;" th:value="${sonha}" id ="sonha" name="sonha"></input>
+                            </div>
+                        </div>  
+                    </div>
+                    <br>
+                    <div class="infoChuyenDi">
+                        <div
                             style="margin: 5px; display:grid; grid-template-columns: 1fr 1fr; border-bottom: 5px solid #eee;">
-                            <div style="border-right: 1px solid #eee;">
-                                <div class="row" style="margin:10px">
-                                    <h5 style="font-weight: bold; text-align:center">Thông tin khách hàng </h5>
-                                </div>
-                                <div class="row" style="margin:10px">
-                                    <span style="color: #637280;font-weight: bold;">Tên khách hàng: </span>
-                                    <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
-                                        th:text="${khachHang.TenKH}"></span>
-                                </div>
-                                <div class="row" style="margin:10px">
-                                    <span style="color: #637280;font-weight: bold;">Email: </span>
-                                    <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
-                                        th:text="${khachHang.Email}"></span>
-                                </div>
-                                <div class="row" style="margin:10px">
-                                    <span style="color: #637280;font-weight: bold;">Số điện thoại: </span>
-                                    <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
-                                        th:text="${khachHang.SDT}"></span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="row" style="margin:10px">
-                                    <h5 style="font-weight: bold; text-align:center; color:#ef5122">Điều khoản & lưu ý
-                                    </h5>
-                                </div>
-                                <div style="margin:10px">
-                                    <span>
-                                        (*) Quý khách vui lòng có mặt tại bến xuất phát của xe trước ít nhất 30 phút giờ
-                                        xe khởi hành, mang theo thông báo đã thanh toán vé thành công có chứa mã vé được
-                                        gửi từ hệ thống Bến Xe Miền Đông. Vui lòng liên hệ Trung tâm tổng đài 0858 547
-                                        574 để được hỗ trợ.
-                                    </span>
-                                </div>
-                            </div>
                         </div>
                         <div style="margin: 20px; display:flex;">
                             <div style="flex-direction: column; display: flex;">
                                 <span style=" font-weight: bold;">Pay</span>
                                 <span class="totalprice">0 đ</span>
+                                <p>Vui lòng chọn hình thức thanh toán:</p>
+                                <div class="mb-1">
+                                    <label><input type="radio" name="iCheck" class="iradio_flat-blue"> Ví <img
+                                            src="../../img/logo-zalopay.svg" alt=""></label>
+                                </div>
+                                <div class="mb-1">
+                                    <label><input type="radio" name="iCheck" class="iradio_flat-blue"> Visa, Mastercard,
+                                        JCB <span class="txtGray">(qua cổng ZaloPay)</span></label>
+                                </div>
+                                <div class="mb-1">
+                                    <label><input type="radio" name="iCheck" class="iradio_flat-blue" checked> Thẻ ATM
+                                        <span class="txtGray">(qua cổng ZaloPay)</span></label>
+                                </div>
                             </div>
                             <div
                                 style="justify-content: flex-end !important; display:flex ;align-items: center;flex: 1 1">
@@ -175,13 +181,13 @@
                                     border: 1px solid #c0c6cc;height: 32px;
                                     padding: 4px 40px; margin-right:20px;
                                     font-size: 14px;
-                                    border-radius: 32px;" href="/"> Hủy
+                                    border-radius: 32px;" href="/timve"> Hủy
                                 </button>
                                 <button style="background: #f2754e;
                                     color: #fff;height: 32px;
                                     padding: 4px 16px;
                                     font-size: 14px;
-                                    border-radius: 32px;" type="submit">Thanh toán
+                                    border-radius: 32px;" type="submit">Đặt vé
                                 </button>
                             </div>
                         </div>
@@ -199,7 +205,6 @@
                                     <h6>Tầng trên</h6>
                                 </div>
                                 <div class="modal-body">
-
                                     <div class="table_seats" style="margin-right: 20px;">
                                         <div style="width: 32px; height: 32px;"
                                             th:each="ghe : ${chuyenXe.gheCuaChuyens}" th:if="!${ghe.ghe.Tang}">
@@ -303,6 +308,42 @@
                         </div>
                     </div>
                     <br>
+                    <div class="infoChuyenDi">
+                        <div style="border-bottom: 1px solid #eee;">
+                            <div class="row" style="margin:10px">
+                                <h5 style="font-weight: bold; text-align:center">Thông tin khách hàng </h5>
+                            </div>
+                            <div class="row" style="margin:10px">
+                                <span style="color: #637280;font-weight: bold;">Tên khách hàng: </span>
+                                <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                    th:text="${khachHang.TenKH}"></span>
+                            </div>
+                            <div class="row" style="margin:10px">
+                                <span style="color: #637280;font-weight: bold;">Email: </span>
+                                <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                    th:text="${khachHang.Email}"></span>
+                            </div>
+                            <div class="row" style="margin:10px">
+                                <span style="color: #637280;font-weight: bold;">Số điện thoại: </span>
+                                <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                    th:text="${khachHang.SDT}"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row" style="margin:10px">
+                                <h5 style="font-weight: bold; text-align:center; color:#ef5122">Điều khoản & lưu ý
+                                </h5>
+                            </div>
+                            <div style="margin:10px">
+                                <span>
+                                    (*) Quý khách vui lòng có mặt tại bến xuất phát của xe trước ít nhất 30 phút giờ
+                                    xe khởi hành, mang theo thông báo đã thanh toán vé thành công có chứa mã vé được
+                                    gửi từ hệ thống Bến Xe Miền Đông. Vui lòng liên hệ Trung tâm tổng đài 0858 547
+                                    574 để được hỗ trợ.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </main>
@@ -483,8 +524,6 @@
             function updateTotal() {
                 var hang = parseFloat($('.totalHangHoa').text().replace(/[^\d]/g, ''));
                 var khach = parseFloat($('.tongTienSpan').text().replace(/[^\d]/g, ''));
-                console.log(hang);
-                console.log(khach);
                 var total = hang + khach;
                 $('.totalprice').text(total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
             }
@@ -515,6 +554,56 @@
 
         // Hiển thị số tiền đã được định dạng
         amountElement.textContent = formattedAmount;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var cities = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var data; // Store the entire data object
+    
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+    
+        var promise = axios(Parameter);
+        promise.then(function (result) {
+            data = result.data; // Store the entire data object
+            renderCity(data);
+        });
+    
+        function renderCity(data) {
+            for (const city of data) {
+                cities.options[cities.options.length] = new Option(city.Name, city.Id);
+            }
+    
+            cities.onchange = function () {
+                districts.length = 1;
+                wards.length = 1;
+                if (this.value != "") {
+                    const selectedCityId = this.value;
+                    const selectedCity = data.find(city => city.Id === selectedCityId);
+    
+                    for (const district of selectedCity.Districts) {
+                        districts.options[districts.options.length] = new Option(district.Name, district.Id);
+                    }
+                }
+            };
+    
+            districts.onchange = function () {
+                wards.length = 1;
+                if (this.value != "") {
+                    const selectedDistrictId = this.value;
+                    const selectedDistrict = data.flatMap(city => city.Districts).find(district => district.Id === selectedDistrictId);
+    
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Id);
+                    }
+                }
+            };
+        }
     </script>
 </body>
 

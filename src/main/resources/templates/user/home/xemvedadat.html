@@ -29,6 +29,7 @@
                                 <th>Nhà xe<span class="icon-arrow">&UpArrow;</span></th>
                                 <th>Biển kiểm soát<span class="icon-arrow">&UpArrow;</span></th>
                                 <th>Ngày đi<span class="icon-arrow">&UpArrow;</span></th>
+                                <th>Chi tiết</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,7 @@
                                 <td th:text="${pdv.chuyenXe.xe.chuXe.TenChuXe}"></td>
                                 <td th:text="${pdv.chuyenXe.xe.BKS}"></td>
                                 <td th:text="${pdv.chuyenXe.NgayChay}"></td>
+                                <td> <a th:href="@{/khachhang/chitietve/{id}(id=${pdv.MaPhieuDatVe})}">Xem chi tiết</a></td>
                             </tr>
                         </tbody>
                     </table>

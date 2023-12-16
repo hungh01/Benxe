@@ -1,32 +1,182 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <title>Bến xe Miền Đông</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/turf@6.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mapbox/polyline@1.1.1/src/polyline.min.js"></script>
+
     <th:block th:replace="layoutxe :: link-css"></th:block>
 </head>
 
 <body>
-    <div  id="wrapper">
+    <div id="wrapper">
         <th:block th:replace="layoutxe :: sidebar"></th:block>
         <div id="content-wrapper" class="d-flex flex-column">
+            <div th:each="phieu : ${lstTC}"
+                th:attr="data-id=${phieu.MaPhieuDatVe},data-name=${phieu.khachHang.TenKH},data-sdt=${phieu.khachHang.SDT},data-lat=${phieu.diaDiem.Lat},data-lng=${phieu.diaDiem.Lng}">
+            </div>
+            <div th:attr="data-start-lat=${diadiem.lat},data-start-lng=${diadiem.Lng}"></div>
             <th:block th:replace="layoutxe :: navbar"></th:block>
+
             <!--==================================== Main Content===================================== -->
-            <div id="map" style="width: 100%; height: 400px;"></div>
+            <div id="map" style="width: 100%; height: 100%;"></div>
             <script
                 src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
-           <link rel="stylesheet"
+            <link rel="stylesheet"
                 href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css"
                 type="text/css">
             <!-- ================================== End Main Content ==================================-->
-            </div>
+        </div>
     </div>
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+
+    <!-- Script để đọc giá trị từ thuộc tính và sử dụng trong JavaScript -->
     <th:block th:replace="layoutxe :: link-javascript"></th:block>
-   <script src = "../js/maps.js"></script>
+    <script>
+        var start = document.querySelector('[data-start-lat][data-start-lng]');
+        var elements = document.querySelectorAll('[data-id][data-name][data-sdt][data-lat][data-lng]');
+
+        var waypoints = [];
+        waypoints.push({ coordinates: [start.getAttribute('data-start-lng'), start.getAttribute('data-start-lat')] });
+
+        elements.forEach(function (element) {
+            var id = element.getAttribute('data-id');
+
+            var name = element.getAttribute('data-name');
+            var sdt = element.getAttribute('data-sdt');
+            var lat = element.getAttribute('data-lat');
+            var lng = element.getAttribute('data-lng');
+            var lat = parseFloat(element.getAttribute('data-lat'));
+            var lng = parseFloat(element.getAttribute('data-lng'));
+            waypoints.push({
+                name: name,
+                sdt: sdt,
+                coordinates: [lng, lat]
+            });
+        });
+        waypoints.push({name:"Bến xe",sdt:"Vui lòng trả hàng tại bến đầy đủ và bắt đầu trung chuyển", coordinates: [start.getAttribute('data-start-lng'), start.getAttribute('data-start-lat')] });
+
+        waypoints.forEach(function (e) {
+            console.log(e)
+        })
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZWFsZmxtIiwiYSI6ImNsNmEyYTl0NTBjeXkzanFmajV1ZmFkcXEifQ.ajO7MarYAHOccS4yrY4cPg';
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/navigation-day-v1',
+            center: [start.getAttribute('data-start-lng'), start.getAttribute('data-start-lat')],
+            zoom: 13
+        });
+
+        waypoints.forEach(function (waypoint) {
+            var marker = new mapboxgl.Marker()
+                .setLngLat(waypoint.coordinates)
+                .setPopup(new mapboxgl.Popup().setHTML('<h3> Khách hàng: ' + waypoint.name + '</h3>' + '<h4> SĐT: ' + waypoint.sdt + '</h4>'))
+                .addTo(map);
+        });
+        map.on('click', function (e) {
+            // Disable automatic creation of origin and destination on map click
+            directions.setOrigin(null);
+            directions.setDestination(null);
+        });
+        map.on('load', function () {
+            map.addControl(
+                new MapboxDirections({
+                    accessToken: mapboxgl.accessToken,
+                    unit: 'metric',
+                    profile: 'mapbox/driving',
+                    controls: {
+                        inputs: false,
+                        instructions: false,
+                        profileSwitcher: true,
+                        banner_instructions: true
+                    }
+                }),
+                'top-left'
+            );
+            map.addSource('route', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: []  // You will update this with the route coordinates
+                    }
+                }
+            });
+
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: 'route',
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#0f53ff',
+                    'line-width': 20,
+                    'line-pattern': 'arrow', // Specify the arrow pattern
+                    //'line-pattern-arrow-spacing': 100, // Adjust the spacing between arrows
+                    'line-opacity': 0.9 // Dashed line with a 2-pixel dash and 2-pixel gap
+
+                }
+            });
+            map.loadImage('/img/arrow-icon.png', function (error, image) {
+                if (error) throw error;
+                map.addImage('arrow', image);
+            });
+            getRoute(waypoints);
+        });
+
+
+        function getRoute(waypoints) {
+            // Extract coordinates from waypoints
+            const coordinates = waypoints.map(waypoint => waypoint.coordinates);
+
+            // Build the Mapbox Directions API request URL
+            const accessToken = mapboxgl.accessToken;
+            const apiUrl = `https://api.mapbox.com/optimized-trips/v1/mapbox/driving-traffic/${coordinates.join(';')}?access_token=${accessToken}`;
+            console.log(apiUrl);
+            // Make an AJAX request to the Mapbox Directions API
+            $.ajax({
+                method: 'GET',
+                url: apiUrl,
+                success: function (data) {
+                    // Extract route coordinates from the API response
+                    console.log(data);
+                    var gemetry = data.trips[0].geometry;
+                    console.log(gemetry);
+
+                    //var polyline = ('@mapbox/polyline');
+                    // returns an array of lat, lon pairs
+                    const a = flipped(polyline.decode(gemetry));
+                    console.log(a);
+                    //const routeCoordinates = data.routes[0].geometry.coordinates;
+                    // Update the 'route' source with the new coordinates
+                    map.getSource('route').setData({
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: a  
+                        }
+                    });
+                    
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+        }
+    </script>
 </body>
+
 </html>

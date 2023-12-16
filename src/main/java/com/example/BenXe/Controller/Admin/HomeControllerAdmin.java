@@ -27,7 +27,7 @@ import com.example.BenXe.Service.GiaVeService;
 import com.example.BenXe.Service.LoaiTKService;
 import com.example.BenXe.Service.LoaiXeService;
 import com.example.BenXe.Service.NhanVienService;
-import com.example.BenXe.Service.PheuDatVeService;
+import com.example.BenXe.Service.PhieuDatVeService;
 import com.example.BenXe.Service.TaiKhoanService;
 import com.example.BenXe.Service.TuyenService;
 
@@ -44,7 +44,7 @@ public class HomeControllerAdmin {
     @Autowired
     private TaiKhoanService taiKhoanService;
     @Autowired
-    private PheuDatVeService phieuDatVeService;
+    private PhieuDatVeService phieuDatVeService;
     @Autowired
     private BaiDauXeService baiDauXeService;
     @Autowired

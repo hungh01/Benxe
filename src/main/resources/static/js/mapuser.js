@@ -30,13 +30,11 @@ async function maps() {
         geocoder.on('result', function (e) {
             var coordinates = e.result.center;
             var placeName = e.result.place_name;
-        
             // Tạo một đối tượng chứa dữ liệu bạn muốn gửi về backend
             var data = {
                 coordinates: coordinates,
                 placeName: placeName
             };
-        
             // Gửi dữ liệu lên backend bằng AJAX hoặc Fetch API
             fetch("/xe/getData")
     .then(response => response.json())
