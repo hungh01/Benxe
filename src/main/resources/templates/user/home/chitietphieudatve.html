@@ -15,7 +15,7 @@
         <div class="container">
             <main class="table">
                 <br>
-                <form class="payment-form" th:action="@{/khachhang/chitietphieudatve/{id}(id=${pdv.MaPhieuDatVe})}" method="post">
+                <form class="payment-form" th:action="@{/khachhang/chitietve/{id}(id=${pdv.MaPhieuDatVe})}" method="post">
                     <div class="col-md-12">
                         <div class="infoChuyenDi">
                             <h4 style="text-align:center; font-weight:bold"
@@ -110,7 +110,7 @@
                                     <div class="row" style="margin:10px">
                                         <span style="color: #637280;font-weight: bold;">Đánh giá chuyến xe: </span>
                                         <input style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px; padding-bottom: 30px ; padding-right: 80px" type="text"
-                                            th:value="${pdv.DanhGiaChuyenXe}"></input>
+                                            id ="danhgia" name ="danhgia" th:field="${danhgia}"></input>
                                     </div>
                                     <div class="row" style="margin:10px; text-align: right;">
                                         <button style="background: #f2754e;

@@ -11,7 +11,6 @@ import java.util.List;
 public class TaiKhoanService {
     @Autowired
     private ITaiKhoanRepository taiKhoanRepository;
-    @Autowired
     public List<TaiKhoan> getAllTaiKhoan(){
         return taiKhoanRepository.findAll();
     }

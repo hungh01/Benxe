@@ -38,25 +38,18 @@ import com.example.BenXe.Service.XeService;
 public class HomeController {
 
 
-    @Autowired
     private TuyenService tuyenService;
-    @Autowired 
-    private LoaiXeService loaiXeService;
-    @Autowired
-    private GiaVeService giaVeService;
-    @Autowired
-    private PhieuDangKyTuyenService pdktService;
-    @Autowired
+
     private ChuXeService chuXeService;
-    @Autowired
+
     private XeService xeService;
-    @Autowired
+
     private BaiDauXeService baiDauXeService;
-    @Autowired 
+
     private PhieuDangKyTuyenService phieuDangKyTuyenService;
-    @Autowired
+
     private ChuyenXeService chuyenXeService;
-    @Autowired
+
     private GheCuaChuyenService gheCuaChuyenService;
     
         @GetMapping
@@ -64,6 +57,7 @@ public class HomeController {
             List<String> tuyens = tuyenService.getDiemDen();
             LocalDate ngaydi = null;
             model.addAttribute("tuyens", tuyens);
+
             model.addAttribute("ngaydi", ngaydi);
             return "index";
         }
@@ -85,7 +79,6 @@ public class HomeController {
         @GetMapping("/contact")
         public String contact(Model model){
             model.addAttribute("tuyens", tuyenService.getAllTuyens());
-            model.addAttribute("loaiXes", loaiXeService.getAllLoaiXes());
             List<BaiDauXe> bdxs = new ArrayList<BaiDauXe>();
             for(BaiDauXe bdx : baiDauXeService.getAllBaiDauXes())
                 if(!bdx.getTinhTrang())
@@ -101,7 +94,7 @@ public class HomeController {
         public String dangkytuyen(@ModelAttribute("chuXe") ChuXe chuXe,@ModelAttribute("pdkt") PhieuDangKyTuyen pdkt, @ModelAttribute("xe") Xe xe, @ModelAttribute("baiDauXe") BaiDauXe baiDauXe){
             LocalDate date = LocalDate.now();
             pdkt.setThoiGianNopPhieu(date);
-            
+            xe.setSoGhe(36L);
             List<PhieuDangKyTuyen> p = new ArrayList<PhieuDangKyTuyen>();
             p.add(pdkt);
             chuXe.setPhieuDangKyTuyens(p);
@@ -109,10 +102,10 @@ public class HomeController {
             x.add(xe);
             chuXe.setXes(x);
             xe.setPhieuDangKyTuyens(p);
-            xe.chuXe(chuXe);
-            pdkt.chuXe(chuXe);
-            pdkt.xe(xe);
-            pdkt.TrangThai(false);
+            xe.setChuXe(chuXe);
+            pdkt.setChuXe(chuXe);
+            pdkt.setXe(xe);
+            pdkt.setTrangThai(false);
             //pdkt.giaVe(giaVeService.FindIdByMaLXMaTuyen(pdkt.getLoaiXe().getMaLX(), pdkt.getTuyen()));
             chuXeService.save(chuXe);
             xeService.save(xe);

@@ -28,7 +28,6 @@
                         <tr>
                             <th>Ngày Đặt</th>
                             <th>Tình Trạng Vé</th>
-                            <th>Vị trí lên xe</th>
                             <th>Tên Khách Hàng</th>
                             <th>Ghi Chú</th>
                             <th>Đánh giá chuyến xe</th>
@@ -36,7 +35,6 @@
                         <tr th:each = "pdv : ${phieuDatVes}">
                             <td th:text="${pdv.NgayDat}"></td>
                             <td th:text="${pdv.TinhTrangVe}"></td>
-                            <td th:text="${pdv.ViTriLenXe}"></td>
                             <td th:text="${pdv.khachHang.TenKH}"></td>
                             <td th:text="${pdv.DanhGiaChuyenXe}"></td>
                         </tr>

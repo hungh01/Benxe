@@ -299,12 +299,18 @@ public class HomeControllerUser {
         model.addAttribute("totalKH", totalKH);
         model.addAttribute("totalHH", totalHH);
         model.addAttribute("total", totalHH+totalKH);
+        model.addAttribute("danhgia", new String());
+
 
         return "user/home/chitietphieudatve";
     }
     @PostMapping("/chitietve/{id}")
-    public String postchitietphieudatve(@PathVariable("id") Long id, @ModelAttribute("phieuDatVe") PhieuDatVe phieuDatVe){
+    public String postchitietphieudatve(@PathVariable("id") Long id, @ModelAttribute("danhgia") String danhgia){
+        PhieuDatVe phieuDatVe = phieuDatVeService.getPhieuDatVeById(id);
+        phieuDatVe.setDanhGiaChuyenXe(danhgia);
+         int check = 0;
         phieuDatVeService.save(phieuDatVe);
+       
         return"redirect:/khachhang/xemvedadat"; 
     }
 }

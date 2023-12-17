@@ -28,8 +28,8 @@
                             <td th:text="${chuyen.xe.BKS}" ></td>
                             <td th:text="${chuyen.NgayChay}"></td>
                             <td th:text="${chuyen.SoViTriConTrong}"></td>
-                            <td th:text="${chuyen.GiaVe.Gia}"></td>
-                            <td th:text="${chuyen.Tuyen.DiemDen}"></td>
+                            <td th:text="${chuyen.giaVe.GiaHanhKhach}"></td> 
+                            <td th:text="${chuyen.Tuyen.diemDen.DiaDiem}"></td>
                             <td>
                                 <a th:href="@{/nhaxe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> |
                                 <a th:href="@{/nhaxe/xemhoadon/{id}(id=${chuyen.MaChuyenXe})}">Xem các hóa đơn</a>
