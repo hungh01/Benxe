@@ -50,4 +50,4 @@ jobs:
           app-name: 'benxemiendong'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AE8099A591AF48E78BB934A2A5976E56 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7C69A89B51EA45AB9823531017F223A9 }}
