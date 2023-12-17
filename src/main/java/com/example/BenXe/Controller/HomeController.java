@@ -37,19 +37,25 @@ import com.example.BenXe.Service.XeService;
 @RequestMapping()
 public class HomeController {
 
-
+    @Autowired
     private TuyenService tuyenService;
-
+    @Autowired 
+    private LoaiXeService loaiXeService;
+    @Autowired
+    private GiaVeService giaVeService;
+    @Autowired
+    private PhieuDangKyTuyenService pdktService;
+    @Autowired
     private ChuXeService chuXeService;
-
+    @Autowired
     private XeService xeService;
-
+    @Autowired
     private BaiDauXeService baiDauXeService;
-
+    @Autowired 
     private PhieuDangKyTuyenService phieuDangKyTuyenService;
-
+    @Autowired
     private ChuyenXeService chuyenXeService;
-
+    @Autowired
     private GheCuaChuyenService gheCuaChuyenService;
     
         @GetMapping
