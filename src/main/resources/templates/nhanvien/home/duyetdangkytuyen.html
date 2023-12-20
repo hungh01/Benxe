@@ -26,27 +26,27 @@
             <div id="content">
                 <div class="container-fluid">
                     <form th:action="@{/nhanvien/duyetdangkytuyen/{id}(id=${pdkt.PhieuDangKyTuyen})}" method="post">
-                        <div class="col-12 mb-3">
+                        <div class="row" style="margin: 10px;">
                             <label class="form-label" for="title">Thời gian đăng ký tuyến: </label>
                             <br>
                             <input disabled th:value ="${pdkt.ThoiGianNopPhieu}" id="ThoiGianNopPhieu">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="row" style="margin: 10px;">
                             <label class="form-label" for="author">Thời gian xin vận hành: </label>
                             <br>
                             <input disabled th:value ="${pdkt.ThoiGianBatDauVanHanh}" >
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="row" style="margin: 10px;">
                             <label class="form-label" for="author">Tên nhà xe: </label>
                             <br>
                             <input disabled th:value ="${pdkt.chuXe.TenChuXe}" >
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="row" style="margin: 10px;">
                             <label class="form-label" for="author">Loại xe: </label>
                             <br>
                             <input disabled th:value ="${pdkt.loaiXe.TenLoaiXe}">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="row" style="margin: 10px;">
                             <label class="form-label" for="author">Tuyến: </label>
                             <br>
                             <label class="form-label" for="author">Từ: </label>

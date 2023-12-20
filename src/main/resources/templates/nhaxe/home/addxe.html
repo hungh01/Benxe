@@ -39,10 +39,6 @@
                                 <input type="text" class="form-control" th:value="${xe.TenTaiXe}" id="TenTaiXe" name="TenTaiXe" placeholder="" required>
                             </fieldset>
                             <fieldset>
-                                <label class="form-label" style="color: black;">Số ghế: </label>
-                                <input type="text" class="form-control" th:value="${xe.SoGhe}" id="SoGhe" name="SoGhe" placeholder="" required>
-                            </fieldset>
-                            <fieldset>
                                 <label class="form-label" style="color: black;">Năm sản xuất: </label>
                                 <input type="year" class="form-control" th:value="${xe.NamSX}" id="NamSX" name="NamSX" placeholder="" required>
                             </fieldset>
@@ -54,12 +50,6 @@
                                 <label class="form-label" style="color: black;">Thời gian xin vận hành: </label>
                                 <input type="date" class="form-control" th:value="${pdkt.ThoiGianBatDauVanHanh}" id="ThoiGianBatDauVanHanh" name="ThoiGianBatDauVanHanh" placeholder="" required>
                             </fieldset>
-                            <fieldset>
-                                <label class="form-label" style="color: black;">Loại xe: </label>
-                                <select class = "form-control" id = "loaiXe" name="loaiXe.MaLX">
-                                    <option value="">--Chọn Loại xe--</option>
-                                    <option th:each="loaiXe : ${loaiXes}" th:value = "${loaiXe.MaLX}" th:text="${loaiXe.TenLoaiXe}"></option>
-                            </select>
                             
                             <br>
                             <fieldset>

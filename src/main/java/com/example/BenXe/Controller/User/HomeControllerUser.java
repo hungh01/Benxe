@@ -204,7 +204,6 @@ public class HomeControllerUser {
             // System.out.println("Longitude: " + longitude);
             result.setLat(Double.parseDouble(latitude));
             result.setLng(Double.parseDouble(longitude));
-            result.setDiaDiem(address);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -234,8 +233,22 @@ public class HomeControllerUser {
         phieuDatVe.setKhachHang(khachHang);
         // -----set inf cho chuyenXe
         phieuDatVe.setChuyenXe(chuyenXe);
-
-        chuyenXe.setSoViTriConTrong(chuyenXe.getSoViTriConTrong() - list.size());
+        if (soGheSpan.length() > 0) {
+            soGheSpan += ", ";
+            while (soGheSpan.length() > 0) {
+                String temp = "";
+                if (soGheSpan.charAt(3) == ',') {
+                    temp += soGheSpan.substring(0, 3);
+                    list.add(temp);
+                    soGheSpan = soGheSpan.substring(5);
+                } else if (soGheSpan.charAt(2) == ',') {
+                    temp += soGheSpan.substring(0, 2);
+                    list.add(temp);
+                    soGheSpan = soGheSpan.substring(4);
+                }
+            }
+            chuyenXe.setSoViTriConTrong(chuyenXe.getSoViTriConTrong() - list.size());
+        }
         chuyenXe.setHangHoaConTrong(chuyenXe.getHangHoaConTrong() - phieuDatVe.getHangHoa());
         // -----set inf phiếu đặt vé
         phieuDatVe.setNgayDat(LocalDate.now());
@@ -256,27 +269,11 @@ public class HomeControllerUser {
         khachHangService.save(khachHang);
 
         chuyenXeService.save(chuyenXe);
-
-        if (soGheSpan.length() > 0) {
-            soGheSpan += ", ";
-            while (soGheSpan.length() > 0) {
-                String temp = "";
-                if (soGheSpan.charAt(3) == ',') {
-                    temp += soGheSpan.substring(0, 3);
-                    list.add(temp);
-                    soGheSpan = soGheSpan.substring(5);
-                } else if (soGheSpan.charAt(2) == ',') {
-                    temp += soGheSpan.substring(0, 2);
-                    list.add(temp);
-                    soGheSpan = soGheSpan.substring(4);
-                }
-            }
-            for (String s : list) {
+        for (String s : list) {
             GheCuaChuyen ghe = gheCuaChuyenService.getGheCuaChuyenByChuyenGhe(s, id);
             ghe.setTrangThai(true);
             ghe.setPhieuDatVe(phieuDatVe);
             gheCuaChuyenService.save(ghe);
-        }
         }
 
         return "redirect:/khachhang";

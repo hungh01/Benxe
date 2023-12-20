@@ -21,6 +21,7 @@ import com.example.BenXe.Model.ChuyenXe;
 import com.example.BenXe.Model.CustomTaiKhoanDetail;
 
 import com.example.BenXe.Model.PhieuDangKyTuyen;
+import com.example.BenXe.Model.PhieuDatVe;
 import com.example.BenXe.Model.Xe;
 import com.example.BenXe.Service.BaiDauXeService;
 import com.example.BenXe.Service.ChuyenXeService;
@@ -55,6 +56,20 @@ public class HomeControllerNhaXe {
         List<ChuXe> cx = taiKhoanService.getTaiKhoanByUsername(userDetail.getUsername()).getChuXes();
         ChuXe chuXe = cx.get(0);
         List<Xe> xes= chuXe.getXes();
+        double [] a = new double[20];
+        for(Xe x: xes){
+            List<ChuyenXe> chuyenXes = x.getChuyenXes();
+            for(ChuyenXe chuyenxe: chuyenXes){
+                a[chuyenxe.getNgayChay().getMonthValue()] += (chuyenxe.getXe().getSoGhe()-chuyenxe.getSoViTriConTrong()) * chuyenxe.getGiaVe().getGiaHanhKhach() + (chuyenxe.getXe().getHangHoa()-chuyenxe.getHangHoaConTrong()) * chuyenxe.getGiaVe().getGiaHangHoa();
+                System.out.println(chuyenxe.getNgayChay().getMonthValue());
+                System.out.println(a[chuyenxe.getNgayChay().getMonthValue()]);
+            }
+        }
+        List<Double> lst = new ArrayList<Double>();
+        for(int i=1; i<13; i++)
+            lst.add(a[i]);
+        System.out.println(lst);
+        model.addAttribute("lst", lst);
         model.addAttribute("soxe", xes.size());
         return "nhaxe/home/index";
     }
@@ -115,7 +130,6 @@ public class HomeControllerNhaXe {
         
         LocalDate date = LocalDate.now();
         pdkt.setThoiGianNopPhieu(date);
-
         List<PhieuDangKyTuyen> p = chuXe.getPhieuDangKyTuyens();
         p.add(pdkt);
         chuXe.setPhieuDangKyTuyens(p);
@@ -129,8 +143,11 @@ public class HomeControllerNhaXe {
         pdkt.chuXe(chuXe);
         pdkt.xe(xe);
         pdkt.TrangThai(false);
-
+        pdkt.setLoaiXe(loaiXeService.getLoaiXeById(1L));
+        xe.setSoGhe(36L);
+        xe.setLoaiXe(loaiXeService.getLoaiXeById(1L));
         xe.setPhieuDangKyTuyens(pdkts);
+        xe.setHangHoa(10L);
         xe.chuXe(chuXe);
 
 

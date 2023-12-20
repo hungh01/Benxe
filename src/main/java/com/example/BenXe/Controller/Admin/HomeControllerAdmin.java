@@ -47,6 +47,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -75,6 +77,7 @@ public class HomeControllerAdmin {
     public String listNhanVien(Model model){
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         model.addAttribute("NhanViens",nhanViens);
+        System.out.println(getLatLong("Thành Phố Hồ Chí Minh"));
         return "admin/listnhanvien";
     }
     @GetMapping("/createnhanvien")
@@ -112,22 +115,35 @@ public class HomeControllerAdmin {
         model.addAttribute("tuyens",tuyenService.getAllTuyens());
         return "admin/listtuyen";
     }
+    @GetMapping("/qldiadiem")
+    public String listDiaDiem(Model model){
+        model.addAttribute("diadiems",diaDiemService.getDiaDiemOfTuyen());
+        return "admin/qldiadiem";
+    }
+    @GetMapping("/taodiadiem")
+    public String taodiadiem(Model model){
+        model.addAttribute("diaDiem", new String());
+        model.addAttribute("city", new String());
+        model.addAttribute("district", new String());
+        model.addAttribute("ward", new String());
+        model.addAttribute("detail", new String());
+        return "admin/taodiadiem";
+    }
+    @PostMapping("/taodiadiem")
+    public String taodiadiem(@ModelAttribute("diaDiem") String diaDiem,
+    @ModelAttribute("city") String city, @ModelAttribute("district") String district, @ModelAttribute("ward") String ward, @ModelAttribute("detail") String detail) {
+        DiaDiem d = getLatLong(getLocation(city,district,ward,detail));
+        d.setDiaDiem(diaDiem);
+        diaDiemService.save(d);
+        return "redirect:/admin/qldiadiem";
+    }
     
     @GetMapping("/createtuyen")
     public String createtuyen(Model model){
+        List<DiaDiem> diaDiems = diaDiemService.getDiaDiemOfTuyen();
+        model.addAttribute("diemdis",diaDiems);
+        model.addAttribute("diemdens",diaDiems);
         model.addAttribute("tuyen",new Tuyen());
-
-        model.addAttribute("city1",new String());
-        model.addAttribute("district1",new String());
-        model.addAttribute("ward1",new String());
-        model.addAttribute("detail1",new String());
-
-        model.addAttribute("city2",new String());
-        model.addAttribute("district2",new String());
-        model.addAttribute("ward2",new String());
-        model.addAttribute("detail2",new String());
-
-
         return "admin/createtuyen";
     }
     public String getLocation(String cityId, String districtId, String wardId, String sonha) {
@@ -233,16 +249,11 @@ public class HomeControllerAdmin {
         return result;
     }
     @PostMapping("createtuyen")
-    public String createtuyen(@ModelAttribute("tuyen") Tuyen tuyen,
-    @ModelAttribute("city1") String city1, @ModelAttribute("district1") String district1, @ModelAttribute("ward1") String ward1, @ModelAttribute("detail1") String detail1,
-    @ModelAttribute("city2") String city2, @ModelAttribute("district2") String district2, @ModelAttribute("ward2") String ward2, @ModelAttribute("detail2") String detail2
-    ){
-        DiaDiem diaDiem1 = getLatLong(getLocation(city1, district1, ward1, detail1));
-        DiaDiem diaDiem2 = getLatLong(getLocation(city2, district2, ward2, detail2));
-        diaDiemService.save(diaDiem1);
-        diaDiemService.save(diaDiem2);
-        tuyen.setDiemDi(diaDiem1);
-        tuyen.setDiemDen(diaDiem2);
+    public String createtuyen(@ModelAttribute("tuyen") Tuyen tuyen, @ModelAttribute("diemdi") String diemDi, @ModelAttribute("diemden") String diemDen){
+        DiaDiem start = diaDiemService.getDiaDiemById(Long.parseLong(diemDi));
+        DiaDiem end = diaDiemService.getDiaDiemById(Long.parseLong(diemDen));
+        tuyen.setDiemDi(start);
+        tuyen.setDiemDen(end);
         tuyenService.save(tuyen);
         for(LoaiXe loaiXe : loaiXeService.getAllLoaiXes()){
             if(loaiXe.getTenLoaiXe().equals("Base")){
@@ -257,7 +268,6 @@ public class HomeControllerAdmin {
         }
         return"redirect:/admin/qltuyen";
     }
-
     @GetMapping("/qlgiave")
     public String listGiaVe(Model model){
         model.addAttribute("giaVes",giaVeService.getAllGiaVes());

@@ -11,7 +11,14 @@
   headingColor = config.colors.headingColor;
   axisColor = config.colors.axisColor;
   borderColor = config.colors.borderColor;
+  const elements =document.querySelectorAll('[data-value]');
 
+  var results = [];
+  elements.forEach(function (element){
+    var value = element.getAttribute('data-value');
+    results.push(value);
+  });
+  console.log(results);
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------
   const totalRevenueChartEl = document.querySelector('#totalRevenueChart'),
@@ -19,12 +26,8 @@
       series: [
         {
           name: '2023',
-              data: [18, 7, 15, 29, 18, 12, 9, 7, 15, 29, 18, 12]
+              data: results
         },
-        {
-          name: '2022',
-            data: [18, 7, 15, 29, 18, 12, 9, 7, 15, 29, 18, 12]
-        }
       ],
       chart: {
         height: 300,

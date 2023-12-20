@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.BenXe.Model.BaiDauXe;
 import com.example.BenXe.Model.ChuXe;
 import com.example.BenXe.Model.ChuyenXe;
+import com.example.BenXe.Model.DiaDiem;
 import com.example.BenXe.Model.Ghe;
 import com.example.BenXe.Model.GheCuaChuyen;
 import com.example.BenXe.Model.PhieuDangKyTuyen;
@@ -24,6 +25,7 @@ import com.example.BenXe.Model.Xe;
 import com.example.BenXe.Service.BaiDauXeService;
 import com.example.BenXe.Service.ChuXeService;
 import com.example.BenXe.Service.ChuyenXeService;
+import com.example.BenXe.Service.DiaDiemService;
 import com.example.BenXe.Service.GheCuaChuyenService;
 import com.example.BenXe.Service.GiaVeService;
 import com.example.BenXe.Service.LoaiXeService;
@@ -57,17 +59,22 @@ public class HomeController {
     private ChuyenXeService chuyenXeService;
     @Autowired
     private GheCuaChuyenService gheCuaChuyenService;
+
+    @Autowired
+    private DiaDiemService diaDiemService;
     
         @GetMapping
         public String home(Model model){
-            List<String> tuyens = tuyenService.getDiemDen();
+            List<DiaDiem> diadiems = diaDiemService.getDiaDiemOfTuyen();
+            List<String> tuyens = new ArrayList<String>();
+            for(DiaDiem diaDiem : diadiems){
+                tuyens.add(diaDiem.getDiaDiem());
+            }
             LocalDate ngaydi = null;
             model.addAttribute("tuyens", tuyens);
-
             model.addAttribute("ngaydi", ngaydi);
             return "index";
         }
-
         @GetMapping("/timve")
         public String timve(String diemdi,String diemden, LocalDate ngaydi, Model model) {
         List<ChuyenXe> findChuyenXes = new ArrayList<ChuyenXe>();
@@ -101,14 +108,17 @@ public class HomeController {
             LocalDate date = LocalDate.now();
             pdkt.setThoiGianNopPhieu(date);
             xe.setSoGhe(36L);
+            xe.setHangHoa(10L);
             List<PhieuDangKyTuyen> p = new ArrayList<PhieuDangKyTuyen>();
             p.add(pdkt);
             chuXe.setPhieuDangKyTuyens(p);
             List<Xe> x = new ArrayList<Xe>();
             x.add(xe);
             chuXe.setXes(x);
+            xe.setLoaiXe(loaiXeService.getLoaiXeById(1L));
             xe.setPhieuDangKyTuyens(p);
             xe.setChuXe(chuXe);
+            pdkt.setLoaiXe(loaiXeService.getLoaiXeById(1L));
             pdkt.setChuXe(chuXe);
             pdkt.setXe(xe);
             pdkt.setTrangThai(false);

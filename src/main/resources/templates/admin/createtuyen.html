@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    	<title>Bến xe miền đông</title>
-    
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bến xe miền đông</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <th:block th:replace="layoutadmin :: link-css"></th:block>
 </head>
+
 <body id="page-top">
-    <div  id="wrapper">
+    <div id="wrapper">
 
         <!-- Sidebar -->
         <th:block class="w-100" th:replace="layoutadmin :: sidebar"></th:block>
@@ -22,128 +23,111 @@
             <th:block th:replace="layoutadmin :: navbar"></th:block>
             <!-- Main Content -->
 
-        <form class="w-100 d-flex align-items-center flex-column" th:action="@{/admin/createtuyen}" method="post">
-            <div class="form-outline mb-4 col-9">
-                                <span style=" color: #637280;font-weight: bold;">Điểm đi </span>
-                                <select class="form-select form-select-sm mb-3" id="city1" name ="city1" aria-label=".form-select-sm">
-                                    <option value="" selected>Chọn tỉnh thành</option>
-                                </select>
-                                <select class="form-select form-select-sm mb-3" id="district1" name="district1" aria-label=".form-select-sm">
-                                    <option value="" selected>Chọn quận huyện</option>
-                                </select>
-                                <select class="form-select form-select-sm mb-3" id="ward1" name="ward1" aria-label=".form-select-sm">
-                                    <option value="" selected>Chọn phường xã</option>
-                                </select>
-                                <div class="row" style="margin:0px">
-                                        <input type="text" 
-                                            style="color: rgb(0 0 0/var(--tw-text-opacity)); padding-right: 40%;" th:value="${detail1}" id ="detail1" name="detail1"></input>
-                                </div>
-            </div>
-            <br>
-            <div class="form-outline mb-4 col-9">
-                <span style=" color: #637280;font-weight: bold;">Điểm đến </span>
-                <select class="form-select form-select-sm mb-3" id="city2" name ="city2" aria-label=".form-select-sm">
-                    <option value="" selected>Chọn tỉnh thành</option>
-                </select>
-                <select class="form-select form-select-sm mb-3" id="district2" name="district2" aria-label=".form-select-sm">
-                    <option value="" selected>Chọn quận huyện</option>
-                </select>
-                <select class="form-select form-select-sm mb-3" id="ward2" name="ward2" aria-label=".form-select-sm">
-                    <option value="" selected>Chọn phường xã</option>
-                </select>
-                <div class="row" style="margin:0px">
-                    <input type="text" 
-                        style="color: rgb(0 0 0/var(--tw-text-opacity)); padding-right: 40%;" th:value="${detail2}" id ="detail2" name="detail2"></input>
+            <form class="w-100 d-flex align-items-center flex-column" th:action="@{/admin/createtuyen}" method="post">
+                <div class="form-outline mb-4 col-9">
+                    <span style=" color: #637280;font-weight: bold;">Điểm đi </span>
+                    <select class="form-select form-select-sm mb-3" id="diemdi" name="diemdi"
+                        aria-label=".form-select-sm">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                        <option th:each="diemdi :${diemdis}" th:value="${diemdi.MaDiaDiem}" th:text="${diemdi.DiaDiem}"></option>
+                    </select>
                 </div>
-            </div>
-            <div class="form-outline mb-4 col-9">
-                <label class="form-label" >Thời gian xuất bến</label>
-                <input type="time" class="form-control" th:value="${tuyen.ThoiGianXuatBen}" id="ThoiGianXuatBen" name="ThoiGianXuatBen"
-                       placeholder="" />
-            </div>
-            <div class="form-outline mb-4 col-9">
-                <label class="form-label" >Thời gian về bến</label>
-                <input type="time" class="form-control" th:value="${tuyen.ThoiGianVeBen}" id="ThoiGianVeBen" name="ThoiGianVeBen"
-                       placeholder="" />
-            </div>
-            <br>
-            <div class="text-center pt-1 mb-5 pb-1 col-3">
-                <input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Thêm">
-            </div>
-            </div>
-            <br>
- 
+                <br>
+                <div class="form-outline mb-4 col-9">
+                    <span style=" color: #637280;font-weight: bold;">Điểm đến </span>
+                    <select class="form-select form-select-sm mb-3" id="diemden" name="diemden" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                        <option th:each="diemden :${diemdens}" th:value="${diemden.MaDiaDiem}" th:text="${diemden.DiaDiem}"></option>
+                    </select>
+                </div>
+                <div class="form-outline mb-4 col-9">
+                    <label class="form-label">Thời gian xuất bến</label>
+                    <input type="time" class="form-control" th:value="${tuyen.ThoiGianXuatBen}" id="ThoiGianXuatBen"
+                        name="ThoiGianXuatBen" placeholder="" />
+                </div>
+                <div class="form-outline mb-4 col-9">
+                    <label class="form-label">Thời gian về bến</label>
+                    <input type="time" class="form-control" th:value="${tuyen.ThoiGianVeBen}" id="ThoiGianVeBen"
+                        name="ThoiGianVeBen" placeholder="" />
+                </div>
+                <br>
+                <div class="text-center pt-1 mb-5 pb-1 col-3">
+                    <input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Thêm">
+                </div>
+        </div>
+        <br>
+
         </form>
-        
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-<th:block th:replace="layoutadmin :: link-javascript"></th:block>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-<script>
-    var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
-        };
-    
-        var promise = axios(Parameter);
-        promise.then(function (result) {
-            data = result.data; // Store the entire data object
-            renderCity(data);
-        });
-    // Function to render city dropdown
-    function renderCity(citiesDropdown, districtsDropdown, wardsDropdown, data) {
-        for (const city of data) {
-            citiesDropdown.options[citiesDropdown.options.length] = new Option(city.Name, city.Id);
-        }
 
-        citiesDropdown.onchange = function () {
-            districtsDropdown.length = 1;
-            wardsDropdown.length = 1;
-            if (this.value != "") {
-                const selectedCityId = this.value;
-                const selectedCity = data.find(city => city.Id === selectedCityId);
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+        <th:block th:replace="layoutadmin :: link-javascript"></th:block>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+        <script>
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
 
-                for (const district of selectedCity.Districts) {
-                    districtsDropdown.options[districtsDropdown.options.length] = new Option(district.Name, district.Id);
+            var promise = axios(Parameter);
+            promise.then(function (result) {
+                data = result.data; // Store the entire data object
+                renderCity(data);
+            });
+            // Function to render city dropdown
+            function renderCity(citiesDropdown, districtsDropdown, wardsDropdown, data) {
+                for (const city of data) {
+                    citiesDropdown.options[citiesDropdown.options.length] = new Option(city.Name, city.Id);
                 }
+
+                citiesDropdown.onchange = function () {
+                    districtsDropdown.length = 1;
+                    wardsDropdown.length = 1;
+                    if (this.value != "") {
+                        const selectedCityId = this.value;
+                        const selectedCity = data.find(city => city.Id === selectedCityId);
+
+                        for (const district of selectedCity.Districts) {
+                            districtsDropdown.options[districtsDropdown.options.length] = new Option(district.Name, district.Id);
+                        }
+                    }
+                };
+
+                districtsDropdown.onchange = function () {
+                    wardsDropdown.length = 1;
+                    if (this.value != "") {
+                        const selectedDistrictId = this.value;
+                        const selectedDistrict = data.flatMap(city => city.Districts).find(district => district.Id === selectedDistrictId);
+
+                        for (const ward of selectedDistrict.Wards) {
+                            wardsDropdown.options[wardsDropdown.options.length] = new Option(ward.Name, ward.Id);
+                        }
+                    }
+                };
             }
-        };
 
-        districtsDropdown.onchange = function () {
-            wardsDropdown.length = 1;
-            if (this.value != "") {
-                const selectedDistrictId = this.value;
-                const selectedDistrict = data.flatMap(city => city.Districts).find(district => district.Id === selectedDistrictId);
+            // Fetch data for the first set of dropdowns
+            var cities1 = document.getElementById("city1");
+            var districts1 = document.getElementById("district1");
+            var wards1 = document.getElementById("ward1");
+            var promise1 = axios(Parameter);
+            promise1.then(function (result) {
+                var data1 = result.data;
+                renderCity(cities1, districts1, wards1, data1);
+            });
 
-                for (const ward of selectedDistrict.Wards) {
-                    wardsDropdown.options[wardsDropdown.options.length] = new Option(ward.Name, ward.Id);
-                }
-            }
-        };
-    }
-
-    // Fetch data for the first set of dropdowns
-    var cities1 = document.getElementById("city1");
-    var districts1 = document.getElementById("district1");
-    var wards1 = document.getElementById("ward1");
-    var promise1 = axios(Parameter);
-    promise1.then(function (result) {
-        var data1 = result.data;
-        renderCity(cities1, districts1, wards1, data1);
-    });
-
-    // Fetch data for the second set of dropdowns
-    var cities2 = document.getElementById("city2");
-    var districts2 = document.getElementById("district2");
-    var wards2 = document.getElementById("ward2");
-    var promise2 = axios(Parameter);
-    promise2.then(function (result) {
-        var data2 = result.data;
-        renderCity(cities2, districts2, wards2, data2);
-    });
-</script>
+            // Fetch data for the second set of dropdowns
+            var cities2 = document.getElementById("city2");
+            var districts2 = document.getElementById("district2");
+            var wards2 = document.getElementById("ward2");
+            var promise2 = axios(Parameter);
+            promise2.then(function (result) {
+                var data2 = result.data;
+                renderCity(cities2, districts2, wards2, data2);
+            });
+        </script>
 </body>
 
 </html>

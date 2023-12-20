@@ -21,6 +21,10 @@ public class DiaDiemService {
         Optional<DiaDiem> optional = diaDiemRepository.findById(id);
         return optional.orElse(null);
     }
+    public List<DiaDiem> getDiaDiemOfTuyen(){
+        List<DiaDiem> optional = diaDiemRepository.finddiaDiemOfTuyen();
+        return optional;
+    }
     public void save( DiaDiem chuyenXe){
         diaDiemRepository.save(chuyenXe);
     }
