@@ -37,7 +37,7 @@ public class TaiKhoanController {
 
     @GetMapping("/login")
     public String login(@RequestHeader(value = "referer", defaultValue = "") String referrer,Model model, HttpSession session, Authentication authentication) {
-        if(!referrer.equals("http://localhost:7070/login")){
+        if(!referrer.equals("https://benxemiendong.azurewebsites.net/login")){
             session.setAttribute("PreviousURLData", referrer);
         }
         if (authentication != null && authentication.isAuthenticated()) {
@@ -77,6 +77,12 @@ public class TaiKhoanController {
     public String register(@Valid @ModelAttribute("taiKhoan") TaiKhoan taiKhoan,
             @ModelAttribute("khachHang") KhachHang khachHang,
             BindingResult bindingResult, Model model) {
+
+        List<TaiKhoan> tk = taiKhoanService.getAllTaiKhoan();
+        for(TaiKhoan k : tk)
+                if(taiKhoan.getTenDangNhap().equals(k.getTenDangNhap())){
+                    return "Login/register";
+                }
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {

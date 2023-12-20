@@ -204,6 +204,7 @@ public class HomeControllerUser {
             // System.out.println("Longitude: " + longitude);
             result.setLat(Double.parseDouble(latitude));
             result.setLng(Double.parseDouble(longitude));
+            result.setDiaDiem(address);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -300,17 +301,26 @@ public class HomeControllerUser {
         model.addAttribute("totalHH", totalHH);
         model.addAttribute("total", totalHH+totalKH);
         model.addAttribute("danhgia", new String());
-
+        model.addAttribute("dateNow", LocalDate.now());
 
         return "user/home/chitietphieudatve";
     }
     @PostMapping("/chitietve/{id}")
     public String postchitietphieudatve(@PathVariable("id") Long id, @ModelAttribute("danhgia") String danhgia){
         PhieuDatVe phieuDatVe = phieuDatVeService.getPhieuDatVeById(id);
-        phieuDatVe.setDanhGiaChuyenXe(danhgia);
-         int check = 0;
-        phieuDatVeService.save(phieuDatVe);
-       
+        if(phieuDatVe.getChuyenXe().getNgayChay().isBefore(LocalDate.now())){
+            phieuDatVe.setDanhGiaChuyenXe(danhgia);
+            int check = 0;
+            phieuDatVeService.save(phieuDatVe);
+        }else{
+            List<GheCuaChuyen> l = gheCuaChuyenService.getAllGheCuaVe(id);
+            for(GheCuaChuyen ghe :l){
+                ghe.setTrangThai(false);
+                ghe.setPhieuDatVe(null);
+                gheCuaChuyenService.save(ghe);
+            }
+            phieuDatVeService.delete(id);
+        }
         return"redirect:/khachhang/xemvedadat"; 
     }
 }

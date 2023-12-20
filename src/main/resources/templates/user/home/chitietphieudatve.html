@@ -105,23 +105,43 @@
                                             th:text="${total}"></span>
                                     </div>
                                 </div>
-                                <div th:if="${pdv.DanhGiaChuyenXe}==null">
+                                <div th:if="${pdv.chuyenXe.NgayChay lt dateNow }">
                                     <h4 style="text-align:center; font-weight:bold">Đánh giá chuyến xe</h4>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Đánh giá của bạn: </span>
+                                        <span style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px"
+                                        th:text="${pdv.DanhGiaChuyenXe}"></span>
+                                    </div>
                                     <div class="row" style="margin:10px">
                                         <span style="color: #637280;font-weight: bold;">Đánh giá chuyến xe: </span>
                                         <input style="color: rgb(0 0 0/var(--tw-text-opacity)); margin-left: 20px; padding-bottom: 30px ; padding-right: 80px" type="text"
-                                            id ="danhgia" name ="danhgia" th:field="${danhgia}"></input>
+                                            id ="danhgia" name ="danhgia" th:value="${danhgia}"></input>
                                     </div>
                                     <div class="row" style="margin:10px; text-align: right;">
                                         <button style="background: #f2754e;
                                         color: #fff;height: 32px;
                                         padding: 4px 16px;
                                         font-size: 14px;
-                                        border-radius: 32px;" type="submit">Gửi phản hồi
+                                        border-radius: 32px;" type="submit">Gửi phản hồi</button>
                                     </div>
-                                    
-                                </button>
                                 </div>
+                                <div th:unless="${pdv.chuyenXe.NgayChay lt dateNow }">
+                                    <h4 style="text-align:center; font-weight:bold">Hoàn trả vé</h4>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">- Đối với ngày bình thường: Khách hàng hủy vé bị trừ phí 10% giá vé áp dụng cho tất cả các lý do hủy vé. Trường hợp khách hàng có từ 01- 03 vé muốn hủy vé nhưng báo trong vòng 04h và trước 30 phút giờ xe khởi hành thì bị trừ phí 30% giá vé áp dụng cho tất cả các lý do hủy vé.</span>
+                                    </div>
+                                    <div class="row" style="margin:10px">
+                                        <span style="color: #637280;font-weight: bold;">Lưu ý: Trừ trường hợp đặc biệt do lỗi cung cấp dịch vụ của Công ty Phương Trang sẽ không bị trừ phí hủy vé.</span>
+                                    </div>
+                                    <div class="row" style="margin:10px; text-align: right;">
+                                        <button style="background: #f2754e;
+                                        color: #fff;height: 32px;
+                                        padding: 4px 16px;
+                                        font-size: 14px;
+                                        border-radius: 32px;" type="submit">Hoàn trả</button>
+                                    </div>
+                                </div>
+
                             </div>
                             
                         </div>

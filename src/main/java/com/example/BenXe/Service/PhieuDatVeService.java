@@ -26,4 +26,7 @@ public class PhieuDatVeService {
     public void save(PhieuDatVe phieuDatVe){
         phieuDatVeRepository.save(phieuDatVe);
     }
+    public void delete(Long id){
+        phieuDatVeRepository.deleteById(id);
+    }
 }
