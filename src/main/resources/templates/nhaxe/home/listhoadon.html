@@ -8,7 +8,7 @@
 </head>
 
 <body id="page-top">
-    <div  id="wrapper">
+    <div id="wrapper">
         <th:block th:replace="layoutnhaxe :: sidebar"></th:block>
         <div id="content-wrapper" class="d-flex flex-column">
             <th:block th:replace="layoutnhaxe :: navbar"></th:block>
@@ -22,7 +22,7 @@
                             <th>Chi phí</th>
                         </tr>
                         <tr th:each="hd : ${hoaDons}">
-                            <img src="th:text='${hd.AnhHoaDon}'" ></img>
+                            <img src="th:text='${hd.AnhHoaDon}'"></img>
                             <td th:text="${hd.ThongTinChiTiet}"></td>
                             <td th:text="${hd.ChiPhi}"></td>
                         </tr>
@@ -30,7 +30,6 @@
                 </div>
             </div>
             <!-- ================================== End Main Content ==================================-->
-            </div>
         </div>
     </div>
     <a class="scroll-to-top rounded" href="#page-top">

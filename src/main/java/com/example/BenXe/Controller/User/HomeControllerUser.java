@@ -3,16 +3,22 @@ package com.example.BenXe.Controller.User;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+import java.util.TimeZone;
 import java.io.IOException;
 
 import org.json.JSONArray;
@@ -32,8 +38,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.BenXe.Controller.User.vnpay.Config;
 import com.example.BenXe.Model.ChuyenXe;
 import com.example.BenXe.Model.CustomTaiKhoanDetail;
 import com.example.BenXe.Model.DiaDiem;
@@ -49,6 +57,10 @@ import com.example.BenXe.Service.TaiKhoanService;
 import com.example.BenXe.Service.TuyenService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.websocket.server.PathParam;
 
 @Controller
 
@@ -172,17 +184,14 @@ public class HomeControllerUser {
         DiaDiem result = new DiaDiem();
         try {
             String accessToken = "pk.eyJ1IjoiZWFsZmxtIiwiYSI6ImNsNmEyYTl0NTBjeXkzanFmajV1ZmFkcXEifQ.ajO7MarYAHOccS4yrY4cPg";
-
             String encodedAddress = URLEncoder.encode(address, "UTF-8");
             String apiUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodedAddress
                     + ".json?access_token=" + accessToken;
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
             // Optional: Set request method to GET
             connection.setRequestMethod("GET");
-
             // Get the response from the API
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
@@ -191,7 +200,6 @@ public class HomeControllerUser {
                 response.append(line);
             }
             reader.close();
-
             // Parse the JSON response using Jackson
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(response.toString());
@@ -278,7 +286,6 @@ public class HomeControllerUser {
 
         return "redirect:/khachhang";
     }
-
     @GetMapping("/chitietve/{id}")
     public String chitietphieudatve(@PathVariable("id") Long id,Model model) {
         PhieuDatVe pdv = phieuDatVeService.getPhieuDatVeById(id);
@@ -307,7 +314,6 @@ public class HomeControllerUser {
         PhieuDatVe phieuDatVe = phieuDatVeService.getPhieuDatVeById(id);
         if(phieuDatVe.getChuyenXe().getNgayChay().isBefore(LocalDate.now())){
             phieuDatVe.setDanhGiaChuyenXe(danhgia);
-            int check = 0;
             phieuDatVeService.save(phieuDatVe);
         }else{
             List<GheCuaChuyen> l = gheCuaChuyenService.getAllGheCuaVe(id);
@@ -320,4 +326,115 @@ public class HomeControllerUser {
         }
         return"redirect:/khachhang/xemvedadat"; 
     }
+    @GetMapping("/payment-callback")
+    public void paymentCallback(@RequestParam Map<String, String> queryParams,HttpServletResponse response) throws IOException {
+        String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
+        String contractId = queryParams.get("contractId");
+        String registerServiceId = queryParams.get("registerServiceId");
+        String billId = queryParams.get("billId");
+        if(contractId!= null && !contractId.equals("")) {
+            if ("00".equals(vnp_ResponseCode)) {
+                // Giao dịch thành công
+                // Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
+            response.sendRedirect("https://benxemiendong.azurewebsites.net/xemvedadat");
+            } else {
+                // Giao dịch thất bại
+                // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
+                response.sendRedirect("https://benxemiendong.azurewebsites.net/payment-failed");
+                
+            }
+        }
+        if(registerServiceId!= null && !registerServiceId.equals("")) {
+            if ("00".equals(vnp_ResponseCode)) {
+                // Giao dịch thành công
+                // Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
+                
+            response.sendRedirect("https://benxemiendong.azurewebsites.net/khachhang/xemvedadat");
+            } else {
+                // Giao dịch thất bại
+                // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
+                response.sendRedirect("https://benxemiendong.azurewebsites.net/payment-failed");
+                
+            }
+        }
+        if(billId!= null && !billId.equals("")) {
+            if ("00".equals(vnp_ResponseCode)) {
+                // Giao dịch thành công
+                // Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
+            response.sendRedirect("https://benxemiendong.azurewebsites.net/info-student");
+            } else {
+                // Giao dịch thất bại
+                // Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
+            response.sendRedirect("https://benxemiendong.azurewebsites.net/payment-failed");
+            }
+        }
+    
+    }
+    @GetMapping("/pay")
+	public void getPay(HttpServletResponse response) throws ServletException, IOException, UnsupportedEncodingException{
+		String vnp_Version = "2.1.0";
+        String vnp_Command = "pay";
+        String orderType = "other";
+        long amount = 10000*100;
+        String bankCode = "NCB";
+        
+        String vnp_TxnRef = Config.getRandomNumber(8);
+        String vnp_IpAddr = "127.0.0.1";
+
+        String vnp_TmnCode = Config.vnp_TmnCode;
+        
+        Map<String, String> vnp_Params = new HashMap<>();
+        vnp_Params.put("vnp_Version", vnp_Version);
+        vnp_Params.put("vnp_Command", vnp_Command);
+        vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
+        vnp_Params.put("vnp_Amount", String.valueOf(amount));
+        vnp_Params.put("vnp_CurrCode", "VND");
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl+"?contractId="+5);
+        vnp_Params.put("vnp_BankCode", bankCode);
+        vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderType", orderType);
+
+        vnp_Params.put("vnp_Locale", "vn");
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl+"?contractId="+2);
+        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
+
+        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        String vnp_CreateDate = formatter.format(cld.getTime());
+        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
+        
+        cld.add(Calendar.MINUTE, 15);
+        String vnp_ExpireDate = formatter.format(cld.getTime());
+        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
+        
+        List fieldNames = new ArrayList(vnp_Params.keySet());
+        Collections.sort(fieldNames);
+        StringBuilder hashData = new StringBuilder();
+        StringBuilder query = new StringBuilder();
+        Iterator itr = fieldNames.iterator();
+        while (itr.hasNext()) {
+            String fieldName = (String) itr.next();
+            String fieldValue = (String) vnp_Params.get(fieldName);
+            if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                //Build hash data
+                hashData.append(fieldName);
+                hashData.append('=');
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                //Build query
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+                query.append('=');
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                if (itr.hasNext()) {
+                    query.append('&');
+                    hashData.append('&');
+                }
+            }
+        }
+        String queryUrl = query.toString();
+        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
+        response.sendRedirect(paymentUrl);
+	}
 }

@@ -8,7 +8,7 @@
 </head>
 
 <body id="page-top">
-    <div  id="wrapper">
+    <div id="wrapper">
         <th:block th:replace="layoutnhaxe :: sidebar"></th:block>
         <div id="content-wrapper" class="d-flex flex-column">
             <th:block th:replace="layoutnhaxe :: navbar"></th:block>
@@ -25,10 +25,10 @@
                             <th>Action</th>
                         </tr>
                         <tr th:each="chuyen : ${chuyenxes}">
-                            <td th:text="${chuyen.xe.BKS}" ></td>
+                            <td th:text="${chuyen.xe.BKS}"></td>
                             <td th:text="${chuyen.NgayChay}"></td>
                             <td th:text="${chuyen.SoViTriConTrong}"></td>
-                            <td th:text="${chuyen.giaVe.GiaHanhKhach}"></td> 
+                            <td th:text="${chuyen.giaVe.GiaHanhKhach}"></td>
                             <td th:text="${chuyen.Tuyen.diemDen.DiaDiem}"></td>
                             <td>
                                 <a th:href="@{/nhaxe/xemkhachhang/{id}(id=${chuyen.MaChuyenXe})}">Xem khách hàng</a> |
@@ -39,7 +39,6 @@
                 </div>
             </div>
             <!-- ================================== End Main Content ==================================-->
-            </div>
         </div>
     </div>
     <a class="scroll-to-top rounded" href="#page-top">

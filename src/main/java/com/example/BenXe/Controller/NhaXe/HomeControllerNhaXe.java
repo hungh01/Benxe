@@ -61,8 +61,6 @@ public class HomeControllerNhaXe {
             List<ChuyenXe> chuyenXes = x.getChuyenXes();
             for(ChuyenXe chuyenxe: chuyenXes){
                 a[chuyenxe.getNgayChay().getMonthValue()] += (chuyenxe.getXe().getSoGhe()-chuyenxe.getSoViTriConTrong()) * chuyenxe.getGiaVe().getGiaHanhKhach() + (chuyenxe.getXe().getHangHoa()-chuyenxe.getHangHoaConTrong()) * chuyenxe.getGiaVe().getGiaHangHoa();
-                System.out.println(chuyenxe.getNgayChay().getMonthValue());
-                System.out.println(a[chuyenxe.getNgayChay().getMonthValue()]);
             }
         }
         List<Double> lst = new ArrayList<Double>();
