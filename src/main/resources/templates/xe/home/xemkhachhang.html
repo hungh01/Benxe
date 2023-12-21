@@ -19,14 +19,12 @@
                         <tr>
                             <th>Tên khách hàng</th>
                             <th>Ngày đặt</th>
-                            <th>Vị trí lên xe</th>
                             <th>Tình trạng vé</th>
                             <th>Ghi chú</th>
                         </tr>
                         <tr th:each="ve : ${ves}">
                             <td th:text="${ve.khachHang.TenKH}"></td>
                             <td th:text="${ve.NgayDat}"></td>
-                            <td th:text="${ve.ViTriLenXe}"></td>
                             <td th:text="${ve.TinhTrangVe}"></td>
                             <td th:text="${ve.GhiChu}"></td>
                         </tr>
