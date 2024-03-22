@@ -116,6 +116,7 @@ public class HomeControllerUser {
         model.addAttribute("district", new String());
         model.addAttribute("ward", new String());
         model.addAttribute("sonha", new String());
+        
 
         return "user/home/datve";
     }
@@ -371,13 +372,17 @@ public class HomeControllerUser {
     
     }
     @GetMapping("/pay")
-	public void getPay(HttpServletResponse response) throws ServletException, IOException, UnsupportedEncodingException{
+	public void getPay(HttpServletResponse response, @PathVariable("id") Long id, @ModelAttribute("phieuDatVe") PhieuDatVe phieuDatVe,
+            @ModelAttribute("soGheSpan") String soGheSpan,
+            @ModelAttribute("city") String tinh, @ModelAttribute("district") String huyen,
+            @ModelAttribute("ward") String xa, @ModelAttribute("sonha") String sonha) throws ServletException, IOException, UnsupportedEncodingException{
+
+
 		String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
         long amount = 10000*100;
         String bankCode = "NCB";
-        
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_IpAddr = "127.0.0.1";
 
@@ -394,10 +399,10 @@ public class HomeControllerUser {
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", orderType);
-
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl+"?contractId="+2);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
+
+
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
